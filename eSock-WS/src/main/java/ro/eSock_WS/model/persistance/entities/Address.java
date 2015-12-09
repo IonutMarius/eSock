@@ -1,4 +1,4 @@
-package eSock_WS.model.persistance.entities;
+package ro.eSock_WS.model.persistance.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package eSock_WS.web.conf;
+package ro.eSock_WS.web.conf;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ws.config.annotation.EnableWs;
