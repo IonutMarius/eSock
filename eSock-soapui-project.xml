@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="df8d59d1-886d-4a1c-99d6-ca11423e1f09" activeEnvironment="Default" name="eSock" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="acea89bd-4e2f-4b6e-a82c-c6b143fe45ee" wsaVersion="NONE" name="UserPortSoap11" type="wsdl" bindingName="{http://eSock.ro/ws/soap/user}UserPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/eSock-WS/ws/soap/user.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/eSock-WS/ws/soap/user.wsdl"><con:part><con:url>http://localhost:8080/eSock-WS/ws/soap/user.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://eSock.ro/ws/soap/user" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://eSock.ro/ws/soap/user" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eSock.ro/ws/soap/user">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://eSock.ro/ws/soap/user" xmlns:esock="http://eSock.ro/ws/soap/user" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="registerRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="user" type="esock:userXml"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="registerResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="message" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="userXml">
+        <xs:sequence>
+          <xs:element name="username" type="xs:string"/>
+          <xs:element name="password" type="xs:string"/>
+          <xs:element name="passwordConf" type="xs:string"/>
+          <xs:element name="userProfile" type="esock:userProfileXml"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="userProfileXml">
+        <xs:sequence>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="surname" type="xs:string"/>
+          <xs:element name="phoneNumber" type="xs:string"/>
+          <xs:element name="emailAddress" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="registerResponse">
+    <wsdl:part element="tns:registerResponse" name="registerResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerRequest">
+    <wsdl:part element="tns:registerRequest" name="registerRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UserPort">
+    <wsdl:operation name="register">
+      <wsdl:input message="tns:registerRequest" name="registerRequest"></wsdl:input>
+      <wsdl:output message="tns:registerResponse" name="registerResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserPortSoap11" type="tns:UserPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="register">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="registerRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="registerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserPortService">
+    <wsdl:port binding="tns:UserPortSoap11" name="UserPortSoap11">
+      <soap:address location="http://localhost:8080/eSock-WS/ws/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="f3a18528-6173-4f7d-8155-2dfa573a2d9b" isOneWay="false" action="" name="register" bindingOperationName="register" type="Request-Response" outputName="registerResponse" inputName="registerRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ee88387d-e764-4cdb-b08a-6831373d77a4" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <user:registerRequest>\r
+         <user:user>\r
+            <!--type: string-->\r
+            <user:username>?</user:username>\r
+            <!--type: string-->\r
+            <user:password>?</user:password>\r
+            <!--type: string-->\r
+            <user:passwordConf>?</user:passwordConf>\r
+            <user:userProfile>\r
+               <!--type: string-->\r
+               <user:name>?</user:name>\r
+               <!--type: string-->\r
+               <user:surname>?</user:surname>\r
+               <!--type: string-->\r
+               <user:phoneNumber>?</user:phoneNumber>\r
+               <!--type: string-->\r
+               <user:emailAddress>?</user:emailAddress>\r
+            </user:userProfile>\r
+         </user:user>\r
+      </user:registerRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/user/UserPort/registerRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

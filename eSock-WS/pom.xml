@@ -127,8 +127,8 @@
 				</executions>
 				<configuration>
 					<schemaDirectory>${project.basedir}/src/main/resources/xsd/</schemaDirectory>
-					<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
-					<clearOutputDir>false</clearOutputDir>
+					<!-- <outputDirectory>${project.basedir}/src/main/java/</outputDirectory> -->
+					<clearOutputDir>true</clearOutputDir>
 				</configuration>
 			</plugin>
 		</plugins>
