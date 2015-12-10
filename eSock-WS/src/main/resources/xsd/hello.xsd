@@ -1,5 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hello="http://eSock.ro/ws/resources"
-           targetNamespace="http://eSock.ro/ws/resources" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hello="http://eSock.ro/ws/resource"
+           targetNamespace="http://eSock.ro/ws/resource" elementFormDefault="qualified">
     <xs:element name="helloRequest">
         <xs:complexType>
             <xs:sequence>

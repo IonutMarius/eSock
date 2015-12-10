@@ -1,4 +1,4 @@
-package ro.esock.model.persistance.entities;
+package ro.esock.model.persistance.entitiy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "UserProfile")
+@Table(name = "user_profile")
 public class UserProfile {
 
 	@Id

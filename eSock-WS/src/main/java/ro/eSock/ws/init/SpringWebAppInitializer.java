@@ -8,6 +8,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 
+import ro.esock.model.persistance.config.JpaHibernateConfig;
 import ro.esock.ws.conf.WebContextConfig;
  
 public class SpringWebAppInitializer implements WebApplicationInitializer {
@@ -16,6 +17,7 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
         appContext.register(WebContextConfig.class);
+        appContext.register(JpaHibernateConfig.class);
          
         MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet(appContext);
         messageDispatcherServlet.setApplicationContext(appContext);

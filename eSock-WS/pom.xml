@@ -10,13 +10,17 @@
 	<properties>
 		<slf4j-log4j12>1.7.13</slf4j-log4j12>
 		<junit-version>4.12</junit-version>
-		
+
 		<wsdl4j-version>1.6.3</wsdl4j-version>
 
 		<spring-framework-version>4.2.3.RELEASE</spring-framework-version>
 		<spring-ws-version>2.2.3.RELEASE</spring-ws-version>
 
 		<hibernate-version>5.0.4.Final</hibernate-version>
+		
+		<jta-version>1.1</jta-version>
+
+		<mysql-connector-version>5.1.37</mysql-connector-version>
 	</properties>
 
 	<dependencies>
@@ -24,6 +28,18 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
 			<version>${spring-framework-version}</version>
 		</dependency>
 
@@ -53,8 +69,19 @@
 			<version>${hibernate-version}</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-annotations</artifactId> 
-			<version>${hibernate-version}</version> </dependency> -->
+		<!-- Java Transaction API -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>${jta-version}</version>
+		</dependency>
+
+		<!-- MySql Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-version}</version>
+		</dependency>
 
 		<!-- Logging -->
 		<dependency>

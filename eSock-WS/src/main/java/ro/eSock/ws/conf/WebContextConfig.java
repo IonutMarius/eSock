@@ -20,7 +20,7 @@ public class WebContextConfig extends WsConfigurerAdapter{
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("HelloPort");
 		wsdl11Definition.setLocationUri("/ws/");
-		wsdl11Definition.setTargetNamespace("http://eSock.ro/ws/resources");
+		wsdl11Definition.setTargetNamespace("http://eSock.ro/ws/resource");
 		wsdl11Definition.setSchema(helloSchema);
 		return wsdl11Definition;
 	}
