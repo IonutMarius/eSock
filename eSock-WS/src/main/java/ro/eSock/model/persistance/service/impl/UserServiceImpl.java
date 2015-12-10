@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	@Transactional
 	public void createUser(User user) {
-		userRepository.create(user);
+		userRepository.save(user);
 	}
 
 }
