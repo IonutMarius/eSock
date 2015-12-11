@@ -63,28 +63,28 @@
       <soap:address location="http://localhost:8080/eSock-WS/ws/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="f3a18528-6173-4f7d-8155-2dfa573a2d9b" isOneWay="false" action="" name="register" bindingOperationName="register" type="Request-Response" outputName="registerResponse" inputName="registerRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ee88387d-e764-4cdb-b08a-6831373d77a4" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="f3a18528-6173-4f7d-8155-2dfa573a2d9b" isOneWay="false" action="" name="register" bindingOperationName="register" type="Request-Response" outputName="registerResponse" inputName="registerRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ee88387d-e764-4cdb-b08a-6831373d77a4" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <user:registerRequest>\r
          <user:user>\r
             <!--type: string-->\r
-            <user:username>?</user:username>\r
+            <user:username>user2</user:username>\r
             <!--type: string-->\r
-            <user:password>?</user:password>\r
+            <user:password>pass2</user:password>\r
             <!--type: string-->\r
-            <user:passwordConf>?</user:passwordConf>\r
+            <user:passwordConf>pass2</user:passwordConf>\r
             <user:userProfile>\r
                <!--type: string-->\r
-               <user:name>?</user:name>\r
+               <user:name>name2</user:name>\r
                <!--type: string-->\r
-               <user:surname>?</user:surname>\r
+               <user:surname>surname2</user:surname>\r
                <!--type: string-->\r
-               <user:phoneNumber>?</user:phoneNumber>\r
+               <user:phoneNumber>2222222222</user:phoneNumber>\r
                <!--type: string-->\r
-               <user:emailAddress>?</user:emailAddress>\r
+               <user:emailAddress>user2@email.com</user:emailAddress>\r
             </user:userProfile>\r
          </user:user>\r
       </user:registerRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/user/UserPort/registerRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/user/UserPort/registerRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

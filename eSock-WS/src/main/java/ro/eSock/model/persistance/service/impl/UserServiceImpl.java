@@ -26,5 +26,4 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 		return userRepository;
 	}
 	
-
 }
