@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import ro.esock.model.persistance.repository.GenericRepository;
 
-public class GenericRepositoryJpaImpl<T, PK extends Serializable>
+public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable>
 		implements GenericRepository<T, PK> {
 
 	@PersistenceContext
