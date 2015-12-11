@@ -6,6 +6,6 @@ import ro.esock.model.persistance.entitiy.User;
 import ro.esock.model.persistance.repository.UserRepository;
 
 @Repository
-public class UserRepositoryJpaImpl extends AbstractGenericRepositoryJpaImpl<User, Long> implements UserRepository {
+public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> implements UserRepository {
 
 }

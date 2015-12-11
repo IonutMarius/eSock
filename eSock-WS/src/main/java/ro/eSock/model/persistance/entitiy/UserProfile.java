@@ -1,9 +1,13 @@
 package ro.esock.model.persistance.entitiy;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,6 +33,9 @@ public class UserProfile {
 	
 	@Column(name = "email_address")
 	private String emailAddress;
+	
+	@OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
+	private List<Address> addresses;
 
 	public Long getUserProfileId() {
 		return userProfileId;
@@ -68,5 +75,13 @@ public class UserProfile {
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 }

@@ -2,8 +2,11 @@ package ro.esock.model.persistance.entitiy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -18,8 +21,9 @@ public class Address {
 	@Column(name = "address_id")
 	private Long addressId;
 	
-	@Column(name = "user_profile_id")
-	private Long userProfileId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_profile_id")
+	private UserProfile userProfile;
 	
 	@Column(name = "address_name")
 	private String addressName;
@@ -42,11 +46,11 @@ public class Address {
 	public void setAddressId(Long addressId) {
 		this.addressId = addressId;
 	}
-	public Long getUserProfileId() {
-		return userProfileId;
+	public UserProfile getUserProfile() {
+		return userProfile;
 	}
-	public void setUserProfileId(Long userProfileId) {
-		this.userProfileId = userProfileId;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 	public String getAddressName() {
 		return addressName;

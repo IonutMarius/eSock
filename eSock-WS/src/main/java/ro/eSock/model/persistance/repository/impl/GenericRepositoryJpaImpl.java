@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import ro.esock.model.persistance.repository.GenericRepository;
 
-public abstract class AbstractGenericRepositoryJpaImpl<T, PK extends Serializable>
+public class GenericRepositoryJpaImpl<T, PK extends Serializable>
 		implements GenericRepository<T, PK> {
 
 	@PersistenceContext
@@ -17,7 +17,7 @@ public abstract class AbstractGenericRepositoryJpaImpl<T, PK extends Serializabl
 	protected Class<T> entityClass;
 
 	@SuppressWarnings("unchecked")
-	public AbstractGenericRepositoryJpaImpl() {
+	public GenericRepositoryJpaImpl() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
 		entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 	}
