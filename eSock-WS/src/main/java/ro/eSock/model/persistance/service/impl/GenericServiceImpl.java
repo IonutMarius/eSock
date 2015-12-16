@@ -1,6 +1,9 @@
 package ro.esock.model.persistance.service.impl;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import ro.esock.model.persistance.repository.GenericRepository;
 import ro.esock.model.persistance.service.GenericService;
@@ -13,23 +16,32 @@ public abstract class GenericServiceImpl<T, PK extends Serializable> implements 
 	public T findById(PK id) {
 		return getRepository().findById(id);
 	}
-
+	
 	@Override
-	public T save(T t) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<T> findAll() {
+		return getRepository().findAll();
 	}
 
 	@Override
+	@Transactional
+	public T create(T t) {
+		return getRepository().create(t);
+	}
+
+	@Override
+	@Transactional
 	public T update(T t) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRepository().update(t);
 	}
 
 	@Override
+	@Transactional
 	public void remove(T t) {
-		// TODO Auto-generated method stub
-		
+		getRepository().remove(t);
 	}
 
+	@Override
+	public Integer count() {
+		return getRepository().count();
+	}
 }

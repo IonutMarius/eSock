@@ -22,8 +22,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("ro.esock.model")
-@PropertySource("classpath:application.properties")
-public class JpaHibernateConfig {
+@PropertySource("classpath:test.properties")
+public class JpaHibernateTestConfig {
 	
 	@Autowired
 	private Environment env;

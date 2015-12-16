@@ -1,5 +1,7 @@
 package ro.esock.model.persistance.service;
 
-public interface OrderService {
+import ro.esock.model.persistance.entitiy.Order;
+
+public interface OrderService extends GenericService<Order, Long>{
 
 }

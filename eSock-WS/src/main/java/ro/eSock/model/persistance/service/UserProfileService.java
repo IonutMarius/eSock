@@ -1,5 +1,7 @@
 package ro.esock.model.persistance.service;
 
-public interface UserProfileService {
+import ro.esock.model.persistance.entitiy.UserProfile;
+
+public interface UserProfileService extends GenericService<UserProfile, Long>{
 
 }

@@ -1,5 +1,7 @@
 package ro.esock.model.persistance.service;
 
-public interface AddressService {
+import ro.esock.model.persistance.entitiy.Address;
+
+public interface AddressService extends GenericService<Address, Long>{
 
 }

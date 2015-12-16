@@ -40,7 +40,7 @@ public class UserEndpoint {
 		user.setPassword(userXml.getPassword());
 		user.setUserProfile(userProfile);
 		
-		userService.createUser(user);
+		userService.create(user);
 		return response;
 	}
 } 

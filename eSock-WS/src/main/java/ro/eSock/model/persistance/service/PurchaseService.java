@@ -1,5 +1,7 @@
 package ro.esock.model.persistance.service;
 
-public interface PurchaseService {
+import ro.esock.model.persistance.entitiy.Purchase;
+
+public interface PurchaseService extends GenericService<Purchase, Long>{
 
 }
