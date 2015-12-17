@@ -1,4 +1,4 @@
-package ro.esock.model.persistance.service.impl;
+package ro.esock.model.persistance.repository.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
