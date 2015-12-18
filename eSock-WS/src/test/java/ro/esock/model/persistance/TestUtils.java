@@ -1,7 +1,7 @@
 package ro.esock.model.persistance;
 
-import ro.esock.model.entitiy.UserEntity;
-import ro.esock.model.entitiy.UserProfileEntity;
+import ro.esock.model.persistance.entitiy.UserEntity;
+import ro.esock.model.persistance.entitiy.UserProfileEntity;
 
 public class TestUtils {
 
