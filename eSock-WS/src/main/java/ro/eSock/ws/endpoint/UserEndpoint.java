@@ -6,9 +6,9 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import ro.esock.model.domain.service.UserService;
-import ro.esock.model.persistance.entitiy.UserEntity;
-import ro.esock.model.persistance.entitiy.UserProfileEntity;
+import ro.esock.model.entitiy.UserEntity;
+import ro.esock.model.entitiy.UserProfileEntity;
+import ro.esock.model.service.UserService;
 import ro.esock.ws.soap.user.RegisterRequest;
 import ro.esock.ws.soap.user.RegisterResponse;
 import ro.esock.ws.soap.user.UserProfileXml;
