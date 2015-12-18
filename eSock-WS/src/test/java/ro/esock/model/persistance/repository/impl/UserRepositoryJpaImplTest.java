@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.esock.model.entitiy.UserEntity;
+import ro.esock.model.entitiy.User;
 import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
 import ro.esock.model.repository.UserRepository;
@@ -23,16 +23,16 @@ public class UserRepositoryJpaImplTest{
 	
 	@Test
 	public void saveAndFindUserTest(){
-		UserEntity expectedUser = TestUtils.createUser("1");
+		User expectedUser = TestUtils.createUser("_1");
 		userRepository.create(expectedUser);	
-		UserEntity actualUser = userRepository.findById(expectedUser.getUserId());
+		User actualUser = userRepository.findById(expectedUser.getUserId());
 		
 		Assert.assertEquals(expectedUser, actualUser);
 	}
 	
 	@Test
 	public void saveAndDeleteUserTest(){
-		UserEntity user = userRepository.create(TestUtils.createUser("1"));
+		User user = userRepository.create(TestUtils.createUser("_1"));
 		userRepository.remove(user);
 		user = userRepository.findById(user.getUserId());
 		
@@ -41,10 +41,10 @@ public class UserRepositoryJpaImplTest{
 	
 	@Test
 	public void updateAndFindUserTest(){
-		UserEntity expectedUser = userRepository.create(TestUtils.createUser("1"));
-		expectedUser.setUsername("u0");
+		User expectedUser = userRepository.create(TestUtils.createUser("_1"));
+		expectedUser.setUsername("u_0");
 		userRepository.update(expectedUser);
-		UserEntity actualUser = userRepository.findById(expectedUser.getUserId());
+		User actualUser = userRepository.findById(expectedUser.getUserId());
 
 		Assert.assertEquals(expectedUser, actualUser);
 	}

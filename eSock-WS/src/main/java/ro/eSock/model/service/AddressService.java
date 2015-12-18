@@ -1,7 +1,7 @@
 package ro.esock.model.service;
 
-import ro.esock.model.entitiy.AddressEntity;
+import ro.esock.model.entitiy.Address;
 
-public interface AddressService extends GenericService<AddressEntity, Long>{
+public interface AddressService extends GenericService<Address, Long>{
 
 }

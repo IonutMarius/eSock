@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "user_profile")
-public class UserProfileEntity {
+public class UserProfile {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -35,7 +35,7 @@ public class UserProfileEntity {
 	private String emailAddress;
 
 	@OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
-	private List<AddressEntity> addresses;
+	private List<Address> addresses;
 
 	public Long getUserProfileId() {
 		return userProfileId;
@@ -77,11 +77,11 @@ public class UserProfileEntity {
 		this.emailAddress = emailAddress;
 	}
 
-	public List<AddressEntity> getAddresses() {
+	public List<Address> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<AddressEntity> addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 
@@ -105,7 +105,7 @@ public class UserProfileEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserProfileEntity other = (UserProfileEntity) obj;
+		UserProfile other = (UserProfile) obj;
 		if (addresses == null) {
 			if (other.addresses != null)
 				return false;

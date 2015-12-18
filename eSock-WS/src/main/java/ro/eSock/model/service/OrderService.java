@@ -1,7 +1,7 @@
 package ro.esock.model.service;
 
-import ro.esock.model.entitiy.OrderEntity;
+import ro.esock.model.entitiy.Order;
 
-public interface OrderService extends GenericService<OrderEntity, Long>{
+public interface OrderService extends GenericService<Order, Long>{
 
 }

@@ -1,7 +1,7 @@
 package ro.esock.model.service;
 
-import ro.esock.model.entitiy.UserEntity;
+import ro.esock.model.entitiy.User;
 
-public interface UserService extends GenericService<UserEntity, Long>{
+public interface UserService extends GenericService<User, Long>{
 
 }
