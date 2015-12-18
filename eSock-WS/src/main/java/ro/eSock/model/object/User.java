@@ -1,57 +1,49 @@
-package ro.esock.model.entitiy;
+package ro.esock.model.object;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import ro.esock.model.entitiy.OrderEntity;
+import ro.esock.model.entitiy.UserEntity;
 
-import org.hibernate.annotations.GenericGenerator;
+public class User {
 
-@Entity
-@Table(name = "user")
-public class UserEntity {
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "user_id")
-	private Long userId;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_profile_id")
-	private UserProfileEntity userProfile;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<OrderEntity> orders;
-
-	@Column(name = "username")
+	private UserProfile userProfile;
+	private List<Order> orders;
 	private String username;
-
-	@Column(name = "password")
 	private String password;
 
-	public Long getUserId() {
-		return userId;
+	public User() {
+		this.orders = new ArrayList<>();
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public User(UserEntity userEntity) {
+		this.orders = new ArrayList<>();
+		if (userEntity != null) {
+			this.userProfile = new UserProfile(userEntity.getUserProfile());
+			List<OrderEntity> orderEntities = userEntity.getOrders();
+			if (orderEntities != null && orderEntities.size() > 0) {
+				for (OrderEntity orderEntity : orderEntities) {
+					this.orders.add(new Order(orderEntity));
+				}
+			}
+		}
 	}
 
-	public UserProfileEntity getUserProfile() {
+	public UserProfile getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(UserProfileEntity userProfile) {
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public String getUsername() {
@@ -68,14 +60,6 @@ public class UserEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<OrderEntity> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<OrderEntity> orders) {
-		this.orders = orders;
 	}
 
 	@Override
@@ -97,7 +81,7 @@ public class UserEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserEntity other = (UserEntity) obj;
+		User other = (User) obj;
 		if (orders == null) {
 			if (other.orders != null)
 				return false;
