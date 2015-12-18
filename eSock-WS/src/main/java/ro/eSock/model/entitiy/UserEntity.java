@@ -70,14 +70,6 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public List<OrderEntity> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<OrderEntity> orders) {
-		this.orders = orders;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
