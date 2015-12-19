@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "purchase")
-public class PurchaseEntity {
+public class Purchase {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -24,15 +24,15 @@ public class PurchaseEntity {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private User user;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
-	private ProductEntity product;
+	private Product product;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
-	private OrderEntity order;
+	private Order order;
 
 	@Column(name = "quantity")
 	private Integer quantity;
@@ -45,27 +45,27 @@ public class PurchaseEntity {
 		this.purchaseId = purchaseId;
 	}
 
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public ProductEntity getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductEntity product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	public OrderEntity getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(OrderEntity order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 
@@ -96,7 +96,7 @@ public class PurchaseEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PurchaseEntity other = (PurchaseEntity) obj;
+		Purchase other = (Purchase) obj;
 		if (order == null) {
 			if (other.order != null)
 				return false;

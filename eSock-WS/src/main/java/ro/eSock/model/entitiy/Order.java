@@ -2,6 +2,7 @@ package ro.esock.model.entitiy;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,8 +17,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "order")
-public class OrderEntity {
+@Table(name = "`order`")
+public class Order {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -27,14 +28,14 @@ public class OrderEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private User user;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "address_id")
-	private AddressEntity address;
+	private Address address;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
-	private List<PurchaseEntity> purchases;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
+	private List<Purchase> purchases;
 
 	public Long getOrderId() {
 		return orderId;
@@ -44,27 +45,27 @@ public class OrderEntity {
 		this.orderId = orderId;
 	}
 
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public AddressEntity getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(AddressEntity address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
-	public List<PurchaseEntity> getPurchases() {
+	public List<Purchase> getPurchases() {
 		return purchases;
 	}
 
-	public void setPurchases(List<PurchaseEntity> purchases) {
+	public void setPurchases(List<Purchase> purchases) {
 		this.purchases = purchases;
 	}
 
@@ -86,7 +87,7 @@ public class OrderEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrderEntity other = (OrderEntity) obj;
+		Order other = (Order) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;

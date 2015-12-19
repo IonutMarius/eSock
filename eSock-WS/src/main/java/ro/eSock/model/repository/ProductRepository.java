@@ -1,7 +1,7 @@
 package ro.esock.model.repository;
 
-import ro.esock.model.entitiy.ProductEntity;
+import ro.esock.model.entitiy.Product;
 
-public interface ProductRepository extends GenericRepository<ProductEntity, Long> {
+public interface ProductRepository extends GenericRepository<Product, Long> {
 
 }

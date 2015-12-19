@@ -1,7 +1,7 @@
 package ro.esock.model.repository;
 
-import ro.esock.model.entitiy.UserProfileEntity;
+import ro.esock.model.entitiy.UserProfile;
 
-public interface UserProfileRepository extends GenericRepository<UserProfileEntity, Long> {
+public interface UserProfileRepository extends GenericRepository<UserProfile, Long> {
 
 }

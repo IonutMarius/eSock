@@ -1,7 +1,7 @@
 package ro.esock.model.service;
 
-import ro.esock.model.entitiy.UserProfileEntity;
+import ro.esock.model.entitiy.UserProfile;
 
-public interface UserProfileService extends GenericService<UserProfileEntity, Long>{
+public interface UserProfileService extends GenericService<UserProfile, Long>{
 
 }

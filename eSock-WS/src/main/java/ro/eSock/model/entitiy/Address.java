@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "address")
-public class AddressEntity {
+public class Address {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -23,7 +23,7 @@ public class AddressEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_profile_id")
-	private UserProfileEntity userProfile;
+	private UserProfile userProfile;
 
 	@Column(name = "address_name")
 	private String addressName;
@@ -48,11 +48,11 @@ public class AddressEntity {
 		this.addressId = addressId;
 	}
 
-	public UserProfileEntity getUserProfile() {
+	public UserProfile getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(UserProfileEntity userProfile) {
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
 
@@ -117,7 +117,7 @@ public class AddressEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AddressEntity other = (AddressEntity) obj;
+		Address other = (Address) obj;
 		if (addressLine1 == null) {
 			if (other.addressLine1 != null)
 				return false;

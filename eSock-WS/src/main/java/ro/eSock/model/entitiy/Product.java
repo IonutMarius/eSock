@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "product")
-public class ProductEntity {
+public class Product {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -89,7 +89,7 @@ public class ProductEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProductEntity other = (ProductEntity) obj;
+		Product other = (Product) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;
