@@ -21,8 +21,14 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 
 	@Override
 	public User register(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		User createdUser = null;
+		try {
+			createdUser = create(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return createdUser;
 	}
 
 }

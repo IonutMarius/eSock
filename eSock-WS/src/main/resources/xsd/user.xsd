@@ -13,7 +13,7 @@
 	<xs:element name="registerResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="message" type="xs:string" />
+				<xs:element name="user" type="esock:userXml" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -6,6 +6,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import ro.esock.model.entitiy.User;
 import ro.esock.model.service.UserService;
 import ro.esock.ws.exception.PasswordsDoNotMatchException;
 import ro.esock.ws.soap.user.RegisterRequest;
@@ -29,8 +30,8 @@ public class UserEndpoint {
 		if(!userXml.getPassword().equals(userXml.getPasswordConf())){
 			throw new PasswordsDoNotMatchException();
 		}
-		userService.register(ConverterUtils.convertUserXmlToUser(userXml));
-		
+		User user = userService.register(ConverterUtils.convertUserXmlToUser(userXml));
+		response.setUser(ConverterUtils.convertUserToUserXml(user));
 		return response;
 	}
 } 
