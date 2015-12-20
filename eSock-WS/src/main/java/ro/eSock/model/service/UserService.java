@@ -4,4 +4,5 @@ import ro.esock.model.entitiy.User;
 
 public interface UserService extends GenericService<User, Long>{
 
+	User registerUser(User user);
 }
