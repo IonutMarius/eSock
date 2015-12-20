@@ -1,4 +1,4 @@
-package ro.esock.ws.conf;
+package ro.esock.ws.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

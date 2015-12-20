@@ -6,13 +6,12 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import ro.esock.model.entitiy.User;
-import ro.esock.model.entitiy.UserProfile;
 import ro.esock.model.service.UserService;
+import ro.esock.ws.exception.PasswordsDoNotMatchException;
 import ro.esock.ws.soap.user.RegisterRequest;
 import ro.esock.ws.soap.user.RegisterResponse;
-import ro.esock.ws.soap.user.UserProfileXml;
 import ro.esock.ws.soap.user.UserXml;
+import ro.esock.ws.util.ConverterUtils;
 
 @Endpoint
 public class UserEndpoint {
@@ -27,20 +26,11 @@ public class UserEndpoint {
 		RegisterResponse response = new RegisterResponse();
 
 		UserXml userXml = request.getUser();
-		UserProfileXml userProfileXml = userXml.getUserProfile();
+		if(!userXml.getPassword().equals(userXml.getPasswordConf())){
+			throw new PasswordsDoNotMatchException();
+		}
+		userService.register(ConverterUtils.convertUserXmlToUser(userXml));
 		
-		UserProfile userProfile = new UserProfile();
-		userProfile.setName(userProfileXml.getName());
-		userProfile.setSurname(userProfileXml.getSurname());
-		userProfile.setPhoneNumber(userProfileXml.getPhoneNumber());
-		userProfile.setEmailAddress(userProfileXml.getEmailAddress());
-		
-		User user = new User();
-		user.setUsername(userXml.getUsername());
-		user.setPassword(userXml.getPassword());
-		user.setUserProfile(userProfile);
-		
-		userService.create(user);
 		return response;
 	}
 } 

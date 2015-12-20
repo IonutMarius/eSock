@@ -9,7 +9,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 
 import ro.esock.model.config.JpaHibernateConfig;
-import ro.esock.ws.conf.WebContextConfig;
+import ro.esock.ws.config.WebContextConfig;
  
 public class SpringWebAppInitializer implements WebApplicationInitializer {
  

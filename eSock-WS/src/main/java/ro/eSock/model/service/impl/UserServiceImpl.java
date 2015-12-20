@@ -9,7 +9,7 @@ import ro.esock.model.repository.UserRepository;
 import ro.esock.model.service.UserService;
 
 @Service
-public class UserServiceImpl extends GenericServiceImpl<User, Long> implements UserService{
+public class UserServiceImpl extends GenericServiceImpl<User, Long> implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -18,5 +18,11 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 	protected GenericRepository<User, Long> getRepository() {
 		return userRepository;
 	}
-	
+
+	@Override
+	public User register(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
