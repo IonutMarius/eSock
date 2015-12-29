@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/BISDAO">
-    <Loader loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader" />
+  <!--   <Loader loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader" /> -->
 </Context>
