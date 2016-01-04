@@ -1,37 +1,86 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:esock="http://eSock.ro/ws/soap/user"
-           targetNamespace="http://eSock.ro/ws/soap/user" elementFormDefault="qualified">
-   
-    <xs:element name="registerRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="user" type="esock:userXml"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    
-    <xs:element name="registerResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    
-    <xs:complexType name="userXml">
-    	<xs:sequence>
-    		<xs:element name="username" type="xs:string"/>
-    		<xs:element name="password" type="xs:string"/>
-    		<xs:element name="passwordConf" type="xs:string"/>
-    		<xs:element name="userProfile" type="esock:userProfileXml" />
-    	</xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="userProfileXml">
-    	<xs:sequence>
-    		<xs:element name="name" type="xs:string"/>
-    		<xs:element name="surname" type="xs:string"/>
-    		<xs:element name="phoneNumber" type="xs:string"/>
-    		<xs:element name="emailAddress" type="xs:string"/>
-    	</xs:sequence>
-    </xs:complexType>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:esock="http://eSock.ro/ws/soap/user" targetNamespace="http://eSock.ro/ws/soap/user"
+	elementFormDefault="qualified">
+
+	<xs:element name="registerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="esock:userXml" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="registerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="esock:userXml" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="loginRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="credentials" type="esock:credentials" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="loginResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="esock:userXml" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="credentials">
+		<xs:sequence>
+			<xs:element name="username" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="password" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="userXml">
+		<xs:sequence>
+			<xs:element name="username" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="password" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="passwordConf" type="xs:string"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="userProfile" type="esock:userProfileXml"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="userProfileXml">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="surname" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="phoneNumber" type="xs:string" />
+			<xs:element name="emailAddress" type="xs:string" />
+			<xs:element name="addresses" type="esock:addressXml"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="addressXml">
+		<xs:sequence>
+			<xs:element name="addressName" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="city" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="postcode" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="addressLine1" type="xs:string"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="addressLine2" type="xs:string"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema> 

@@ -1,4 +1,4 @@
-package ro.esock.ws.conf;
+package ro.esock.ws.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,16 +16,16 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebContextConfig extends WsConfigurerAdapter{
 	
 	@Bean(name = "user")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema helloSchema) {
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema userSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("UserPort");
 		wsdl11Definition.setLocationUri("/ws/");
 		wsdl11Definition.setTargetNamespace("http://eSock.ro/ws/soap/user");
-		wsdl11Definition.setSchema(helloSchema);
+		wsdl11Definition.setSchema(userSchema);
 		return wsdl11Definition;
 	}
 	@Bean
-	public XsdSchema helloSchema() {
+	public XsdSchema userSchema() {
 		return new SimpleXsdSchema(new ClassPathResource("xsd/user.xsd"));
 	}
 }
