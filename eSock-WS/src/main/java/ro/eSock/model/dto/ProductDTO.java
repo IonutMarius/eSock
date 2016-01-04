@@ -1,10 +1,19 @@
 package ro.esock.model.dto;
 
 public class ProductDTO {
+	private Long productId;
 	private String name;
 	private String description;
 	private Double price;
 	private Integer stock;
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 
 	public String getName() {
 		return name;
@@ -45,6 +54,7 @@ public class ProductDTO {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
 		result = prime * result + ((stock == null) ? 0 : stock.hashCode());
 		return result;
 	}
@@ -72,6 +82,11 @@ public class ProductDTO {
 			if (other.price != null)
 				return false;
 		} else if (!price.equals(other.price))
+			return false;
+		if (productId == null) {
+			if (other.productId != null)
+				return false;
+		} else if (!productId.equals(other.productId))
 			return false;
 		if (stock == null) {
 			if (other.stock != null)

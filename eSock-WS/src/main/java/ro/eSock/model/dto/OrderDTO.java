@@ -3,9 +3,18 @@ package ro.esock.model.dto;
 import java.util.List;
 
 public class OrderDTO {
+	private Long orderId;
 	private UserDTO user;
 	private AddressDTO address;
 	private List<PurchaseDTO> purchases;
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 
 	public UserDTO getUser() {
 		return user;
@@ -36,6 +45,7 @@ public class OrderDTO {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
 		result = prime * result + ((purchases == null) ? 0 : purchases.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -54,6 +64,11 @@ public class OrderDTO {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (orderId == null) {
+			if (other.orderId != null)
+				return false;
+		} else if (!orderId.equals(other.orderId))
 			return false;
 		if (purchases == null) {
 			if (other.purchases != null)

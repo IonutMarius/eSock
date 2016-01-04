@@ -3,11 +3,11 @@ package ro.esock.model.service;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericService<T, PK extends Serializable> {
-	T findById(PK id);
-	List<T> findAll();
-	T create(T t);
-	T update(T t);
-	void remove(T t);
+public interface GenericService<DTO, ENTITY, PK extends Serializable> {
+	DTO findById(PK id);
+	List<DTO> findAll();
+	DTO create(DTO t);
+	DTO update(DTO t);
+	void remove(DTO t);
 	Integer count();
 }

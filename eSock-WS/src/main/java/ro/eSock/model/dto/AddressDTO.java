@@ -1,6 +1,7 @@
 package ro.esock.model.dto;
 
 public class AddressDTO {
+	private Long addressId;
 	private UserProfileDTO userProfile;
 	private String addressName;
 	private String city;
@@ -56,10 +57,19 @@ public class AddressDTO {
 		this.addressLine2 = addressLine2;
 	}
 
+	public Long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Long addressId) {
+		this.addressId = addressId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
 		result = prime * result + ((addressLine1 == null) ? 0 : addressLine1.hashCode());
 		result = prime * result + ((addressLine2 == null) ? 0 : addressLine2.hashCode());
 		result = prime * result + ((addressName == null) ? 0 : addressName.hashCode());
@@ -78,6 +88,11 @@ public class AddressDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		AddressDTO other = (AddressDTO) obj;
+		if (addressId == null) {
+			if (other.addressId != null)
+				return false;
+		} else if (!addressId.equals(other.addressId))
+			return false;
 		if (addressLine1 == null) {
 			if (other.addressLine1 != null)
 				return false;

@@ -11,9 +11,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.esock.model.converter.OrderConverter;
+import ro.esock.model.converter.ProductConverter;
+import ro.esock.model.converter.UserConverter;
+import ro.esock.model.dto.OrderDTO;
+import ro.esock.model.dto.ProductDTO;
+import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.Order;
-import ro.esock.model.entitiy.Product;
-import ro.esock.model.entitiy.User;
 import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
 import ro.esock.model.service.OrderService;
@@ -33,9 +37,16 @@ public class OrderServiceImplTest {
 	@Autowired
 	private ProductService productService;
 
-	private User user;
-	private Product product1;
-	private Product product2;
+	@Autowired
+	private UserConverter userConverter;
+	@Autowired
+	private ProductConverter productConverter;
+	@Autowired
+	private OrderConverter orderConverter;
+
+	private UserDTO user;
+	private ProductDTO product1;
+	private ProductDTO product2;
 
 	@Before
 	@Rollback(false)
@@ -43,10 +54,10 @@ public class OrderServiceImplTest {
 		String sufix = "_1";
 		String sufix2 = "_2";
 
-		user = userService.create(TestUtils.createUser(sufix));
+		user = userService.create(userConverter.toDto(TestUtils.createUser(sufix)));
 
-		product1 = productService.create(TestUtils.createProduct(sufix));
-		product2 = productService.create(TestUtils.createProduct(sufix2));
+		product1 = productService.create(productConverter.toDto(TestUtils.createProduct(sufix)));
+		product2 = productService.create(productConverter.toDto(TestUtils.createProduct(sufix2)));
 	}
 
 	@After
@@ -59,7 +70,8 @@ public class OrderServiceImplTest {
 
 	@Test
 	public void saveAndFindOrderTest() {
-		Order expectedOrder = TestUtils.createOrder();
+		Order entity = TestUtils.createOrder();
+		OrderDTO expectedOrder = orderConverter.toDto(entity);
 		expectedOrder.setUser(user);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
@@ -70,14 +82,15 @@ public class OrderServiceImplTest {
 		expectedOrder.getPurchases().get(1).setUser(user);
 
 		orderService.create(expectedOrder);
-		Order actualOrder = orderService.findById(expectedOrder.getOrderId());
+		OrderDTO actualOrder = orderService.findById(expectedOrder.getOrderId());
 
 		Assert.assertEquals(expectedOrder, actualOrder);
 	}
 
 	@Test
 	public void saveAndDeleteOrderTest() {
-		Order order = TestUtils.createOrder();
+		Order entity = TestUtils.createOrder();
+		OrderDTO order = orderConverter.toDto(entity);
 		order.setUser(user);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 
@@ -97,7 +110,8 @@ public class OrderServiceImplTest {
 
 	@Test
 	public void updateAndFindOrderTest() {
-		Order expectedOrder = TestUtils.createOrder();
+		Order entity = TestUtils.createOrder();
+		OrderDTO expectedOrder = orderConverter.toDto(entity);
 		expectedOrder.setUser(user);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
@@ -110,7 +124,7 @@ public class OrderServiceImplTest {
 		expectedOrder = orderService.create(expectedOrder);
 		expectedOrder.getAddress().setAddressName("addr_0");
 		orderService.update(expectedOrder);
-		Order actualOrder = orderService.findById(expectedOrder.getOrderId());
+		OrderDTO actualOrder = orderService.findById(expectedOrder.getOrderId());
 
 		Assert.assertEquals(expectedOrder, actualOrder);
 

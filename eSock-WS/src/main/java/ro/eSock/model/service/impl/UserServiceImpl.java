@@ -3,30 +3,41 @@ package ro.esock.model.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ro.esock.model.converter.UserConverter;
+import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.User;
-import ro.esock.model.repository.GenericRepository;
 import ro.esock.model.repository.UserRepository;
 import ro.esock.model.service.UserService;
 
 @Service
-public class UserServiceImpl extends GenericServiceImpl<User, Long> implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<UserDTO, User, Long> implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private UserConverter userConverter;
+
 	@Override
-	protected GenericRepository<User, Long> getRepository() {
+	protected UserRepository getRepository() {
 		return userRepository;
 	}
 
 	@Override
-	public User findByUsername(String username) {
-		return userRepository.findByUsername(username);
+	protected UserConverter getEntityConverter() {
+		return this.userConverter;
 	}
 
 	@Override
-	public User findByUsernameAndPassword(String username, String password) {
-		return userRepository.findByUsernameAndPassword(username, password);
+	public UserDTO findByUsername(String username) {
+		User user = userRepository.findByUsername(username);
+		return userConverter.toDto(user);
+	}
+
+	@Override
+	public UserDTO findByUsernameAndPassword(String username, String password) {
+		User user = userRepository.findByUsernameAndPassword(username, password);
+		return userConverter.toDto(user);
 	}
 
 }

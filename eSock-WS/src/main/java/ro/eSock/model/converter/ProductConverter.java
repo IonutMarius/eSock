@@ -1,20 +1,35 @@
 package ro.esock.model.converter;
 
-import ro.esock.model.dto.OrderDTO;
-import ro.esock.model.entitiy.Order;
+import org.springframework.stereotype.Component;
 
-public class ProductConverter extends AbstractEntityConverter<OrderDTO, Order> {
+import ro.esock.model.dto.ProductDTO;
+import ro.esock.model.entitiy.Product;
+
+@Component
+public class ProductConverter extends GenericEntityConverter<ProductDTO, Product> {
 
 	@Override
-	public OrderDTO toDto(Order entity) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProductDTO toDto(Product entity) {
+		ProductDTO productDto = new ProductDTO();
+		productDto.setDescription(entity.getDescription());
+		productDto.setName(entity.getName());
+		productDto.setPrice(entity.getPrice());
+		productDto.setProductId(entity.getProductId());
+		productDto.setStock(entity.getStock());
+		
+		return productDto;
 	}
 
 	@Override
-	public Order toEntity(OrderDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product toEntity(ProductDTO dto) {
+		Product product = new Product();
+		product.setDescription(dto.getDescription());
+		product.setName(dto.getName());
+		product.setPrice(dto.getPrice());
+		product.setProductId(dto.getProductId());
+		product.setStock(dto.getStock());
+		
+		return product;
 	}
 
 }

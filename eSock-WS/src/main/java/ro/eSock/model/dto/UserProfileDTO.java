@@ -3,11 +3,20 @@ package ro.esock.model.dto;
 import java.util.List;
 
 public class UserProfileDTO {
+	private Long userProfileId;
 	private String name;
 	private String surname;
 	private String phoneNumber;
 	private String emailAddress;
 	private List<AddressDTO> addresses;
+
+	public Long getUserProfileId() {
+		return userProfileId;
+	}
+
+	public void setUserProfileId(Long userProfileId) {
+		this.userProfileId = userProfileId;
+	}
 
 	public String getName() {
 		return name;
@@ -58,6 +67,7 @@ public class UserProfileDTO {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		result = prime * result + ((userProfileId == null) ? 0 : userProfileId.hashCode());
 		return result;
 	}
 
@@ -94,6 +104,11 @@ public class UserProfileDTO {
 			if (other.surname != null)
 				return false;
 		} else if (!surname.equals(other.surname))
+			return false;
+		if (userProfileId == null) {
+			if (other.userProfileId != null)
+				return false;
+		} else if (!userProfileId.equals(other.userProfileId))
 			return false;
 		return true;
 	}

@@ -1,9 +1,12 @@
 package ro.esock.model.converter;
 
+import org.springframework.stereotype.Component;
+
 import ro.esock.model.dto.AddressDTO;
 import ro.esock.model.entitiy.Address;
 
-public class AddressConverter extends AbstractEntityConverter<AddressDTO, Address> {
+@Component
+public class AddressConverter extends GenericEntityConverter<AddressDTO, Address> {
 
 	@Override
 	public AddressDTO toDto(Address entity) {

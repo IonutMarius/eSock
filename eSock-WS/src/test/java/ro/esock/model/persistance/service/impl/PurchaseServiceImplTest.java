@@ -11,10 +11,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.esock.model.entitiy.Order;
+import ro.esock.model.converter.OrderConverter;
+import ro.esock.model.converter.ProductConverter;
+import ro.esock.model.converter.PurchaseConverter;
+import ro.esock.model.converter.UserConverter;
+import ro.esock.model.dto.OrderDTO;
+import ro.esock.model.dto.ProductDTO;
+import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.Product;
 import ro.esock.model.entitiy.Purchase;
-import ro.esock.model.entitiy.User;
 import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
 import ro.esock.model.service.OrderService;
@@ -29,32 +34,38 @@ public class PurchaseServiceImplTest {
 	
 	@Autowired
 	private OrderService orderService;
-
 	@Autowired
 	private UserService userService;
-
 	@Autowired
 	private ProductService productService;
-	
 	@Autowired
 	private PurchaseService purchaseService;
 
-	private User user;
-	private Order order;
-	private Product product;
+	@Autowired
+	private OrderConverter orderConverter;
+	@Autowired
+	private UserConverter userConverter;
+	@Autowired
+	private ProductConverter productConverter;
+	@Autowired
+	private PurchaseConverter purchaseConverter;
+
+	private UserDTO user;
+	private OrderDTO order;
+	private ProductDTO product;
 
 	@Before
 	@Rollback(false)
 	public void addEntities() {
 		String sufix = "_1";
-		user = userService.create(TestUtils.createUser(sufix));
+		user = userService.create(userConverter.toDto(TestUtils.createUser(sufix)));
 		
-		order = TestUtils.createOrder();
+		order = orderConverter.toDto(TestUtils.createOrder());
 		order.setUser(user);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 		order = orderService.create(order);
 		
-		product = productService.create(TestUtils.createProduct(sufix));
+		product = productService.create(productConverter.toDto(TestUtils.createProduct(sufix)));
 	}
 
 	@After

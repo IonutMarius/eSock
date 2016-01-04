@@ -1,43 +1,56 @@
 package ro.esock.model.service.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.esock.model.converter.GenericEntityConverter;
 import ro.esock.model.repository.GenericRepository;
 import ro.esock.model.service.GenericService;
 
-public abstract class GenericServiceImpl<T, PK extends Serializable> implements GenericService<T, PK>{
+public abstract class GenericServiceImpl<DTO, ENTITY, PK extends Serializable> implements GenericService<DTO, ENTITY, PK>{
 	
-	protected abstract GenericRepository<T, PK> getRepository();
+	protected abstract GenericRepository<ENTITY, PK> getRepository();
+	protected abstract GenericEntityConverter<DTO, ENTITY> getEntityConverter();
 
 	@Override
-	public T findById(PK id) {
-		return getRepository().findById(id);
+	public DTO findById(PK id) {
+		ENTITY result = getRepository().findById(id);
+		return getEntityConverter().toDto(result);
 	}
 	
 	@Override
-	public List<T> findAll() {
-		return getRepository().findAll();
+	public List<DTO> findAll() {
+		List<ENTITY> results = getRepository().findAll();
+		List<DTO> dtos = new ArrayList<>();
+		
+		for(ENTITY entity : results){
+			dtos.add(getEntityConverter().toDto(entity));
+		}
+		
+		return dtos;
 	}
 
 	@Override
 	@Transactional
-	public T create(T t) {
-		return getRepository().create(t);
+	public DTO create(DTO dto) {
+		ENTITY result = getRepository().create(getEntityConverter().toEntity(dto));
+		return getEntityConverter().toDto(result);
 	}
 
 	@Override
 	@Transactional
-	public T update(T t) {
-		return getRepository().update(t);
+	public DTO update(DTO dto) {
+		ENTITY result = getRepository().update(getEntityConverter().toEntity(dto));
+		return getEntityConverter().toDto(result);
 	}
 
 	@Override
 	@Transactional
-	public void remove(T t) {
-		getRepository().remove(t);
+	public void remove(DTO dto) {
+		getRepository().remove(getEntityConverter().toEntity(dto));
 	}
 
 	@Override

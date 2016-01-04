@@ -1,9 +1,12 @@
 package ro.esock.model.converter;
 
+import org.springframework.stereotype.Component;
+
 import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.entitiy.Purchase;
 
-public class PurchaseConverter extends AbstractEntityConverter<PurchaseDTO, Purchase> {
+@Component
+public class PurchaseConverter extends GenericEntityConverter<PurchaseDTO, Purchase> {
 
 	@Override
 	public PurchaseDTO toDto(Purchase entity) {

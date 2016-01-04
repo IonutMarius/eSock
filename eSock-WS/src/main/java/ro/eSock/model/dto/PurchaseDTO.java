@@ -1,10 +1,19 @@
 package ro.esock.model.dto;
 
 public class PurchaseDTO {
+	private Long purchaseId;
 	private UserDTO user;
 	private ProductDTO product;
 	private OrderDTO order;
 	private Integer quantity;
+
+	public Long getPurchaseId() {
+		return purchaseId;
+	}
+
+	public void setPurchaseId(Long purchaseId) {
+		this.purchaseId = purchaseId;
+	}
 
 	public UserDTO getUser() {
 		return user;
@@ -44,6 +53,7 @@ public class PurchaseDTO {
 		int result = 1;
 		result = prime * result + ((order == null) ? 0 : order.hashCode());
 		result = prime * result + ((product == null) ? 0 : product.hashCode());
+		result = prime * result + ((purchaseId == null) ? 0 : purchaseId.hashCode());
 		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -67,6 +77,11 @@ public class PurchaseDTO {
 			if (other.product != null)
 				return false;
 		} else if (!product.equals(other.product))
+			return false;
+		if (purchaseId == null) {
+			if (other.purchaseId != null)
+				return false;
+		} else if (!purchaseId.equals(other.purchaseId))
 			return false;
 		if (quantity == null) {
 			if (other.quantity != null)

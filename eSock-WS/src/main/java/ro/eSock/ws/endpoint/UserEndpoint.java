@@ -9,7 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import ro.esock.model.entitiy.User;
+import ro.esock.model.dto.UserDTO;
 import ro.esock.model.service.UserService;
 import ro.esock.ws.exception.LoginFailedException;
 import ro.esock.ws.exception.PasswordsDoNotMatchException;
@@ -42,15 +42,15 @@ public class UserEndpoint {
 			throw new PasswordsDoNotMatchException();
 		}
 		
-		User user = null;
+		UserDTO user = null;
 		try {
-			user = userService.create(ConverterUtils.convertUserXmlToUser(userXml));
+			user = userService.create(ConverterUtils.convertUserDTOXmlToUser(userXml));
 		} catch (DataIntegrityViolationException e) {
 			logger.error("Constraint violated - user already exists", e);
 			throw new UserAlreadyExistsException();
 		}
 		
-		response.setUser(ConverterUtils.convertUserToUserXml(user));
+		response.setUser(ConverterUtils.convertUserDTOToUserXml(user));
 		return response;
 	}
 	
@@ -60,14 +60,14 @@ public class UserEndpoint {
 		LoginResponse response = new LoginResponse();
 		
 		Credentials credentials = request.getCredentials();
-		User user = userService.findByUsername(credentials.getUsername());
+		UserDTO user = userService.findByUsername(credentials.getUsername());
 		
 		if(user == null){
 			logger.error("The username or password is incorrect");
 			throw new LoginFailedException();
 		}
 		
-		response.setUser(ConverterUtils.convertUserToUserXml(user));
+		response.setUser(ConverterUtils.convertUserDTOToUserXml(user));
 		return response;
 	}
 } 

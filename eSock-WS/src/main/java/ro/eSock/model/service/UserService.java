@@ -1,9 +1,10 @@
 package ro.esock.model.service;
 
+import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.User;
 
-public interface UserService extends GenericService<User, Long>{
+public interface UserService extends GenericService<UserDTO, User, Long>{
 
-	User findByUsername(String username);
-	User findByUsernameAndPassword(String username, String password);
+	UserDTO findByUsername(String username);
+	UserDTO findByUsernameAndPassword(String username, String password);
 }

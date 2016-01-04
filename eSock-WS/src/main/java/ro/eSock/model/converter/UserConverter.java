@@ -1,9 +1,12 @@
 package ro.esock.model.converter;
 
+import org.springframework.stereotype.Component;
+
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.User;
 
-public class UserConverter extends AbstractEntityConverter<UserDTO, User> {
+@Component
+public class UserConverter extends GenericEntityConverter<UserDTO, User> {
 
 	@Override
 	public UserDTO toDto(User entity) {
