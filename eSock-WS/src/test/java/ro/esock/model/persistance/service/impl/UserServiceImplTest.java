@@ -8,6 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.esock.model.converter.UserConverter;
+import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.User;
 import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
@@ -21,18 +23,23 @@ public class UserServiceImplTest {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private UserConverter userConverter;
+	
 	@Test
 	public void saveAndFindUserTest(){
-		User expectedUser = TestUtils.createUser("1");
+		User entity = TestUtils.createUser("1");
+		UserDTO expectedUser = userConverter.toDto(entity);
 		userService.create(expectedUser);	
-		User actualUser = userService.findById(expectedUser.getUserId());
+		UserDTO actualUser = userService.findById(expectedUser.getUserId());
 		
 		Assert.assertEquals(expectedUser, actualUser);
 	}
 	
 	@Test
 	public void saveAndDeleteUserTest(){
-		User user = userService.create(TestUtils.createUser("1"));
+		User entity = TestUtils.createUser("1");
+		UserDTO user = userConverter.toDto(entity);
 		userService.remove(user);
 		user = userService.findById(user.getUserId());
 		
@@ -41,44 +48,49 @@ public class UserServiceImplTest {
 	
 	@Test
 	public void updateAndFindUserTest(){
-		User expectedUser = userService.create(TestUtils.createUser("1"));
+		User entity = TestUtils.createUser("1");
+		UserDTO expectedUser = userConverter.toDto(entity);
 		expectedUser.setUsername("u0");
 		userService.update(expectedUser);
-		User actualUser = userService.findById(expectedUser.getUserId());
+		UserDTO actualUser = userService.findById(expectedUser.getUserId());
 
 		Assert.assertEquals(expectedUser, actualUser);
 	}
 	
 	@Test
 	public void saveAndFindUserByUsernameTest(){
-		User expectedUser = TestUtils.createUser("_1");
+		User entity = TestUtils.createUser("1");
+		UserDTO expectedUser = userConverter.toDto(entity);
 		userService.create(expectedUser);	
-		User actualUser = userService.findByUsername(expectedUser.getUsername());
+		UserDTO actualUser = userService.findByUsername(expectedUser.getUsername());
 		
 		Assert.assertEquals(expectedUser, actualUser);
 	}
 	
 	@Test
 	public void findUserByUsernameFailTest(){
-		User expectedUser = TestUtils.createUser("_1");
-		User actualUser = userService.findByUsername(expectedUser.getUsername());
+		User entity = TestUtils.createUser("1");
+		UserDTO expectedUser = userConverter.toDto(entity);
+		UserDTO actualUser = userService.findByUsername(expectedUser.getUsername());
 		
 		Assert.assertEquals(null, actualUser);
 	}
 	
 	@Test
 	public void saveAndFindUserByUsernameAndPasswordTest(){
-		User expectedUser = TestUtils.createUser("_1");
+		User entity = TestUtils.createUser("1");
+		UserDTO expectedUser = userConverter.toDto(entity);
 		userService.create(expectedUser);	
-		User actualUser = userService.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
+		UserDTO actualUser = userService.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
 		
 		Assert.assertEquals(expectedUser, actualUser);
 	}
 	
 	@Test
 	public void findUserByUsernameAndPasswordFailTest(){
-		User expectedUser = TestUtils.createUser("_1");
-		User actualUser = userService.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
+		User entity = TestUtils.createUser("1");
+		UserDTO expectedUser = userConverter.toDto(entity);
+		UserDTO actualUser = userService.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
 		
 		Assert.assertEquals(null, actualUser);
 	}

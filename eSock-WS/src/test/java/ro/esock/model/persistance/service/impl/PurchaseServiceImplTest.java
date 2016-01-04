@@ -17,6 +17,7 @@ import ro.esock.model.converter.PurchaseConverter;
 import ro.esock.model.converter.UserConverter;
 import ro.esock.model.dto.OrderDTO;
 import ro.esock.model.dto.ProductDTO;
+import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.Product;
 import ro.esock.model.entitiy.Purchase;
@@ -78,19 +79,21 @@ public class PurchaseServiceImplTest {
 
 	@Test
 	public void saveAndFindPurchaseTest() {
-		Purchase expectedPurchase = TestUtils.createPurchase();
+		Purchase entity = TestUtils.createPurchase();
+		PurchaseDTO expectedPurchase = purchaseConverter.toDto(entity);
 		expectedPurchase.setUser(user);
 		expectedPurchase.setProduct(product);
 		expectedPurchase.setOrder(order);
 		purchaseService.create(expectedPurchase);
-		Purchase actualPurchase = purchaseService.findById(expectedPurchase.getPurchaseId());
+		PurchaseDTO actualPurchase = purchaseService.findById(expectedPurchase.getPurchaseId());
 
 		Assert.assertEquals(expectedPurchase, actualPurchase);
 	}
 
 	@Test
 	public void saveAndDeletePurchaseTest() {
-		Purchase purchase = TestUtils.createPurchase();
+		Purchase entity = TestUtils.createPurchase();
+		PurchaseDTO purchase = purchaseConverter.toDto(entity);
 		purchase.setUser(user);
 		purchase.setProduct(product);
 		purchase.setOrder(order);
@@ -104,17 +107,19 @@ public class PurchaseServiceImplTest {
 
 	@Test
 	public void updateAndFindPurchaseTest() {
-		Purchase expectedPurchase = TestUtils.createPurchase();
+		Purchase entity = TestUtils.createPurchase();
+		PurchaseDTO expectedPurchase = purchaseConverter.toDto(entity);
 		expectedPurchase.setUser(user);
 		expectedPurchase.setProduct(product);
 		expectedPurchase.setOrder(order);
 		expectedPurchase = purchaseService.create(expectedPurchase);
 		
-		Product product2 = productService.create(TestUtils.createProduct("_2"));
+		Product entity2 = TestUtils.createProduct("_2");
+		ProductDTO product2 = productService.create(productConverter.toDto(entity2));
 		expectedPurchase.setProduct(product2);
 		
 		purchaseService.update(expectedPurchase);
-		Purchase actualPurchase = purchaseService.findById(expectedPurchase.getPurchaseId());
+		PurchaseDTO actualPurchase = purchaseService.findById(expectedPurchase.getPurchaseId());
 
 		Assert.assertEquals(expectedPurchase, actualPurchase);
 
