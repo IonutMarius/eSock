@@ -48,4 +48,38 @@ public class UserRepositoryJpaImplTest{
 
 		Assert.assertEquals(expectedUser, actualUser);
 	}
+	
+	@Test
+	public void saveAndFindUserByUsernameTest(){
+		User expectedUser = TestUtils.createUser("_1");
+		userRepository.create(expectedUser);	
+		User actualUser = userRepository.findByUsername(expectedUser.getUsername());
+		
+		Assert.assertEquals(expectedUser, actualUser);
+	}
+	
+	@Test
+	public void findUserByUsernameFailTest(){
+		User expectedUser = TestUtils.createUser("_1");
+		User actualUser = userRepository.findByUsername(expectedUser.getUsername());
+		
+		Assert.assertEquals(null, actualUser);
+	}
+	
+	@Test
+	public void saveAndFindUserByUsernameAndPasswordTest(){
+		User expectedUser = TestUtils.createUser("_1");
+		userRepository.create(expectedUser);	
+		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
+		
+		Assert.assertEquals(expectedUser, actualUser);
+	}
+	
+	@Test
+	public void findUserByUsernameAndPasswordFailTest(){
+		User expectedUser = TestUtils.createUser("_1");
+		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
+		
+		Assert.assertEquals(null, actualUser);
+	}
 }

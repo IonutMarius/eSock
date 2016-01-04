@@ -1,58 +1,18 @@
-package ro.esock.model.entitiy;
+package ro.esock.model.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name = "address")
-public class Address {
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "address_id")
-	private Long addressId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_profile_id")
-	private UserProfile userProfile;
-
-	@Column(name = "address_name")
+public class AddressDTO {
+	private UserProfileDTO userProfile;
 	private String addressName;
-
-	@Column(name = "city")
 	private String city;
-
-	@Column(name = "postcode")
 	private String postcode;
-
-	@Column(name = "address_line_1")
 	private String addressLine1;
-
-	@Column(name = "address_line_2")
 	private String addressLine2;
 
-	public Long getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(Long addressId) {
-		this.addressId = addressId;
-	}
-
-	public UserProfile getUserProfile() {
+	public UserProfileDTO getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
+	public void setUserProfile(UserProfileDTO userProfile) {
 		this.userProfile = userProfile;
 	}
 
@@ -117,7 +77,7 @@ public class Address {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Address other = (Address) obj;
+		AddressDTO other = (AddressDTO) obj;
 		if (addressLine1 == null) {
 			if (other.addressLine1 != null)
 				return false;
@@ -149,13 +109,6 @@ public class Address {
 		} else if (!userProfile.equals(other.userProfile))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Address [addressId=" + addressId + ", userProfile=" + userProfile + ", addressName=" + addressName
-				+ ", city=" + city + ", postcode=" + postcode + ", addressLine1=" + addressLine1 + ", addressLine2="
-				+ addressLine2 + "]";
 	}
 
 }

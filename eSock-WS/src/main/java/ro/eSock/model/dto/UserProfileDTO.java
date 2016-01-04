@@ -1,49 +1,13 @@
-package ro.esock.model.entitiy;
+package ro.esock.model.dto;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name = "user_profile")
-public class UserProfile {
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "user_profile_id")
-	private Long userProfileId;
-
-	@Column(name = "name")
+public class UserProfileDTO {
 	private String name;
-
-	@Column(name = "surname")
 	private String surname;
-
-	@Column(name = "phone_number")
 	private String phoneNumber;
-
-	@Column(name = "email_address")
 	private String emailAddress;
-
-	@OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
-	private List<Address> addresses;
-
-	public Long getUserProfileId() {
-		return userProfileId;
-	}
-
-	public void setUserProfileId(Long userProfileId) {
-		this.userProfileId = userProfileId;
-	}
+	private List<AddressDTO> addresses;
 
 	public String getName() {
 		return name;
@@ -77,11 +41,11 @@ public class UserProfile {
 		this.emailAddress = emailAddress;
 	}
 
-	public List<Address> getAddresses() {
+	public List<AddressDTO> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(List<AddressDTO> addresses) {
 		this.addresses = addresses;
 	}
 
@@ -105,7 +69,7 @@ public class UserProfile {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserProfile other = (UserProfile) obj;
+		UserProfileDTO other = (UserProfileDTO) obj;
 		if (addresses == null) {
 			if (other.addresses != null)
 				return false;
@@ -133,11 +97,4 @@ public class UserProfile {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "UserProfile [userProfileId=" + userProfileId + ", name=" + name + ", surname=" + surname
-				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", addresses=" + addresses + "]";
-	}
-
 }

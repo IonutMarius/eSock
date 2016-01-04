@@ -4,5 +4,6 @@ import ro.esock.model.entitiy.User;
 
 public interface UserService extends GenericService<User, Long>{
 
-	User register(User user);
+	User findByUsername(String username);
+	User findByUsernameAndPassword(String username, String password);
 }

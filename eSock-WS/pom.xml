@@ -8,7 +8,8 @@
 	<name>eSock SOAP Web Service</name>
 
 	<properties>
-		<slf4j-log4j12>1.7.13</slf4j-log4j12>
+		<slf4j-log4j-version>1.7.13</slf4j-log4j-version>
+		<apache-commons-lang-version>3.4</apache-commons-lang-version>
 
 		<junit-version>4.12</junit-version>
 
@@ -88,7 +89,14 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j-log4j12}</version>
+			<version>${slf4j-log4j-version}</version>
+		</dependency>
+
+		<!-- Apache commons lang -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache-commons-lang-version}</version>
 		</dependency>
 
 		<!-- Testing -->

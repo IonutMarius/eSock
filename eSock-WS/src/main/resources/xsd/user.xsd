@@ -17,6 +17,31 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	
+	<xs:element name="loginRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="credentials" type="esock:credentials" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="loginResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="esock:userXml" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="credentials">
+		<xs:sequence>
+			<xs:element name="username" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="password" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
 
 	<xs:complexType name="userXml">
 		<xs:sequence>

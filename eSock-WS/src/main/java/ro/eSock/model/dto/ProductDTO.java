@@ -1,42 +1,10 @@
-package ro.esock.model.entitiy;
+package ro.esock.model.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name = "product")
-public class Product {
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "product_id")
-	private Long productId;
-
-	@Column(name = "name")
+public class ProductDTO {
 	private String name;
-
-	@Column(name = "description")
 	private String description;
-
-	@Column(name = "price")
 	private Double price;
-
-	@Column(name = "stock")
 	private Integer stock;
-
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
 
 	public String getName() {
 		return name;
@@ -89,7 +57,7 @@ public class Product {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Product other = (Product) obj;
+		ProductDTO other = (ProductDTO) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -111,12 +79,6 @@ public class Product {
 		} else if (!stock.equals(other.stock))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", name=" + name + ", description=" + description + ", price="
-				+ price + ", stock=" + stock + "]";
 	}
 
 }

@@ -1,6 +1,9 @@
 package ro.esock.ws.endpoint;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -8,7 +11,12 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ro.esock.model.entitiy.User;
 import ro.esock.model.service.UserService;
+import ro.esock.ws.exception.LoginFailedException;
 import ro.esock.ws.exception.PasswordsDoNotMatchException;
+import ro.esock.ws.exception.UserAlreadyExistsException;
+import ro.esock.ws.soap.user.Credentials;
+import ro.esock.ws.soap.user.LoginRequest;
+import ro.esock.ws.soap.user.LoginResponse;
 import ro.esock.ws.soap.user.RegisterRequest;
 import ro.esock.ws.soap.user.RegisterResponse;
 import ro.esock.ws.soap.user.UserXml;
@@ -16,6 +24,8 @@ import ro.esock.ws.util.ConverterUtils;
 
 @Endpoint
 public class UserEndpoint {
+	private static final Logger logger = LoggerFactory.getLogger(UserEndpoint.class);
+	
 	private static final String NAMESPACE_URI = "http://eSock.ro/ws/soap/user";
 	
 	@Autowired
@@ -28,9 +38,35 @@ public class UserEndpoint {
 
 		UserXml userXml = request.getUser();
 		if(!userXml.getPassword().equals(userXml.getPasswordConf())){
+			logger.error("Password '" + userXml.getPassword() + "' do not match '" + userXml.getPasswordConf() + "'");
 			throw new PasswordsDoNotMatchException();
 		}
-		User user = userService.register(ConverterUtils.convertUserXmlToUser(userXml));
+		
+		User user = null;
+		try {
+			user = userService.create(ConverterUtils.convertUserXmlToUser(userXml));
+		} catch (DataIntegrityViolationException e) {
+			logger.error("Constraint violated - user already exists", e);
+			throw new UserAlreadyExistsException();
+		}
+		
+		response.setUser(ConverterUtils.convertUserToUserXml(user));
+		return response;
+	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI ,localPart = "loginRequest")
+	@ResponsePayload
+	public LoginResponse login(@RequestPayload LoginRequest request) {
+		LoginResponse response = new LoginResponse();
+		
+		Credentials credentials = request.getCredentials();
+		User user = userService.findByUsername(credentials.getUsername());
+		
+		if(user == null){
+			logger.error("The username or password is incorrect");
+			throw new LoginFailedException();
+		}
+		
 		response.setUser(ConverterUtils.convertUserToUserXml(user));
 		return response;
 	}

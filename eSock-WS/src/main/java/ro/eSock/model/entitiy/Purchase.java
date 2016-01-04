@@ -120,4 +120,10 @@ public class Purchase {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Purchase [purchaseId=" + purchaseId + ", user=" + user + ", product=" + product + ", order=" + order
+				+ ", quantity=" + quantity + "]";
+	}
+
 }

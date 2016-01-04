@@ -106,4 +106,10 @@ public class Order {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", user=" + user + ", address=" + address + ", purchases=" + purchases
+				+ "]";
+	}
+
 }

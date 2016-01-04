@@ -20,15 +20,13 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 	}
 
 	@Override
-	public User register(User user) {
-		User createdUser = null;
-		try {
-			createdUser = create(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return createdUser;
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public User findByUsernameAndPassword(String username, String password) {
+		return userRepository.findByUsernameAndPassword(username, password);
 	}
 
 }
