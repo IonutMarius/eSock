@@ -60,14 +60,10 @@ public class OrderRepositoryJpaImplTest {
 	@Test
 	public void saveAndFindOrderTest() {
 		Order expectedOrder = TestUtils.createOrder();
-		expectedOrder.setUser(user);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		expectedOrder.getPurchases().get(0).setProduct(product1);
 		expectedOrder.getPurchases().get(1).setProduct(product2);
-
-		expectedOrder.getPurchases().get(0).setUser(user);
-		expectedOrder.getPurchases().get(1).setUser(user);
 
 		orderRepository.create(expectedOrder);
 		Order actualOrder = orderRepository.findById(expectedOrder.getOrderId());
@@ -78,14 +74,10 @@ public class OrderRepositoryJpaImplTest {
 	@Test
 	public void saveAndDeleteOrderTest() {
 		Order order = TestUtils.createOrder();
-		order.setUser(user);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		order.getPurchases().get(0).setProduct(product1);
 		order.getPurchases().get(1).setProduct(product2);
-
-		order.getPurchases().get(0).setUser(user);
-		order.getPurchases().get(1).setUser(user);
 
 		order = orderRepository.create(order);
 		orderRepository.remove(order);
@@ -98,14 +90,13 @@ public class OrderRepositoryJpaImplTest {
 	@Test
 	public void updateAndFindOrderTest() {
 		Order expectedOrder = TestUtils.createOrder();
-		expectedOrder.setUser(user);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		expectedOrder.getPurchases().get(0).setProduct(product1);
 		expectedOrder.getPurchases().get(1).setProduct(product2);
-
 		expectedOrder.getPurchases().get(0).setUser(user);
 		expectedOrder.getPurchases().get(1).setUser(user);
+	//	user.getOrders().add(expectedOrder);
 
 		expectedOrder = orderRepository.create(expectedOrder);
 		expectedOrder.getAddress().setAddressName("addr_0");

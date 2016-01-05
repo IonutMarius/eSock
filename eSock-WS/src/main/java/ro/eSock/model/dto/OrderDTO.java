@@ -1,12 +1,12 @@
 package ro.esock.model.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDTO {
 	private Long orderId;
-	private UserDTO user;
 	private AddressDTO address;
-	private List<PurchaseDTO> purchases;
+	private List<PurchaseDTO> purchases = new ArrayList<>();
 
 	public Long getOrderId() {
 		return orderId;
@@ -14,14 +14,6 @@ public class OrderDTO {
 
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
-	}
-
-	public UserDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserDTO user) {
-		this.user = user;
 	}
 
 	public AddressDTO getAddress() {
@@ -47,7 +39,6 @@ public class OrderDTO {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
 		result = prime * result + ((purchases == null) ? 0 : purchases.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -74,11 +65,6 @@ public class OrderDTO {
 			if (other.purchases != null)
 				return false;
 		} else if (!purchases.equals(other.purchases))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}

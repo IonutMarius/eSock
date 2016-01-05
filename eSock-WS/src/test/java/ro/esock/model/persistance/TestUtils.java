@@ -1,7 +1,5 @@
 package ro.esock.model.persistance;
 
-import java.util.ArrayList;
-
 import ro.esock.model.entitiy.Address;
 import ro.esock.model.entitiy.Order;
 import ro.esock.model.entitiy.Product;
@@ -50,11 +48,8 @@ public class TestUtils {
 		userProfile.setEmailAddress(DEFAULT_EMAIL_ADDRESS + sufix);
 
 		Address address = createAddress(sufix);
-		address.setUserProfile(userProfile);
 		Address address2 = createAddress(sufix + "_2");
-		address2.setUserProfile(userProfile);
 
-		userProfile.setAddresses(new ArrayList<>());
 		userProfile.getAddresses().add(address);
 		userProfile.getAddresses().add(address2);
 
@@ -82,11 +77,8 @@ public class TestUtils {
 	public static Order createOrder() {
 		Order order = new Order();
 		Purchase purchase1 = createPurchase();
-		purchase1.setOrder(order);
 		Purchase purchase2 = createPurchase();
-		purchase2.setOrder(order);
 
-		order.setPurchases(new ArrayList<>());
 		order.getPurchases().add(purchase1);
 		order.getPurchases().add(purchase2);
 

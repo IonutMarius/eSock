@@ -8,4 +8,9 @@ import ro.esock.model.repository.UserProfileRepository;
 @Repository
 public class UserProfileRepositoryJpaImpl extends GenericRepositoryJpaImpl<UserProfile, Long> implements UserProfileRepository{
 
+	@Override
+	public UserProfile findById(UserProfile entity) {
+		return findById(entity.getUserProfileId());
+	}
+
 }

@@ -2,28 +2,19 @@ package ro.esock.model.entitiy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "address")
 public class Address {
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
 	private Long addressId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_profile_id")
-	private UserProfile userProfile;
 
 	@Column(name = "address_name")
 	private String addressName;
@@ -46,14 +37,6 @@ public class Address {
 
 	public void setAddressId(Long addressId) {
 		this.addressId = addressId;
-	}
-
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
 	}
 
 	public String getAddressName() {
@@ -105,7 +88,6 @@ public class Address {
 		result = prime * result + ((addressName == null) ? 0 : addressName.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
-		result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
 		return result;
 	}
 
@@ -143,19 +125,13 @@ public class Address {
 				return false;
 		} else if (!postcode.equals(other.postcode))
 			return false;
-		if (userProfile == null) {
-			if (other.userProfile != null)
-				return false;
-		} else if (!userProfile.equals(other.userProfile))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", userProfile=" + userProfile + ", addressName=" + addressName
-				+ ", city=" + city + ", postcode=" + postcode + ", addressLine1=" + addressLine1 + ", addressLine2="
-				+ addressLine2 + "]";
+		return "Address [addressId=" + addressId + ", addressName=" + addressName + ", city=" + city + ", postcode="
+				+ postcode + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + "]";
 	}
 
 }

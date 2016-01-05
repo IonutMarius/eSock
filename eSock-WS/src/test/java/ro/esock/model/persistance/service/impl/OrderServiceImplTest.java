@@ -72,7 +72,6 @@ public class OrderServiceImplTest {
 	public void saveAndFindOrderTest() {
 		Order entity = TestUtils.createOrder();
 		OrderDTO expectedOrder = orderConverter.toDto(entity);
-		expectedOrder.setUser(user);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		expectedOrder.getPurchases().get(0).setProduct(product1);
@@ -91,7 +90,6 @@ public class OrderServiceImplTest {
 	public void saveAndDeleteOrderTest() {
 		Order entity = TestUtils.createOrder();
 		OrderDTO order = orderConverter.toDto(entity);
-		order.setUser(user);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		order.getPurchases().get(0).setProduct(product1);
@@ -112,7 +110,6 @@ public class OrderServiceImplTest {
 	public void updateAndFindOrderTest() {
 		Order entity = TestUtils.createOrder();
 		OrderDTO expectedOrder = orderConverter.toDto(entity);
-		expectedOrder.setUser(user);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		expectedOrder.getPurchases().get(0).setProduct(product1);

@@ -1,7 +1,5 @@
 package ro.esock.ws.util;
 
-import java.util.ArrayList;
-
 import ro.esock.model.dto.AddressDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.dto.UserProfileDTO;
@@ -29,10 +27,8 @@ public class ConverterUtils {
 		userProfile.setSurname(userProfileXml.getSurname());
 		userProfile.setPhoneNumber(userProfileXml.getPhoneNumber());
 		userProfile.setEmailAddress(userProfileXml.getEmailAddress());
-		userProfile.setAddresses(new ArrayList<>());
 		for (AddressXml addressXml : userProfileXml.getAddresses()) {
 			AddressDTO address = convertAddressXmlToAddressDTO(addressXml);
-			address.setUserProfile(userProfile);
 			userProfile.getAddresses().add(address);
 		}
 

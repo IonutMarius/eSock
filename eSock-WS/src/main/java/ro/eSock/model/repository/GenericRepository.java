@@ -11,4 +11,5 @@ public interface GenericRepository<T, PK extends Serializable> {
 	void remove(T t);
 	Integer count();
 	List<T> findAll();
+	T findById(T entity);
 }

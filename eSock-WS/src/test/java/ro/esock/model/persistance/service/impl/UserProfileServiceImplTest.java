@@ -30,7 +30,7 @@ public class UserProfileServiceImplTest {
 	public void saveAndFindUserProfileTest(){
 		UserProfile entity = TestUtils.createUserProfile("_1");
 		UserProfileDTO expectedUserProfile = userProfileConverter.toDto(entity);
-		userProfileService.create(expectedUserProfile);	
+		expectedUserProfile = userProfileService.create(expectedUserProfile);	
 		UserProfileDTO actualUserProfile = userProfileService.findById(expectedUserProfile.getUserProfileId());
 		
 		Assert.assertEquals(expectedUserProfile, actualUserProfile);
@@ -52,8 +52,8 @@ public class UserProfileServiceImplTest {
 		UserProfileDTO expectedUserProfile = userProfileService.create(userProfileConverter.toDto(entity));
 		expectedUserProfile.setName("n_0");
 		userProfileService.update(expectedUserProfile);
-		UserProfileDTO actualUser = userProfileService.findById(expectedUserProfile.getUserProfileId());
+		UserProfileDTO actualUserProfile = userProfileService.findById(expectedUserProfile.getUserProfileId());
 
-		Assert.assertEquals(expectedUserProfile, actualUser);
+		Assert.assertEquals(expectedUserProfile, actualUserProfile);
 	}
 }

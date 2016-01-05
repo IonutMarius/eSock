@@ -32,7 +32,7 @@ public class ProductServiceImplTest {
 	public void saveAndFindProductTest() {
 		Product entity = TestUtils.createProduct(sufix);
 		ProductDTO expectedProduct = productConverter.toDto(entity);
-		productService.create(expectedProduct);
+		expectedProduct = productService.create(expectedProduct);
 		ProductDTO product = productService.findById(expectedProduct.getProductId());
 
 		Assert.assertEquals(expectedProduct, product);

@@ -12,8 +12,7 @@ import javax.persistence.criteria.Root;
 
 import ro.esock.model.repository.GenericRepository;
 
-public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable>
-		implements GenericRepository<T, PK> {
+public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable> implements GenericRepository<T, PK> {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
@@ -31,14 +30,14 @@ public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable>
 		T entity = entityManager.find(entityClass, id);
 		return entity;
 	}
-	
+
 	@Override
 	public List<T> findAll() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = criteriaBuilder.createQuery(entityClass);
 		Root<T> root = query.from(entityClass);
 		query.select(root);
-		
+
 		return entityManager.createQuery(query).getResultList();
 	}
 
@@ -47,24 +46,27 @@ public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable>
 		entityManager.persist(t);
 		return t;
 	}
-	
+
 	@Override
 	public T update(T t) {
-		return entityManager.merge(t);		
+		return entityManager.merge(t);
 	}
 
 	@Override
 	public void remove(T t) {
+		if (!entityManager.contains(t)) {
+			t = this.findById(t);
+		}
 		entityManager.remove(t);
 	}
-	
+
 	@Override
 	public Integer count() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Integer> query = criteriaBuilder.createQuery(Integer.class);
 		Root<T> root = query.from(entityClass);
 		query.multiselect(criteriaBuilder.count(root));
-		
+
 		return entityManager.createQuery(query).getSingleResult();
 	}
 }

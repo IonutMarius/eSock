@@ -26,7 +26,7 @@ import ro.esock.model.repository.UserRepository;
 @ContextConfiguration(classes = { JpaHibernateTestConfig.class })
 @Transactional
 public class PurchaseRepositoryJpaImplTest {
-	
+
 	@Autowired
 	private OrderRepository orderRepository;
 
@@ -35,7 +35,7 @@ public class PurchaseRepositoryJpaImplTest {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private PurchaseRepository purchaseRepository;
 
@@ -48,12 +48,11 @@ public class PurchaseRepositoryJpaImplTest {
 	public void addEntities() {
 		String sufix = "_1";
 		user = userRepository.create(TestUtils.createUser(sufix));
-		
+
 		order = TestUtils.createOrder();
-		order.setUser(user);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 		order = orderRepository.create(order);
-		
+
 		product = productRepository.create(TestUtils.createProduct(sufix));
 	}
 
@@ -70,7 +69,6 @@ public class PurchaseRepositoryJpaImplTest {
 		Purchase expectedPurchase = TestUtils.createPurchase();
 		expectedPurchase.setUser(user);
 		expectedPurchase.setProduct(product);
-		expectedPurchase.setOrder(order);
 		purchaseRepository.create(expectedPurchase);
 		Purchase actualPurchase = purchaseRepository.findById(expectedPurchase.getPurchaseId());
 
@@ -82,7 +80,6 @@ public class PurchaseRepositoryJpaImplTest {
 		Purchase purchase = TestUtils.createPurchase();
 		purchase.setUser(user);
 		purchase.setProduct(product);
-		purchase.setOrder(order);
 		purchase = purchaseRepository.create(purchase);
 		purchaseRepository.remove(purchase);
 		purchase = purchaseRepository.findById(purchase.getPurchaseId());
@@ -96,12 +93,11 @@ public class PurchaseRepositoryJpaImplTest {
 		Purchase expectedPurchase = TestUtils.createPurchase();
 		expectedPurchase.setUser(user);
 		expectedPurchase.setProduct(product);
-		expectedPurchase.setOrder(order);
 		expectedPurchase = purchaseRepository.create(expectedPurchase);
-		
+
 		Product product2 = productRepository.create(TestUtils.createProduct("_2"));
 		expectedPurchase.setProduct(product2);
-		
+
 		purchaseRepository.update(expectedPurchase);
 		Purchase actualPurchase = purchaseRepository.findById(expectedPurchase.getPurchaseId());
 

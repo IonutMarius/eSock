@@ -26,7 +26,7 @@ public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> 
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<User> query = criteriaBuilder.createQuery(entityClass);
 		Root<User> user = query.from(entityClass);
-		query.where(criteriaBuilder.equal(user.get("username"), username));
+		query.select(user).where(criteriaBuilder.equal(user.get("username"), username));
 		
 		User foundUser = null;
 		try {
@@ -47,16 +47,21 @@ public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> 
 		predicates.add(criteriaBuilder.equal(user.get("username"), username));
 		predicates.add(criteriaBuilder.equal(user.get("password"), password));
 		
-		query.where(predicates.toArray(new Predicate[]{}));
+		query.select(user);
 		
 		User foundUser = null;
 		try {
-			foundUser = entityManager.createQuery(query).getSingleResult();
+			foundUser = entityManager.createQuery(query).getResultList().get(0);
 		} catch (NoResultException e) {
 			logger.error("No user was found", e);;
 		}
 		
 		return foundUser;
+	}
+
+	@Override
+	public User findById(User entity) {
+		return this.findById(entity.getUserId());
 	}
 
 }

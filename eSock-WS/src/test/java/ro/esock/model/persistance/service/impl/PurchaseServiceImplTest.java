@@ -62,7 +62,6 @@ public class PurchaseServiceImplTest {
 		user = userService.create(userConverter.toDto(TestUtils.createUser(sufix)));
 		
 		order = orderConverter.toDto(TestUtils.createOrder());
-		order.setUser(user);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 		order = orderService.create(order);
 		
@@ -83,8 +82,7 @@ public class PurchaseServiceImplTest {
 		PurchaseDTO expectedPurchase = purchaseConverter.toDto(entity);
 		expectedPurchase.setUser(user);
 		expectedPurchase.setProduct(product);
-		expectedPurchase.setOrder(order);
-		purchaseService.create(expectedPurchase);
+		expectedPurchase = purchaseService.create(expectedPurchase);
 		PurchaseDTO actualPurchase = purchaseService.findById(expectedPurchase.getPurchaseId());
 
 		Assert.assertEquals(expectedPurchase, actualPurchase);
@@ -96,7 +94,6 @@ public class PurchaseServiceImplTest {
 		PurchaseDTO purchase = purchaseConverter.toDto(entity);
 		purchase.setUser(user);
 		purchase.setProduct(product);
-		purchase.setOrder(order);
 		purchase = purchaseService.create(purchase);
 		purchaseService.remove(purchase);
 		purchase = purchaseService.findById(purchase.getPurchaseId());
@@ -111,7 +108,6 @@ public class PurchaseServiceImplTest {
 		PurchaseDTO expectedPurchase = purchaseConverter.toDto(entity);
 		expectedPurchase.setUser(user);
 		expectedPurchase.setProduct(product);
-		expectedPurchase.setOrder(order);
 		expectedPurchase = purchaseService.create(expectedPurchase);
 		
 		Product entity2 = TestUtils.createProduct("_2");

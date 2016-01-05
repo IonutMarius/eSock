@@ -10,14 +10,32 @@ public class AddressConverter extends GenericEntityConverter<AddressDTO, Address
 
 	@Override
 	public AddressDTO toDto(Address entity) {
-		// TODO Auto-generated method stub
-		return null;
+		AddressDTO dto = null;
+		if (entity != null) {
+			dto = new AddressDTO();
+			dto.setAddressId(entity.getAddressId());
+			dto.setAddressLine1(entity.getAddressLine1());
+			dto.setAddressLine2(entity.getAddressLine2());
+			dto.setAddressName(entity.getAddressName());
+			dto.setCity(entity.getCity());
+			dto.setPostcode(entity.getPostcode());
+		}
+		return dto;
 	}
 
 	@Override
 	public Address toEntity(AddressDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		Address entity = null;
+		if (dto != null) {
+			entity = new Address();
+			entity.setAddressId(dto.getAddressId());
+			entity.setAddressLine1(dto.getAddressLine1());
+			entity.setAddressLine2(dto.getAddressLine2());
+			entity.setAddressName(dto.getAddressName());
+			entity.setCity(dto.getCity());
+			entity.setPostcode(dto.getPostcode());
+		}
+		return entity;
 	}
 
 }

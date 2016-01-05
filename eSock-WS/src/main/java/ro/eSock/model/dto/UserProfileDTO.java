@@ -1,5 +1,6 @@
 package ro.esock.model.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserProfileDTO {
@@ -8,7 +9,7 @@ public class UserProfileDTO {
 	private String surname;
 	private String phoneNumber;
 	private String emailAddress;
-	private List<AddressDTO> addresses;
+	private List<AddressDTO> addresses = new ArrayList<>();
 
 	public Long getUserProfileId() {
 		return userProfileId;

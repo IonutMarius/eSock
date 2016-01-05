@@ -4,7 +4,6 @@ public class PurchaseDTO {
 	private Long purchaseId;
 	private UserDTO user;
 	private ProductDTO product;
-	private OrderDTO order;
 	private Integer quantity;
 
 	public Long getPurchaseId() {
@@ -31,14 +30,6 @@ public class PurchaseDTO {
 		this.product = product;
 	}
 
-	public OrderDTO getOrder() {
-		return order;
-	}
-
-	public void setOrder(OrderDTO order) {
-		this.order = order;
-	}
-
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -51,7 +42,6 @@ public class PurchaseDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((order == null) ? 0 : order.hashCode());
 		result = prime * result + ((product == null) ? 0 : product.hashCode());
 		result = prime * result + ((purchaseId == null) ? 0 : purchaseId.hashCode());
 		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
@@ -68,11 +58,6 @@ public class PurchaseDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		PurchaseDTO other = (PurchaseDTO) obj;
-		if (order == null) {
-			if (other.order != null)
-				return false;
-		} else if (!order.equals(other.order))
-			return false;
 		if (product == null) {
 			if (other.product != null)
 				return false;

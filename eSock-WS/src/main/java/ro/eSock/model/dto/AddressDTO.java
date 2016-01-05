@@ -2,20 +2,11 @@ package ro.esock.model.dto;
 
 public class AddressDTO {
 	private Long addressId;
-	private UserProfileDTO userProfile;
 	private String addressName;
 	private String city;
 	private String postcode;
 	private String addressLine1;
 	private String addressLine2;
-
-	public UserProfileDTO getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfileDTO userProfile) {
-		this.userProfile = userProfile;
-	}
 
 	public String getAddressName() {
 		return addressName;
@@ -75,7 +66,6 @@ public class AddressDTO {
 		result = prime * result + ((addressName == null) ? 0 : addressName.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
-		result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
 		return result;
 	}
 
@@ -117,11 +107,6 @@ public class AddressDTO {
 			if (other.postcode != null)
 				return false;
 		} else if (!postcode.equals(other.postcode))
-			return false;
-		if (userProfile == null) {
-			if (other.userProfile != null)
-				return false;
-		} else if (!userProfile.equals(other.userProfile))
 			return false;
 		return true;
 	}

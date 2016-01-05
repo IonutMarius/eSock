@@ -14,33 +14,33 @@ import ro.esock.model.persistance.config.JpaHibernateTestConfig;
 import ro.esock.model.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JpaHibernateTestConfig.class})
+@ContextConfiguration(classes = { JpaHibernateTestConfig.class })
 @Transactional
-public class UserRepositoryJpaImplTest{
+public class UserRepositoryJpaImplTest {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Test
-	public void saveAndFindUserTest(){
+	public void saveAndFindUserTest() {
 		User expectedUser = TestUtils.createUser("_1");
-		userRepository.create(expectedUser);	
+		userRepository.create(expectedUser);
 		User actualUser = userRepository.findById(expectedUser.getUserId());
-		
+
 		Assert.assertEquals(expectedUser, actualUser);
 	}
-	
+
 	@Test
-	public void saveAndDeleteUserTest(){
+	public void saveAndDeleteUserTest() {
 		User user = userRepository.create(TestUtils.createUser("_1"));
 		userRepository.remove(user);
 		user = userRepository.findById(user.getUserId());
-		
+
 		Assert.assertEquals(null, user);
 	}
-	
+
 	@Test
-	public void updateAndFindUserTest(){
+	public void updateAndFindUserTest() {
 		User expectedUser = userRepository.create(TestUtils.createUser("_1"));
 		expectedUser.setUsername("u_0");
 		userRepository.update(expectedUser);
@@ -48,38 +48,40 @@ public class UserRepositoryJpaImplTest{
 
 		Assert.assertEquals(expectedUser, actualUser);
 	}
-	
+
 	@Test
-	public void saveAndFindUserByUsernameTest(){
+	public void saveAndFindUserByUsernameTest() {
 		User expectedUser = TestUtils.createUser("_1");
-		userRepository.create(expectedUser);	
+		userRepository.create(expectedUser);
 		User actualUser = userRepository.findByUsername(expectedUser.getUsername());
-		
+
 		Assert.assertEquals(expectedUser, actualUser);
 	}
-	
+
 	@Test
-	public void findUserByUsernameFailTest(){
+	public void findUserByUsernameFailTest() {
 		User expectedUser = TestUtils.createUser("_1");
 		User actualUser = userRepository.findByUsername(expectedUser.getUsername());
-		
+
 		Assert.assertEquals(null, actualUser);
 	}
-	
+
 	@Test
-	public void saveAndFindUserByUsernameAndPasswordTest(){
+	public void saveAndFindUserByUsernameAndPasswordTest() {
 		User expectedUser = TestUtils.createUser("_1");
-		userRepository.create(expectedUser);	
-		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
-		
+		userRepository.create(expectedUser);
+		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(),
+				expectedUser.getPassword());
+
 		Assert.assertEquals(expectedUser, actualUser);
 	}
-	
+
 	@Test
-	public void findUserByUsernameAndPasswordFailTest(){
+	public void findUserByUsernameAndPasswordFailTest() {
 		User expectedUser = TestUtils.createUser("_1");
-		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
-		
+		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(),
+				expectedUser.getPassword());
+
 		Assert.assertEquals(null, actualUser);
 	}
 }

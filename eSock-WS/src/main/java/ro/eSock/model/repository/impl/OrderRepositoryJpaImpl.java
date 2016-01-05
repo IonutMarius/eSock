@@ -8,4 +8,9 @@ import ro.esock.model.repository.OrderRepository;
 @Repository
 public class OrderRepositoryJpaImpl extends GenericRepositoryJpaImpl<Order, Long> implements OrderRepository{
 
+	@Override
+	public Order findById(Order entity) {
+		return findById(entity.getOrderId());
+	}
+
 }

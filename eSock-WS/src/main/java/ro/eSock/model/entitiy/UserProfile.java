@@ -1,24 +1,24 @@
 package ro.esock.model.entitiy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "user_profile")
 public class UserProfile {
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_profile_id")
 	private Long userProfileId;
 
@@ -34,8 +34,9 @@ public class UserProfile {
 	@Column(name = "email_address")
 	private String emailAddress;
 
-	@OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
-	private List<Address> addresses;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
+	private List<Address> addresses = new ArrayList<>();
 
 	public Long getUserProfileId() {
 		return userProfileId;

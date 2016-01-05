@@ -1,36 +1,35 @@
 package ro.esock.model.entitiy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "user")
 public class User {
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Long userId;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_profile_id")
+	@JoinColumn(name = "user_profile_id", nullable = false)
 	private UserProfile userProfile;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Order> orders;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "order_user_fk", nullable = false)
+	private List<Order> orders = new ArrayList<>();
 
 	@Column(name = "username")
 	private String username;
@@ -44,6 +43,14 @@ public class User {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public UserProfile getUserProfile() {

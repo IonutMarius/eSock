@@ -10,25 +10,31 @@ public class ProductConverter extends GenericEntityConverter<ProductDTO, Product
 
 	@Override
 	public ProductDTO toDto(Product entity) {
-		ProductDTO productDto = new ProductDTO();
-		productDto.setDescription(entity.getDescription());
-		productDto.setName(entity.getName());
-		productDto.setPrice(entity.getPrice());
-		productDto.setProductId(entity.getProductId());
-		productDto.setStock(entity.getStock());
-		
+		ProductDTO productDto = null;
+		if (entity != null) {
+			productDto = new ProductDTO();
+			productDto.setDescription(entity.getDescription());
+			productDto.setName(entity.getName());
+			productDto.setPrice(entity.getPrice());
+			productDto.setProductId(entity.getProductId());
+			productDto.setStock(entity.getStock());
+		}
+
 		return productDto;
 	}
 
 	@Override
 	public Product toEntity(ProductDTO dto) {
-		Product product = new Product();
-		product.setDescription(dto.getDescription());
-		product.setName(dto.getName());
-		product.setPrice(dto.getPrice());
-		product.setProductId(dto.getProductId());
-		product.setStock(dto.getStock());
-		
+		Product product = null;
+		if (dto != null) {
+			product = new Product();
+			product.setDescription(dto.getDescription());
+			product.setName(dto.getName());
+			product.setPrice(dto.getPrice());
+			product.setProductId(dto.getProductId());
+			product.setStock(dto.getStock());
+		}
+
 		return product;
 	}
 
