@@ -2,6 +2,7 @@ package ro.esock.model.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ro.esock.model.converter.UserConverter;
 import ro.esock.model.dto.UserDTO;
@@ -29,12 +30,14 @@ public class UserServiceImpl extends GenericServiceImpl<UserDTO, User, Long> imp
 	}
 
 	@Override
+	@Transactional
 	public UserDTO findByUsername(String username) {
 		User user = userRepository.findByUsername(username);
 		return userConverter.toDto(user);
 	}
 
 	@Override
+	@Transactional
 	public UserDTO findByUsernameAndPassword(String username, String password) {
 		User user = userRepository.findByUsernameAndPassword(username, password);
 		return userConverter.toDto(user);
