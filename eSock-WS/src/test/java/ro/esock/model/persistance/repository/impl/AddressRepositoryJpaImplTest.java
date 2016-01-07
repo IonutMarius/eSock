@@ -17,30 +17,39 @@ import ro.esock.model.repository.AddressRepository;
 @ContextConfiguration(classes = {JpaHibernateTestConfig.class})
 @Transactional
 public class AddressRepositoryJpaImplTest {
+	
 	@Autowired
 	private AddressRepository addressRepository;
 	
+	private static final Long DEFAULT_ID = new Long(0);
+	
 	@Test
-	public void saveAndFindAddressTest(){
-		Address expectedAddress = TestUtils.createAddressWithNoRelation("_1");
-		addressRepository.create(expectedAddress);	
-		Address actualAddress = addressRepository.findById(expectedAddress.getAddressId());
+	public void createAddressTest(){
+		Address address = TestUtils.createAddress("_1");
+		address = addressRepository.create(address);
 		
-		Assert.assertEquals(expectedAddress, actualAddress);
+		Assert.assertNotNull(address);
 	}
 	
 	@Test
-	public void saveAndDeleteAddressTest(){
-		Address address = addressRepository.create(TestUtils.createAddressWithNoRelation("_1"));
+	public void findAddressTest(){	
+		Address address = addressRepository.findById(DEFAULT_ID);
+		
+		Assert.assertNotNull(address);
+	}
+	
+	@Test
+	public void deleteAddressTest(){
+		Address address = addressRepository.findById(DEFAULT_ID);
 		addressRepository.remove(address);
 		address = addressRepository.findById(address.getAddressId());
 		
-		Assert.assertEquals(null, address);
+		Assert.assertNull(address);
 	}
 	
 	@Test
-	public void updateAndFindAddressTest(){
-		Address expectedAddress = addressRepository.create(TestUtils.createAddressWithNoRelation("_1"));
+	public void updateAddressTest(){
+		Address expectedAddress = addressRepository.findById(DEFAULT_ID);
 		expectedAddress.setAddressName("addr_0");
 		addressRepository.update(expectedAddress);
 		Address actualAddress = addressRepository.findById(expectedAddress.getAddressId());

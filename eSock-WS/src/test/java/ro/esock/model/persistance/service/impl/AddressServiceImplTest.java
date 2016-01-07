@@ -25,30 +25,37 @@ public class AddressServiceImplTest {
 	@Autowired
 	private AddressConverter addressConverter;
 	
+	
+	private static final Long DEFAULT_ID = new Long(0);
+	
 	@Test
-	public void saveAndFindAddressTest(){
-		Address address = TestUtils.createAddressWithNoRelation("_1");
-		AddressDTO expectedAddress = addressConverter.toDto(address);
-		addressService.create(expectedAddress);	
-		AddressDTO actualAddress = addressService.findById(expectedAddress.getAddressId());
+	public void createAddressTest(){
+		Address entity = TestUtils.createAddress("_1");
+		AddressDTO address = addressConverter.toDto(entity);
+		address = addressService.create(address);
 		
-		Assert.assertEquals(expectedAddress, actualAddress);
+		Assert.assertNotNull(address);
 	}
 	
 	@Test
-	public void saveAndDeleteAddressTest(){
-		Address entity = TestUtils.createAddressWithNoRelation("_1");
-		AddressDTO address = addressService.create(addressConverter.toDto(entity));
+	public void findAddressTest(){	
+		AddressDTO address = addressService.findById(DEFAULT_ID);
+		
+		Assert.assertNotNull(address);
+	}
+	
+	@Test
+	public void deleteAddressTest(){
+		AddressDTO address = addressService.findById(DEFAULT_ID);
 		addressService.remove(address);
 		address = addressService.findById(address.getAddressId());
 		
-		Assert.assertEquals(null, address);
+		Assert.assertNull(address);
 	}
 	
 	@Test
-	public void updateAndFindAddressTest(){
-		Address address = TestUtils.createAddressWithNoRelation("_1");
-		AddressDTO expectedAddress = addressConverter.toDto(address);
+	public void updateAddressTest(){
+		AddressDTO expectedAddress = addressService.findById(DEFAULT_ID);
 		expectedAddress.setAddressName("addr_0");
 		addressService.update(expectedAddress);
 		AddressDTO actualAddress = addressService.findById(expectedAddress.getAddressId());
