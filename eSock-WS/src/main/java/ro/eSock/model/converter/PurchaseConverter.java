@@ -12,9 +12,6 @@ public class PurchaseConverter extends GenericEntityConverter<PurchaseDTO, Purch
 	@Autowired
 	private ProductConverter productConverter;
 	
-	@Autowired
-	private UserConverter userConverter;
-	
 	@Override
 	public PurchaseDTO toDto(Purchase entity) {
 		PurchaseDTO dto = null;
@@ -23,7 +20,6 @@ public class PurchaseConverter extends GenericEntityConverter<PurchaseDTO, Purch
 			dto.setProduct(productConverter.toDto(entity.getProduct()));
 			dto.setPurchaseId(entity.getPurchaseId());
 			dto.setQuantity(entity.getQuantity());
-			dto.setUser(userConverter.toDto(entity.getUser()));
 		}
 		
 		return dto;
@@ -37,7 +33,6 @@ public class PurchaseConverter extends GenericEntityConverter<PurchaseDTO, Purch
 			entity.setProduct(productConverter.toEntity(dto.getProduct()));
 			entity.setPurchaseId(dto.getPurchaseId());
 			entity.setQuantity(dto.getQuantity());
-			entity.setUser(userConverter.toEntity(dto.getUser()));
 		}
 		
 		return entity;

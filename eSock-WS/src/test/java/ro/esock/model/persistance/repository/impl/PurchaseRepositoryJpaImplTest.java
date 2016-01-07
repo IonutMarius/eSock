@@ -1,26 +1,17 @@
 package ro.esock.model.persistance.repository.impl;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.esock.model.entitiy.Order;
-import ro.esock.model.entitiy.Product;
 import ro.esock.model.entitiy.Purchase;
-import ro.esock.model.entitiy.User;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
 import ro.esock.model.persistance.util.TestUtils;
-import ro.esock.model.repository.OrderRepository;
-import ro.esock.model.repository.ProductRepository;
 import ro.esock.model.repository.PurchaseRepository;
-import ro.esock.model.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { JpaHibernateTestConfig.class })
@@ -28,79 +19,41 @@ import ro.esock.model.repository.UserRepository;
 public class PurchaseRepositoryJpaImplTest {
 
 	@Autowired
-	private OrderRepository orderRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private ProductRepository productRepository;
-
-	@Autowired
 	private PurchaseRepository purchaseRepository;
 
-	private User user;
-	private Order order;
-	private Product product;
-
-	private String sufix = "_1";
-
-	@Before
-	@Rollback(false)
-	public void addEntities() {
-		user = userRepository.create(TestUtils.createUser(sufix));
-
-		order = TestUtils.createOrder(sufix);
-		order.setAddress(user.getUserProfile().getAddresses().get(0));
-		order = orderRepository.create(order);
-
-		product = productRepository.create(TestUtils.createProduct(sufix));
-	}
-
-	@After
-	@Rollback(false)
-	public void removeEntities() {
-		orderRepository.remove(order);
-		userRepository.remove(user);
-		productRepository.remove(product);
-	}
+	private static final Long DEFAULT_ID = new Long(0);
 
 	@Test
-	public void saveAndFindPurchaseTest() {
-		Purchase expectedPurchase = TestUtils.createPurchase();
-		expectedPurchase.setUser(user);
-		expectedPurchase.setProduct(product);
-		purchaseRepository.create(expectedPurchase);
-		Purchase actualPurchase = purchaseRepository.findById(expectedPurchase.getPurchaseId());
-
-		Assert.assertEquals(expectedPurchase, actualPurchase);
-	}
-
-	@Test
-	public void saveAndDeletePurchaseTest() {
-		Purchase purchase = TestUtils.createPurchase();
-		purchase.setUser(user);
-		purchase.setProduct(product);
+	public void createPurchase(){
+		Purchase purchase = TestUtils.createPurchase("_1");
 		purchase = purchaseRepository.create(purchase);
-		purchaseRepository.remove(purchase);
-		purchase = purchaseRepository.findById(purchase.getPurchaseId());
+		
+		Assert.assertNotNull(purchase);
+	}
+	
+	@Test
+	public void findPurchaseTest() {
+		Purchase purchase = purchaseRepository.findById(DEFAULT_ID);
 
-		Assert.assertEquals(null, purchase);
+		Assert.assertNotNull(purchase);
+	}
+
+	@Test
+	public void deletePurchaseTest() {
+		Purchase purchase = purchaseRepository.findById(DEFAULT_ID);
+		purchaseRepository.remove(purchase);
+		purchase = purchaseRepository.findById(DEFAULT_ID);
+
+		Assert.assertNull(purchase);
 
 	}
 
 	@Test
-	public void updateAndFindPurchaseTest() {
-		Purchase expectedPurchase = TestUtils.createPurchase();
-		expectedPurchase.setUser(user);
-		expectedPurchase.setProduct(product);
-		expectedPurchase = purchaseRepository.create(expectedPurchase);
-
-		Product product2 = productRepository.create(TestUtils.createProduct("_2"));
-		expectedPurchase.setProduct(product2);
-
+	public void updatePurchaseTest() {
+		Purchase expectedPurchase = purchaseRepository.findById(DEFAULT_ID);
+		expectedPurchase.setQuantity(22);
 		purchaseRepository.update(expectedPurchase);
-		Purchase actualPurchase = purchaseRepository.findById(expectedPurchase.getPurchaseId());
+		Purchase actualPurchase = purchaseRepository.findById(DEFAULT_ID);
 
 		Assert.assertEquals(expectedPurchase, actualPurchase);
 

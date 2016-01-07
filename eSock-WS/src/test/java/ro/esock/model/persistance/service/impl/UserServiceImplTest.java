@@ -26,72 +26,70 @@ public class UserServiceImplTest {
 	@Autowired
 	private UserConverter userConverter;
 	
+	private static final Long DEFAULT_ID = new Long(0);
+	private static final String DEFAULT_USERNAME = "user0";
+	private static final String Default_PASSWORD = "pass0";
+
 	@Test
-	public void saveAndFindUserTest(){
-		User entity = TestUtils.createUser("1");
-		UserDTO expectedUser = userConverter.toDto(entity);
-		userService.create(expectedUser);	
-		UserDTO actualUser = userService.findById(expectedUser.getUserId());
-		
-		Assert.assertEquals(expectedUser, actualUser);
-	}
-	
-	@Test
-	public void saveAndDeleteUserTest(){
-		User entity = TestUtils.createUser("1");
+	public void createUser() {
+		User entity = TestUtils.createUser("_1");
 		UserDTO user = userConverter.toDto(entity);
-		userService.remove(user);
-		user = userService.findById(user.getUserId());
-		
-		Assert.assertEquals(null, user);
+		user = userService.create(user);
+
+		Assert.assertNotNull(user);
 	}
-	
+
 	@Test
-	public void updateAndFindUserTest(){
-		User entity = TestUtils.createUser("1");
-		UserDTO expectedUser = userConverter.toDto(entity);
-		expectedUser.setUsername("u0");
+	public void findUserTest() {
+		UserDTO user = userService.findById(DEFAULT_ID);
+
+		Assert.assertNotNull(user);
+	}
+
+	@Test
+	public void deleteUserTest() {
+		UserDTO user = userService.findById(DEFAULT_ID);
+		userService.remove(user);
+		user = userService.findById(DEFAULT_ID);
+
+		Assert.assertNull(user);
+	}
+
+	@Test
+	public void updateUserTest() {
+		UserDTO expectedUser = userService.findById(DEFAULT_ID);
+		expectedUser.setUsername("u_0");
 		userService.update(expectedUser);
 		UserDTO actualUser = userService.findById(expectedUser.getUserId());
 
 		Assert.assertEquals(expectedUser, actualUser);
 	}
-	
+
 	@Test
-	public void saveAndFindUserByUsernameTest(){
-		User entity = TestUtils.createUser("1");
-		UserDTO expectedUser = userConverter.toDto(entity);
-		userService.create(expectedUser);	
-		UserDTO actualUser = userService.findByUsername(expectedUser.getUsername());
-		
-		Assert.assertEquals(expectedUser, actualUser);
+	public void findUserByUsernameTest() {
+		UserDTO user = userService.findByUsername(DEFAULT_USERNAME);
+
+		Assert.assertNotNull(user);
 	}
-	
+
 	@Test
-	public void findUserByUsernameFailTest(){
-		User entity = TestUtils.createUser("1");
-		UserDTO expectedUser = userConverter.toDto(entity);
-		UserDTO actualUser = userService.findByUsername(expectedUser.getUsername());
-		
-		Assert.assertEquals(null, actualUser);
+	public void findUserByUsernameFailTest() {
+		UserDTO user = userService.findByUsername(DEFAULT_USERNAME + "_0");
+
+		Assert.assertNull(user);
 	}
-	
+
 	@Test
-	public void saveAndFindUserByUsernameAndPasswordTest(){
-		User entity = TestUtils.createUser("1");
-		UserDTO expectedUser = userConverter.toDto(entity);
-		userService.create(expectedUser);	
-		UserDTO actualUser = userService.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
-		
-		Assert.assertEquals(expectedUser, actualUser);
+	public void saveAndFindUserByUsernameAndPasswordTest() {
+		UserDTO user = userService.findByUsernameAndPassword(DEFAULT_USERNAME, Default_PASSWORD);
+
+		Assert.assertNotNull(user);
 	}
-	
+
 	@Test
-	public void findUserByUsernameAndPasswordFailTest(){
-		User entity = TestUtils.createUser("1");
-		UserDTO expectedUser = userConverter.toDto(entity);
-		UserDTO actualUser = userService.findByUsernameAndPassword(expectedUser.getUsername(), expectedUser.getPassword());
-		
-		Assert.assertEquals(null, actualUser);
+	public void findUserByUsernameAndPasswordFailTest() {
+		UserDTO user = userService.findByUsernameAndPassword(DEFAULT_USERNAME + "_0", Default_PASSWORD + "_0");
+
+		Assert.assertNotNull(user);
 	}
 }

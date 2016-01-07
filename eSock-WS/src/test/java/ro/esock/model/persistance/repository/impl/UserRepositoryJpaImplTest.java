@@ -21,27 +21,37 @@ public class UserRepositoryJpaImplTest {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Test
-	public void saveAndFindUserTest() {
-		User expectedUser = TestUtils.createUser("_1");
-		userRepository.create(expectedUser);
-		User actualUser = userRepository.findById(expectedUser.getUserId());
+	private static final Long DEFAULT_ID = new Long(0);
+	private static final String DEFAULT_USERNAME = "user0";
+	private static final String Default_PASSWORD = "pass0";
 
-		Assert.assertEquals(expectedUser, actualUser);
+	@Test
+	public void createUser() {
+		User user = TestUtils.createUser("_1");
+		user = userRepository.create(user);
+
+		Assert.assertNotNull(user);
 	}
 
 	@Test
-	public void saveAndDeleteUserTest() {
-		User user = userRepository.create(TestUtils.createUser("_1"));
+	public void findUserTest() {
+		User user = userRepository.findById(DEFAULT_ID);
+
+		Assert.assertNotNull(user);
+	}
+
+	@Test
+	public void deleteUserTest() {
+		User user = userRepository.findById(DEFAULT_ID);
 		userRepository.remove(user);
-		user = userRepository.findById(user.getUserId());
+		user = userRepository.findById(DEFAULT_ID);
 
-		Assert.assertEquals(null, user);
+		Assert.assertNull(user);
 	}
 
 	@Test
-	public void updateAndFindUserTest() {
-		User expectedUser = userRepository.create(TestUtils.createUser("_1"));
+	public void updateUserTest() {
+		User expectedUser = userRepository.findById(DEFAULT_ID);
 		expectedUser.setUsername("u_0");
 		userRepository.update(expectedUser);
 		User actualUser = userRepository.findById(expectedUser.getUserId());
@@ -50,38 +60,30 @@ public class UserRepositoryJpaImplTest {
 	}
 
 	@Test
-	public void saveAndFindUserByUsernameTest() {
-		User expectedUser = TestUtils.createUser("_1");
-		userRepository.create(expectedUser);
-		User actualUser = userRepository.findByUsername(expectedUser.getUsername());
+	public void findUserByUsernameTest() {
+		User user = userRepository.findByUsername(DEFAULT_USERNAME);
 
-		Assert.assertEquals(expectedUser, actualUser);
+		Assert.assertNotNull(user);
 	}
 
 	@Test
 	public void findUserByUsernameFailTest() {
-		User expectedUser = TestUtils.createUser("_1");
-		User actualUser = userRepository.findByUsername(expectedUser.getUsername());
+		User user = userRepository.findByUsername(DEFAULT_USERNAME + "_0");
 
-		Assert.assertEquals(null, actualUser);
+		Assert.assertNull(user);
 	}
 
 	@Test
 	public void saveAndFindUserByUsernameAndPasswordTest() {
-		User expectedUser = TestUtils.createUser("_1");
-		userRepository.create(expectedUser);
-		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(),
-				expectedUser.getPassword());
+		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME, Default_PASSWORD);
 
-		Assert.assertEquals(expectedUser, actualUser);
+		Assert.assertNotNull(user);
 	}
 
 	@Test
 	public void findUserByUsernameAndPasswordFailTest() {
-		User expectedUser = TestUtils.createUser("_1");
-		User actualUser = userRepository.findByUsernameAndPassword(expectedUser.getUsername(),
-				expectedUser.getPassword());
+		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME + "_0", Default_PASSWORD + "_0");
 
-		Assert.assertEquals(null, actualUser);
+		Assert.assertNotNull(user);
 	}
 }

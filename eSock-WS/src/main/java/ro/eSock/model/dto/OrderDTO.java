@@ -64,8 +64,12 @@ public class OrderDTO {
 		if (purchases == null) {
 			if (other.purchases != null)
 				return false;
-		} else if (!purchases.equals(other.purchases))
-			return false;
+		} else{
+			for(int i = 0; i < purchases.size(); i++){
+				if (!purchases.get(i).getPurchaseId().equals(other.purchases.get(i).getPurchaseId()))
+					return false;
+			}
+		}
 		return true;
 	}
 

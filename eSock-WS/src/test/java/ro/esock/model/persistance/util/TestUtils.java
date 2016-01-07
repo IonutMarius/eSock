@@ -111,8 +111,8 @@ public class TestUtils {
 	public static Order createOrder(String sufix) {
 		Order order = new Order();
 
-		Purchase purchase1 = createPurchase();
-		Purchase purchase2 = createPurchase();
+		Purchase purchase1 = createPurchaseWithNoRelation();
+		Purchase purchase2 = createPurchaseWithNoRelation();
 		order.getPurchases().add(purchase1);
 		order.getPurchases().add(purchase2);
 
@@ -132,19 +132,18 @@ public class TestUtils {
 	public static Order createOrderWithoutUserAndAddress() {
 		Order order = new Order();
 
-		Purchase purchase1 = createPurchase();
-		Purchase purchase2 = createPurchase();
+		Purchase purchase1 = createPurchaseWithNoRelation();
+		Purchase purchase2 = createPurchaseWithNoRelation();
 		order.getPurchases().add(purchase1);
 		order.getPurchases().add(purchase2);
 
 		return order;
 	}
 
-	public static Purchase createPurchase() {
-		Purchase purchase = new Purchase();
-		purchase.setQuantity(DEFAULT_QUANTITY);
+	public static Purchase createPurchase(String sufix) {
+		User user = createUser(sufix);
 
-		return purchase;
+		return user.getOrders().get(0).getPurchases().get(0);
 	}
 
 	public static Purchase createPurchaseWithNoRelation() {

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ro.esock.model.dto.OrderDTO;
+import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.Order;
+import ro.esock.model.entitiy.Purchase;
 import ro.esock.model.entitiy.User;
 
 @Component
@@ -22,7 +24,11 @@ public class UserConverter extends GenericEntityConverter<UserDTO, User> {
 		if(entity != null){
 			dto = new UserDTO();
 			for(Order order : entity.getOrders()){
-				dto.getOrders().add(orderConverter.toDto(order));
+				OrderDTO orderDto = orderConverter.toDto(order);
+				for(PurchaseDTO purchaseDto : orderDto.getPurchases()){
+					purchaseDto.setUser(dto);
+				}
+				dto.getOrders().add(orderDto);
 			}
 			dto.setPassword(entity.getPassword());
 			dto.setUserId(entity.getUserId());
@@ -39,7 +45,11 @@ public class UserConverter extends GenericEntityConverter<UserDTO, User> {
 		if(dto != null){
 			entity = new User();
 			for(OrderDTO order : dto.getOrders()){
-				entity.getOrders().add(orderConverter.toEntity(order));
+				Order orderEnt = orderConverter.toEntity(order);
+				for(Purchase purchase : orderEnt.getPurchases()){
+					purchase.setUser(entity);
+				}
+				entity.getOrders().add(orderEnt);
 			}
 			entity.setPassword(dto.getPassword());
 			entity.setUserId(dto.getUserId());
