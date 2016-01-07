@@ -21,8 +21,8 @@ import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.Product;
 import ro.esock.model.entitiy.Purchase;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.service.OrderService;
 import ro.esock.model.service.ProductService;
 import ro.esock.model.service.PurchaseService;
@@ -54,14 +54,15 @@ public class PurchaseServiceImplTest {
 	private UserDTO user;
 	private OrderDTO order;
 	private ProductDTO product;
+	
+	private	String sufix = "_1";
 
 	@Before
 	@Rollback(false)
 	public void addEntities() {
-		String sufix = "_1";
 		user = userService.create(userConverter.toDto(TestUtils.createUser(sufix)));
 		
-		order = orderConverter.toDto(TestUtils.createOrder());
+		order = orderConverter.toDto(TestUtils.createOrder(sufix));
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 		order = orderService.create(order);
 		

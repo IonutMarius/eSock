@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.esock.model.converter.AddressConverter;
 import ro.esock.model.dto.AddressDTO;
 import ro.esock.model.entitiy.Address;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.service.AddressService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,7 +27,7 @@ public class AddressServiceImplTest {
 	
 	@Test
 	public void saveAndFindAddressTest(){
-		Address address = TestUtils.createAddress("_1");
+		Address address = TestUtils.createAddressWithNoRelation("_1");
 		AddressDTO expectedAddress = addressConverter.toDto(address);
 		addressService.create(expectedAddress);	
 		AddressDTO actualAddress = addressService.findById(expectedAddress.getAddressId());
@@ -37,7 +37,7 @@ public class AddressServiceImplTest {
 	
 	@Test
 	public void saveAndDeleteAddressTest(){
-		Address entity = TestUtils.createAddress("_1");
+		Address entity = TestUtils.createAddressWithNoRelation("_1");
 		AddressDTO address = addressService.create(addressConverter.toDto(entity));
 		addressService.remove(address);
 		address = addressService.findById(address.getAddressId());
@@ -47,7 +47,7 @@ public class AddressServiceImplTest {
 	
 	@Test
 	public void updateAndFindAddressTest(){
-		Address address = TestUtils.createAddress("_1");
+		Address address = TestUtils.createAddressWithNoRelation("_1");
 		AddressDTO expectedAddress = addressConverter.toDto(address);
 		expectedAddress.setAddressName("addr_0");
 		addressService.update(expectedAddress);

@@ -9,8 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.esock.model.entitiy.Address;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.repository.AddressRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,7 +22,7 @@ public class AddressRepositoryJpaImplTest {
 	
 	@Test
 	public void saveAndFindAddressTest(){
-		Address expectedAddress = TestUtils.createAddress("_1");
+		Address expectedAddress = TestUtils.createAddressWithNoRelation("_1");
 		addressRepository.create(expectedAddress);	
 		Address actualAddress = addressRepository.findById(expectedAddress.getAddressId());
 		
@@ -31,7 +31,7 @@ public class AddressRepositoryJpaImplTest {
 	
 	@Test
 	public void saveAndDeleteAddressTest(){
-		Address address = addressRepository.create(TestUtils.createAddress("_1"));
+		Address address = addressRepository.create(TestUtils.createAddressWithNoRelation("_1"));
 		addressRepository.remove(address);
 		address = addressRepository.findById(address.getAddressId());
 		
@@ -40,7 +40,7 @@ public class AddressRepositoryJpaImplTest {
 	
 	@Test
 	public void updateAndFindAddressTest(){
-		Address expectedAddress = addressRepository.create(TestUtils.createAddress("_1"));
+		Address expectedAddress = addressRepository.create(TestUtils.createAddressWithNoRelation("_1"));
 		expectedAddress.setAddressName("addr_0");
 		addressRepository.update(expectedAddress);
 		Address actualAddress = addressRepository.findById(expectedAddress.getAddressId());

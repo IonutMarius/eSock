@@ -1,18 +1,23 @@
 package ro.esock.model.entitiy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "address")
 public class Address {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "address_id")
 	private Long addressId;
 
@@ -30,6 +35,10 @@ public class Address {
 
 	@Column(name = "address_line_2")
 	private String addressLine2;
+	
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "user_profile_id")
+	private UserProfile userProfile;
 
 	public Long getAddressId() {
 		return addressId;
@@ -37,6 +46,14 @@ public class Address {
 
 	public void setAddressId(Long addressId) {
 		this.addressId = addressId;
+	}
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	public String getAddressName() {

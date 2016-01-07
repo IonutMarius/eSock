@@ -15,8 +15,8 @@ import ro.esock.model.entitiy.Order;
 import ro.esock.model.entitiy.Product;
 import ro.esock.model.entitiy.Purchase;
 import ro.esock.model.entitiy.User;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.repository.OrderRepository;
 import ro.esock.model.repository.ProductRepository;
 import ro.esock.model.repository.PurchaseRepository;
@@ -43,13 +43,14 @@ public class PurchaseRepositoryJpaImplTest {
 	private Order order;
 	private Product product;
 
+	private String sufix = "_1";
+
 	@Before
 	@Rollback(false)
 	public void addEntities() {
-		String sufix = "_1";
 		user = userRepository.create(TestUtils.createUser(sufix));
 
-		order = TestUtils.createOrder();
+		order = TestUtils.createOrder(sufix);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 		order = orderRepository.create(order);
 

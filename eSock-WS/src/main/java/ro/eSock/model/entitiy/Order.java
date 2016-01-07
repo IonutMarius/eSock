@@ -7,32 +7,46 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "`order`")
 public class Order {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "order_id")
 	private Long orderId;
 
 	@OneToOne
-	@JoinColumn(name = "address_id", nullable = false)
+	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "purchase_order_fk", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
 	private List<Purchase> purchases = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Long getOrderId() {
 		return orderId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setOrderId(Long orderId) {

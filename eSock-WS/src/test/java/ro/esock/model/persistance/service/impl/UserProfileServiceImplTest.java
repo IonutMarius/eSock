@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.esock.model.converter.UserProfileConverter;
 import ro.esock.model.dto.UserProfileDTO;
 import ro.esock.model.entitiy.UserProfile;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.service.UserProfileService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,30 +26,36 @@ public class UserProfileServiceImplTest {
 	@Autowired
 	private UserProfileConverter userProfileConverter;
 	
+	private static final Long DEFAULT_ID = new Long(0);
+	
 	@Test
-	public void saveAndFindUserProfileTest(){
+	public void createUserProfileTest(){
 		UserProfile entity = TestUtils.createUserProfile("_1");
-		UserProfileDTO expectedUserProfile = userProfileConverter.toDto(entity);
-		expectedUserProfile = userProfileService.create(expectedUserProfile);	
-		UserProfileDTO actualUserProfile = userProfileService.findById(expectedUserProfile.getUserProfileId());
+		UserProfileDTO userProfile = userProfileConverter.toDto(entity);
+		userProfile = userProfileService.create(userProfile);
 		
-		Assert.assertEquals(expectedUserProfile, actualUserProfile);
+		Assert.assertNotNull(userProfile);
 	}
 	
 	@Test
-	public void saveAndDeleteUserProfileTest(){
-		UserProfile entity = TestUtils.createUserProfile("_1");
-		UserProfileDTO userProfile = userProfileService.create(userProfileConverter.toDto(entity));
+	public void findUserProfileTest(){
+		UserProfileDTO userProfile = userProfileService.findById(DEFAULT_ID);
+		
+		Assert.assertNotNull(userProfile);
+	}
+	
+	@Test
+	public void deleteUserProfileTest(){
+		UserProfileDTO userProfile = userProfileService.findById(DEFAULT_ID);
 		userProfileService.remove(userProfile);
 		userProfile = userProfileService.findById(userProfile.getUserProfileId());
 		
-		Assert.assertEquals(null, userProfile);
+		Assert.assertNull(userProfile);
 	}
 	
 	@Test
-	public void updateAndFindUserProfileTest(){
-		UserProfile entity = TestUtils.createUserProfile("_1");
-		UserProfileDTO expectedUserProfile = userProfileService.create(userProfileConverter.toDto(entity));
+	public void updateUserProfileTest(){
+		UserProfileDTO expectedUserProfile = userProfileService.findById(DEFAULT_ID);
 		expectedUserProfile.setName("n_0");
 		userProfileService.update(expectedUserProfile);
 		UserProfileDTO actualUserProfile = userProfileService.findById(expectedUserProfile.getUserProfileId());

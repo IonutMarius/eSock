@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.esock.model.entitiy.Order;
 import ro.esock.model.entitiy.Product;
 import ro.esock.model.entitiy.User;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.repository.OrderRepository;
 import ro.esock.model.repository.ProductRepository;
 import ro.esock.model.repository.UserRepository;
@@ -37,11 +37,12 @@ public class OrderRepositoryJpaImplTest {
 	private Product product1;
 	private Product product2;
 
+	private String sufix = "_1";
+	private String sufix2 = "_2";
+
 	@Before
 	@Rollback(false)
 	public void addEntities() {
-		String sufix = "_1";
-		String sufix2 = "_2";
 
 		user = userRepository.create(TestUtils.createUser(sufix));
 
@@ -59,7 +60,7 @@ public class OrderRepositoryJpaImplTest {
 
 	@Test
 	public void saveAndFindOrderTest() {
-		Order expectedOrder = TestUtils.createOrder();
+		Order expectedOrder = TestUtils.createOrder(sufix);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		expectedOrder.getPurchases().get(0).setProduct(product1);
@@ -73,7 +74,7 @@ public class OrderRepositoryJpaImplTest {
 
 	@Test
 	public void saveAndDeleteOrderTest() {
-		Order order = TestUtils.createOrder();
+		Order order = TestUtils.createOrder(sufix);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		order.getPurchases().get(0).setProduct(product1);
@@ -89,14 +90,18 @@ public class OrderRepositoryJpaImplTest {
 
 	@Test
 	public void updateAndFindOrderTest() {
-		Order expectedOrder = TestUtils.createOrder();
+		Order expectedOrder = TestUtils.createOrder(sufix);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
 		expectedOrder.getPurchases().get(0).setProduct(product1);
+		expectedOrder.getPurchases().get(0).setOrder(expectedOrder);
 		expectedOrder.getPurchases().get(1).setProduct(product2);
+		expectedOrder.getPurchases().get(1).setOrder(expectedOrder);
+		
 		expectedOrder.getPurchases().get(0).setUser(user);
 		expectedOrder.getPurchases().get(1).setUser(user);
-	//	user.getOrders().add(expectedOrder);
+		
+		expectedOrder.setUser(user);
 
 		expectedOrder = orderRepository.create(expectedOrder);
 		expectedOrder.getAddress().setAddressName("addr_0");

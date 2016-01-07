@@ -18,8 +18,8 @@ import ro.esock.model.dto.OrderDTO;
 import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.Order;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.service.OrderService;
 import ro.esock.model.service.ProductService;
 import ro.esock.model.service.UserService;
@@ -48,12 +48,12 @@ public class OrderServiceImplTest {
 	private ProductDTO product1;
 	private ProductDTO product2;
 
+	private String sufix = "_1";
+	private String sufix2 = "_2";
+
 	@Before
 	@Rollback(false)
 	public void addEntities() {
-		String sufix = "_1";
-		String sufix2 = "_2";
-
 		user = userService.create(userConverter.toDto(TestUtils.createUser(sufix)));
 
 		product1 = productService.create(productConverter.toDto(TestUtils.createProduct(sufix)));
@@ -70,7 +70,7 @@ public class OrderServiceImplTest {
 
 	@Test
 	public void saveAndFindOrderTest() {
-		Order entity = TestUtils.createOrder();
+		Order entity = TestUtils.createOrder(sufix);
 		OrderDTO expectedOrder = orderConverter.toDto(entity);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 
@@ -88,7 +88,7 @@ public class OrderServiceImplTest {
 
 	@Test
 	public void saveAndDeleteOrderTest() {
-		Order entity = TestUtils.createOrder();
+		Order entity = TestUtils.createOrder(sufix);
 		OrderDTO order = orderConverter.toDto(entity);
 		order.setAddress(user.getUserProfile().getAddresses().get(0));
 
@@ -108,7 +108,7 @@ public class OrderServiceImplTest {
 
 	@Test
 	public void updateAndFindOrderTest() {
-		Order entity = TestUtils.createOrder();
+		Order entity = TestUtils.createOrder(sufix);
 		OrderDTO expectedOrder = orderConverter.toDto(entity);
 		expectedOrder.setAddress(user.getUserProfile().getAddresses().get(0));
 

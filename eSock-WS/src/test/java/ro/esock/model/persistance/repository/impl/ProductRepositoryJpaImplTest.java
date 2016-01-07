@@ -9,8 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.esock.model.entitiy.Product;
-import ro.esock.model.persistance.TestUtils;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
+import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.repository.ProductRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,34 +22,41 @@ public class ProductRepositoryJpaImplTest {
 	private ProductRepository productRepository;
 
 	private String sufix = "_1";
+	
+	private static final Long DEFAULT_ID = new Long(0);
 
 	@Test
-	public void saveAndFindProductTest() {
+	public void createProductTest(){
 		Product expectedProduct = TestUtils.createProduct(sufix);
-		productRepository.create(expectedProduct);
-		Product product = productRepository.findById(expectedProduct.getProductId());
+		Product actualProduct = productRepository.create(expectedProduct);
+		
+		Assert.assertEquals(expectedProduct, actualProduct);
+	}
+	
+	@Test
+	public void findProductTest() {
+		Product product = productRepository.findById(DEFAULT_ID);
 
-		Assert.assertEquals(expectedProduct, product);
+		Assert.assertNotNull(product);
 	}
 
 	@Test
-	public void saveAndDeleteProductTest() {
-		Product product = TestUtils.createProduct(sufix);
-		product = productRepository.create(product);
+	public void deleteProductTest() {
+		Product product = productRepository.findById(DEFAULT_ID);
 		productRepository.remove(product);
 		product = productRepository.findById(product.getProductId());
 
-		Assert.assertEquals(null, product);
+		Assert.assertNull(product);
 
 	}
 
 	@Test
-	public void updateAndFindProductTest() {
-		Product expectedProduct = TestUtils.createProduct(sufix);
+	public void updateProductTest() {
+		Product expectedProduct = productRepository.findById(DEFAULT_ID);
 		expectedProduct = productRepository.create(expectedProduct);
 		expectedProduct.setDescription("changed description_0");
 		productRepository.update(expectedProduct);
-		Product actualProduct = productRepository.findById(expectedProduct.getProductId());
+		Product actualProduct = productRepository.findById(DEFAULT_ID);
 
 		Assert.assertEquals(expectedProduct, actualProduct);
 

@@ -7,28 +7,29 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "user")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "user_id")
 	private Long userId;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_profile_id", nullable = false)
+	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_user_fk", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Order> orders = new ArrayList<>();
 
 	@Column(name = "username")

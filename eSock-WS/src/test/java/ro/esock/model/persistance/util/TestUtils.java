@@ -1,4 +1,4 @@
-package ro.esock.model.persistance;
+package ro.esock.model.persistance.util;
 
 import ro.esock.model.entitiy.Address;
 import ro.esock.model.entitiy.Order;
@@ -36,6 +36,23 @@ public class TestUtils {
 		user.setUsername(DEFAULT_USERNAME + sufix);
 		user.setPassword(DEFAULT_PASSWORD + sufix);
 		user.setUserProfile(createUserProfile(sufix));
+		
+		Order order1 = createOrderWithoutUserAndAddress();
+		order1.setUser(user);
+		order1.setAddress(user.getUserProfile().getAddresses().get(0));
+		Order order2 = createOrderWithoutUserAndAddress();
+		order2.setUser(user);
+		order2.setAddress(user.getUserProfile().getAddresses().get(0));
+		user.getOrders().add(order1);
+		user.getOrders().add(order2);
+
+		return user;
+	}
+
+	public static User createUserWithNoRelation(String sufix) {
+		User user = new User();
+		user.setUsername(DEFAULT_USERNAME + sufix);
+		user.setPassword(DEFAULT_PASSWORD + sufix);
 
 		return user;
 	}
@@ -47,8 +64,8 @@ public class TestUtils {
 		userProfile.setPhoneNumber(DEFAULT_PHONE_NUMBER + sufix);
 		userProfile.setEmailAddress(DEFAULT_EMAIL_ADDRESS + sufix);
 
-		Address address = createAddress(sufix);
-		Address address2 = createAddress(sufix + "_2");
+		Address address = createAddressWithNoRelation(sufix);
+		Address address2 = createAddressWithNoRelation(sufix + "_2");
 
 		userProfile.getAddresses().add(address);
 		userProfile.getAddresses().add(address2);
@@ -56,10 +73,31 @@ public class TestUtils {
 		return userProfile;
 	}
 
-	/**
-	 * Must attach a UserProfile before persisting
-	 */
+	public static UserProfile createUserProfileWithNoRelation(String sufix) {
+		UserProfile userProfile = new UserProfile();
+		userProfile.setName(DEFAULT_NAME + sufix);
+		userProfile.setSurname(DEFAULT_SURNAME + sufix);
+		userProfile.setPhoneNumber(DEFAULT_PHONE_NUMBER + sufix);
+		userProfile.setEmailAddress(DEFAULT_EMAIL_ADDRESS + sufix);
+
+		return userProfile;
+	}
+
 	public static Address createAddress(String sufix) {
+		Address address = new Address();
+		address.setAddressName(DEFAULT_ADDRESS_NAME + sufix);
+		address.setCity(DEFAULT_CITY + sufix);
+		address.setPostcode(DEFAULT_POSTCODE + sufix);
+		address.setAddressLine1(DEFAULT_ADDRESS_LINE_1 + sufix);
+		address.setAddressLine2(DEFAULT_ADDRESS_LINE_2 + sufix);
+
+		UserProfile userProfile = createUserProfileWithNoRelation(sufix);
+		address.setUserProfile(userProfile);
+
+		return address;
+	}
+
+	public static Address createAddressWithNoRelation(String sufix) {
 		Address address = new Address();
 		address.setAddressName(DEFAULT_ADDRESS_NAME + sufix);
 		address.setCity(DEFAULT_CITY + sufix);
@@ -70,25 +108,46 @@ public class TestUtils {
 		return address;
 	}
 
-	/**
-	 * Must attach an Address, an User and one Product to each Purchase (2)
-	 * before persisting
-	 */
-	public static Order createOrder() {
+	public static Order createOrder(String sufix) {
 		Order order = new Order();
+
 		Purchase purchase1 = createPurchase();
 		Purchase purchase2 = createPurchase();
+		order.getPurchases().add(purchase1);
+		order.getPurchases().add(purchase2);
 
+		User user = createUserWithNoRelation(sufix);
+		user.getOrders().add(order);
+		UserProfile userProfile = createUserProfile(sufix);
+		user.setUserProfile(userProfile);
+		order.setUser(user);
+
+		Address address = createAddressWithNoRelation(sufix);
+		address.setUserProfile(userProfile);
+		order.setAddress(address);
+
+		return order;
+	}
+
+	public static Order createOrderWithoutUserAndAddress() {
+		Order order = new Order();
+
+		Purchase purchase1 = createPurchase();
+		Purchase purchase2 = createPurchase();
 		order.getPurchases().add(purchase1);
 		order.getPurchases().add(purchase2);
 
 		return order;
 	}
 
-	/**
-	 * Must attach an User, a Product and an Order before persisting
-	 */
 	public static Purchase createPurchase() {
+		Purchase purchase = new Purchase();
+		purchase.setQuantity(DEFAULT_QUANTITY);
+
+		return purchase;
+	}
+
+	public static Purchase createPurchaseWithNoRelation() {
 		Purchase purchase = new Purchase();
 		purchase.setQuantity(DEFAULT_QUANTITY);
 
