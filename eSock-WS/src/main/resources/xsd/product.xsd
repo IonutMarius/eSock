@@ -1,0 +1,30 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:esock="http://eSock.ro/ws/soap/product" targetNamespace="http://eSock.ro/ws/soap/product"
+	elementFormDefault="qualified">
+
+	<xs:element name="registerProductsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="product" type="esock:productXml" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="registerProductsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- Types -->
+	<xs:complexType name="productXml">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="price" type="xs:double" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="quantity" type="xs:int" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
