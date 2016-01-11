@@ -1,8 +1,15 @@
 package ro.esock.ws.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ro.esock.model.dto.AddressDTO;
+import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.dto.UserProfileDTO;
+import ro.esock.model.filter.SearchProductFilter;
+import ro.esock.ws.soap.product.ProductXml;
+import ro.esock.ws.soap.product.SearchProductFilterXml;
 import ro.esock.ws.soap.user.AddressXml;
 import ro.esock.ws.soap.user.UserProfileXml;
 import ro.esock.ws.soap.user.UserXml;
@@ -46,6 +53,27 @@ public class ConverterUtils {
 		return address;
 	}
 
+	public static ProductDTO convertProductXmlToProductDTO(ProductXml productXml) {
+		ProductDTO product = new ProductDTO();
+		product.setDescription(productXml.getDescription());
+		product.setName(productXml.getName());
+		product.setPrice(productXml.getPrice());
+		product.setStock(productXml.getQuantity());
+
+		return product;
+	}
+
+	public static SearchProductFilter convertSearchProductFilterXmlToSearchProductFilter(SearchProductFilterXml xml) {
+		SearchProductFilter filter = new SearchProductFilter();
+		filter.setPriceMax(xml.getPriceMax());
+		filter.setPriceMin(xml.getPriceMin());
+		if (xml.getKeywords() != null) {
+			filter.setKeywords(new ArrayList<String>(Arrays.asList(xml.getKeywords().split(" "))));
+		}
+
+		return filter;
+	}
+
 	// Entity to XML
 	public static UserXml convertUserDTOToUserXml(UserDTO user) {
 		UserXml userXml = new UserXml();
@@ -68,7 +96,7 @@ public class ConverterUtils {
 			AddressXml addressXml = convertAddressDTOToAddressXml(address);
 			userProfileXml.getAddresses().add(addressXml);
 		}
-		
+
 		return userProfileXml;
 	}
 
@@ -81,5 +109,15 @@ public class ConverterUtils {
 		addressXml.setAddressLine2(address.getAddressLine2());
 
 		return addressXml;
+	}
+
+	public static ProductXml convertProductDTOToProductXml(ProductDTO product) {
+		ProductXml productXml = new ProductXml();
+		productXml.setDescription(product.getDescription());
+		productXml.setName(product.getName());
+		productXml.setPrice(product.getPrice());
+		productXml.setQuantity(product.getStock());
+
+		return productXml;
 	}
 }

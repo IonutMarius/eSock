@@ -47,7 +47,7 @@ public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> 
 		predicates.add(criteriaBuilder.equal(user.get("username"), username));
 		predicates.add(criteriaBuilder.equal(user.get("password"), password));
 		
-		query.select(user);
+		query.select(user).where(predicates.toArray(new Predicate[predicates.size()]));
 		
 		User foundUser = null;
 		try {

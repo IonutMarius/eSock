@@ -18,6 +18,22 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="searchProductsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="searchProductFilter" type="esock:searchProductFilterXml" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="searchProductsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="product" type="esock:productXml" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
 	<!-- Types -->
 	<xs:complexType name="productXml">
 		<xs:sequence>
@@ -25,6 +41,14 @@
 			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="price" type="xs:double" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="quantity" type="xs:int" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="searchProductFilterXml">
+		<xs:sequence>
+			<xs:element name="keywords" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="priceMin" type="xs:double" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="priceMax" type="xs:double" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
