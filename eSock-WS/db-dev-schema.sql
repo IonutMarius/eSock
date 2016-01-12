@@ -1,4 +1,9 @@
-CREATE DATABASE `esock_dev` /*!40100 DEFAULT CHARACTER SET utf8 */;
+DROP TABLE `purchase`;
+DROP TABLE `order`;
+DROP TABLE `user`;
+DROP TABLE `address`;
+DROP TABLE `product`;
+DROP TABLE `user_profile`;
 
 CREATE TABLE `user_profile` (
   `user_profile_id` bigint(11) NOT NULL,
@@ -12,6 +17,7 @@ CREATE TABLE `user_profile` (
 CREATE TABLE `product` (
   `product_id` bigint(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `brand` varchar(45) NOT NULL,
   `description` varchar(45) DEFAULT NULL,
   `price` double NOT NULL,
   `stock` int(11) NOT NULL,

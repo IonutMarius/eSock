@@ -143,10 +143,26 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="getProductRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="productId" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getProductResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="product" type="esock:productXml"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <!--Types-->
       <xs:complexType name="productXml">
         <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="productId" type="xs:long"/>
           <xs:element maxOccurs="1" minOccurs="1" name="name" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="brand" type="xs:string"/>
           <xs:element maxOccurs="1" minOccurs="1" name="description" type="xs:string"/>
           <xs:element maxOccurs="1" minOccurs="1" name="price" type="xs:double"/>
           <xs:element maxOccurs="1" minOccurs="1" name="quantity" type="xs:int"/>
@@ -164,8 +180,14 @@
   <wsdl:message name="registerProductsRequest">
     <wsdl:part element="tns:registerProductsRequest" name="registerProductsRequest"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getProductResponse">
+    <wsdl:part element="tns:getProductResponse" name="getProductResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="searchProductsResponse">
     <wsdl:part element="tns:searchProductsResponse" name="searchProductsResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProductRequest">
+    <wsdl:part element="tns:getProductRequest" name="getProductRequest"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="registerProductsResponse">
     <wsdl:part element="tns:registerProductsResponse" name="registerProductsResponse"></wsdl:part>
@@ -177,6 +199,10 @@
     <wsdl:operation name="registerProducts">
       <wsdl:input message="tns:registerProductsRequest" name="registerProductsRequest"></wsdl:input>
       <wsdl:output message="tns:registerProductsResponse" name="registerProductsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProduct">
+      <wsdl:input message="tns:getProductRequest" name="getProductRequest"></wsdl:input>
+      <wsdl:output message="tns:getProductResponse" name="getProductResponse"></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="searchProducts">
       <wsdl:input message="tns:searchProductsRequest" name="searchProductsRequest"></wsdl:input>
@@ -191,6 +217,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="registerProductsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProduct">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getProductRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProductResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -215,48 +250,58 @@
       <prod:registerProductsRequest>\r
          <prod:product>\r
             <prod:name>prod0</prod:name>\r
+            <prod:brand>brand0</prod:brand>
             <prod:description>desc prod0</prod:description>\r
             <prod:price>12.33</prod:price>\r
             <prod:quantity>5</prod:quantity>\r
          </prod:product>\r
          <prod:product>
             <prod:name>prod1</prod:name>
+            <prod:brand>brand1</prod:brand>
             <prod:description>desc prod1</prod:description>
             <prod:price>102.33</prod:price>
             <prod:quantity>55</prod:quantity>
          </prod:product>
          <prod:product>
             <prod:name>prod2</prod:name>
+            <prod:brand>brand2</prod:brand>
             <prod:description>desc prod2</prod:description>
             <prod:price>22.32</prod:price>
             <prod:quantity>24</prod:quantity>
          </prod:product>
          <prod:product>
             <prod:name>prod3</prod:name>
+            <prod:brand>brand3</prod:brand>
             <prod:description>desc prod3</prod:description>
             <prod:price>312.33</prod:price>
             <prod:quantity>35</prod:quantity>
          </prod:product>
          <prod:product>
             <prod:name>prod4</prod:name>
+            <prod:brand>brand4</prod:brand>
             <prod:description>desc prod4</prod:description>
             <prod:price>278.33</prod:price>
             <prod:quantity>2</prod:quantity>
          </prod:product>
       </prod:registerProductsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/registerProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="fb483b37-cdc9-4900-9d76-cc6b237fb2dc" isOneWay="false" action="" name="searchProducts" bindingOperationName="searchProducts" type="Request-Response" outputName="searchProductsResponse" inputName="searchProductsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="28141dfb-16ff-4abd-8f8e-ab245e45df15" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/registerProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="fb483b37-cdc9-4900-9d76-cc6b237fb2dc" isOneWay="false" action="" name="searchProducts" bindingOperationName="searchProducts" type="Request-Response" outputName="searchProductsResponse" inputName="searchProductsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4a6aa514-1e7f-4fcc-92ce-6b817b1026a9" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <prod:searchProductsRequest>\r
          <prod:searchProductFilter>\r
-            <prod:keywords>prod</prod:keywords>\r
-            <prod:priceMin>150</prod:priceMin>
-            <prod:priceMax>400</prod:priceMax>
+            <prod:keywords>brand0</prod:keywords>\r
          </prod:searchProductFilter>\r
       </prod:searchProductsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/searchProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="273b334f-cc09-46d2-94fd-1cd393ea63e2" name="UserPortTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="4242113a-0572-48c7-b233-99f6f7ea145b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RegisterUser" searchProperties="true"><con:settings/><con:testStep type="request" name="register" id="2a565d7c-9040-4181-9b21-ffa0a7e3b5a5"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UserPortSoap11</con:interface><con:operation>register</con:operation><con:request name="register" id="b285fc6b-6bfb-429f-8324-a6b8ab2df87c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/searchProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="216faf70-7be7-48f8-95ed-78722c1556c0" isOneWay="false" action="" name="getProduct" bindingOperationName="getProduct" type="Request-Response" outputName="getProductResponse" inputName="getProductRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8e1ad007-6ce2-4087-9993-fff66bfb8f22" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <prod:getProductRequest>\r
+         <prod:productId>3</prod:productId>\r
+      </prod:getProductRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/getProductRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="273b334f-cc09-46d2-94fd-1cd393ea63e2" name="UserPortTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="4242113a-0572-48c7-b233-99f6f7ea145b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RegisterUser" searchProperties="true"><con:settings/><con:testStep type="request" name="register" id="2a565d7c-9040-4181-9b21-ffa0a7e3b5a5"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UserPortSoap11</con:interface><con:operation>register</con:operation><con:request name="register" id="b285fc6b-6bfb-429f-8324-a6b8ab2df87c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">
    <soapenv:Header/>
    <soapenv:Body>
       <user:registerRequest>

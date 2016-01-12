@@ -15,6 +15,7 @@ public class ProductConverter extends GenericEntityConverter<ProductDTO, Product
 			productDto = new ProductDTO();
 			productDto.setDescription(entity.getDescription());
 			productDto.setName(entity.getName());
+			productDto.setBrand(entity.getBrand());
 			productDto.setPrice(entity.getPrice());
 			productDto.setProductId(entity.getProductId());
 			productDto.setStock(entity.getStock());
@@ -30,6 +31,7 @@ public class ProductConverter extends GenericEntityConverter<ProductDTO, Product
 			product = new Product();
 			product.setDescription(dto.getDescription());
 			product.setName(dto.getName());
+			product.setBrand(dto.getBrand());
 			product.setPrice(dto.getPrice());
 			product.setProductId(dto.getProductId());
 			product.setStock(dto.getStock());

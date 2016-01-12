@@ -58,6 +58,7 @@ public class ConverterUtils {
 		product.setProductId(productXml.getProductId());
 		product.setDescription(productXml.getDescription());
 		product.setName(productXml.getName());
+		product.setBrand(productXml.getBrand());
 		product.setPrice(productXml.getPrice());
 		product.setStock(productXml.getQuantity());
 
@@ -119,6 +120,7 @@ public class ConverterUtils {
 		productXml.setProductId(product.getProductId());
 		productXml.setDescription(product.getDescription());
 		productXml.setName(product.getName());
+		productXml.setBrand(product.getBrand());
 		productXml.setPrice(product.getPrice());
 		productXml.setQuantity(product.getStock());
 

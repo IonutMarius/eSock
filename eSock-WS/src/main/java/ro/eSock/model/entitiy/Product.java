@@ -13,13 +13,16 @@ import org.hibernate.annotations.GenericGenerator;
 public class Product {
 
 	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	@Column(name = "product_id")
 	private Long productId;
 
 	@Column(name = "name")
 	private String name;
+
+	@Column(name = "brand")
+	private String brand;
 
 	@Column(name = "description")
 	private String description;
@@ -44,6 +47,14 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public String getDescription() {
@@ -118,5 +129,4 @@ public class Product {
 		return "Product [productId=" + productId + ", name=" + name + ", description=" + description + ", price="
 				+ price + ", stock=" + stock + "]";
 	}
-
 }

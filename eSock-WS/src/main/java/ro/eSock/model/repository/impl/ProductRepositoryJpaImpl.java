@@ -34,6 +34,7 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 		Root<Product> product = query.from(entityClass);
 		List<Predicate> predicates = new ArrayList<>();
 		predicates.add(criteriaBuilder.equal(product.get("name"), entity.getName()));
+		predicates.add(criteriaBuilder.equal(product.get("brand"), entity.getBrand()));
 		predicates.add(criteriaBuilder.equal(product.get("description"), entity.getDescription()));
 		predicates.add(criteriaBuilder.equal(product.<Double>get("price"), entity.getPrice()));
 		
@@ -76,8 +77,9 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 			sbLike.append("%");
 			
 			Predicate namePredicate = criteriaBuilder.like(product.get("name"), sbLike.toString());
+			Predicate brandPredicate = criteriaBuilder.like(product.get("brand"), sbLike.toString());
 			Predicate descPredicate = criteriaBuilder.like(product.get("description"), sbLike.toString());
-			predicates.add(criteriaBuilder.or(namePredicate, descPredicate));
+			predicates.add(criteriaBuilder.or(namePredicate, descPredicate, brandPredicate));
 		}
 		
 		query.select(product).where(predicates.toArray(new Predicate[predicates.size()]));

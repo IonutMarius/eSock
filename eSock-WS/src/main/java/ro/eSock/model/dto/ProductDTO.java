@@ -3,6 +3,7 @@ package ro.esock.model.dto;
 public class ProductDTO {
 	private Long productId;
 	private String name;
+	private String brand;
 	private String description;
 	private Double price;
 	private Integer stock;
@@ -22,6 +23,15 @@ public class ProductDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 
 	public String getDescription() {
 		return description;
