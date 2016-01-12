@@ -66,10 +66,12 @@ public class ConverterUtils {
 
 	public static SearchProductFilter convertSearchProductFilterXmlToSearchProductFilter(SearchProductFilterXml xml) {
 		SearchProductFilter filter = new SearchProductFilter();
-		filter.setPriceMax(xml.getPriceMax());
-		filter.setPriceMin(xml.getPriceMin());
-		if (xml.getKeywords() != null) {
-			filter.setKeywords(new ArrayList<String>(Arrays.asList(xml.getKeywords().split(" "))));
+		if (xml != null) {
+			filter.setPriceMax(xml.getPriceMax());
+			filter.setPriceMin(xml.getPriceMin());
+			if (xml.getKeywords() != null) {
+				filter.setKeywords(new ArrayList<String>(Arrays.asList(xml.getKeywords().split(" "))));
+			}
 		}
 
 		return filter;
