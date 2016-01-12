@@ -55,6 +55,7 @@ public class ConverterUtils {
 
 	public static ProductDTO convertProductXmlToProductDTO(ProductXml productXml) {
 		ProductDTO product = new ProductDTO();
+		product.setProductId(productXml.getProductId());
 		product.setDescription(productXml.getDescription());
 		product.setName(productXml.getName());
 		product.setPrice(productXml.getPrice());
@@ -113,6 +114,7 @@ public class ConverterUtils {
 
 	public static ProductXml convertProductDTOToProductXml(ProductDTO product) {
 		ProductXml productXml = new ProductXml();
+		productXml.setProductId(product.getProductId());
 		productXml.setDescription(product.getDescription());
 		productXml.setName(product.getName());
 		productXml.setPrice(product.getPrice());

@@ -250,7 +250,7 @@
    <soapenv:Body>\r
       <prod:searchProductsRequest>\r
          <prod:searchProductFilter>\r
-            <prod:keywords>prod3</prod:keywords>\r
+            <prod:keywords>prod</prod:keywords>\r
             <prod:priceMin>150</prod:priceMin>
             <prod:priceMax>400</prod:priceMax>
          </prod:searchProductFilter>\r

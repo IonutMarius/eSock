@@ -13,6 +13,9 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.filter.SearchProductFilter;
 import ro.esock.model.service.ProductService;
+import ro.esock.ws.exception.NoProductFoundException;
+import ro.esock.ws.soap.product.GetProductRequest;
+import ro.esock.ws.soap.product.GetProductResponse;
 import ro.esock.ws.soap.product.ProductXml;
 import ro.esock.ws.soap.product.RegisterProductsRequest;
 import ro.esock.ws.soap.product.RegisterProductsResponse;
@@ -47,12 +50,26 @@ public class ProductEndpoint {
 	@ResponsePayload
 	public SearchProductsResponse searchProducts(@RequestPayload SearchProductsRequest request) {
 		SearchProductsResponse response = new SearchProductsResponse();
-		SearchProductFilter filter = ConverterUtils.convertSearchProductFilterXmlToSearchProductFilter(request.getSearchProductFilter());
+		SearchProductFilter filter = ConverterUtils
+				.convertSearchProductFilterXmlToSearchProductFilter(request.getSearchProductFilter());
 		List<ProductDTO> foundProducts = productService.findByFilter(filter);
-		for(ProductDTO product : foundProducts){
+		for (ProductDTO product : foundProducts) {
 			response.getProduct().add(ConverterUtils.convertProductDTOToProductXml(product));
 		}
-		
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductRequest")
+	@ResponsePayload
+	public GetProductResponse getProduct(@RequestPayload GetProductRequest request) {
+		GetProductResponse response = new GetProductResponse();
+		ProductDTO product = productService.findById(request.getProductId());
+		if (product != null) {
+			response.setProduct(ConverterUtils.convertProductDTOToProductXml(product));
+		} else {
+			throw new NoProductFoundException();
+		}
 		return response;
 	}
 }
