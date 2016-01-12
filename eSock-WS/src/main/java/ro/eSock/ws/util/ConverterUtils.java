@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ro.esock.model.dto.AddressDTO;
+import ro.esock.model.dto.OrderDTO;
 import ro.esock.model.dto.ProductDTO;
+import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.dto.UserProfileDTO;
 import ro.esock.model.filter.SearchProductFilter;
+import ro.esock.ws.soap.store.OrderXml;
 import ro.esock.ws.soap.store.ProductXml;
+import ro.esock.ws.soap.store.PurchaseXml;
 import ro.esock.ws.soap.store.SearchProductFilterXml;
 import ro.esock.ws.soap.user.AddressXml;
 import ro.esock.ws.soap.user.UserProfileXml;
@@ -76,6 +80,25 @@ public class ConverterUtils {
 		}
 
 		return filter;
+	}
+	
+	public static OrderDTO convertOrderXmlToOrderDTO(OrderXml xml){
+		OrderDTO dto = new OrderDTO();
+		
+		AddressDTO addrDto = new AddressDTO();
+		addrDto.setAddressId(xml.getAddressId());
+		dto.setAddress(addrDto);
+		
+		for(PurchaseXml purchaseXml : xml.getPurchase()){
+			PurchaseDTO purchaseDto = new PurchaseDTO();
+			ProductDTO prodDto = new ProductDTO();
+			prodDto.setProductId(purchaseXml.getProductId());
+			purchaseDto.setProduct(prodDto);
+			purchaseDto.setQuantity(purchaseXml.getQuantity());
+			dto.getPurchases().add(purchaseDto);
+		}
+		
+		return dto;
 	}
 
 	// Entity to XML

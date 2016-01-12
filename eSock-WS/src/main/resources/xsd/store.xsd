@@ -50,6 +50,23 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="checkoutRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="orderXml" type="esock:orderXml" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="checkoutResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="total" type="xs:long" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
 	<!-- Types -->
 	<xs:complexType name="productXml">
 		<xs:sequence>
@@ -67,6 +84,21 @@
 			<xs:element name="keywords" type="xs:string" minOccurs="0" maxOccurs="1" />
 			<xs:element name="priceMin" type="xs:double" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="priceMax" type="xs:double" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="purchaseXml">
+		<xs:sequence>
+			<xs:element name="productId" type="xs:long" minOccurs="1" maxOccurs="1" />
+			<xs:element name="quantity" type="xs:int" minOccurs="0" maxOccurs="1" default="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="orderXml">
+		<xs:sequence>
+			<xs:element name="userId" type="xs:long" minOccurs="1" maxOccurs="1" />
+			<xs:element name="addressId" type="xs:long" minOccurs="1" maxOccurs="1" />
+			<xs:element name="purchase" type="esock:purchaseXml" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

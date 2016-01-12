@@ -10,10 +10,13 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import ro.esock.model.dto.OrderDTO;
 import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.filter.SearchProductFilter;
 import ro.esock.model.service.ProductService;
 import ro.esock.ws.exception.NoProductFoundException;
+import ro.esock.ws.soap.store.CheckoutRequest;
+import ro.esock.ws.soap.store.CheckoutResponse;
 import ro.esock.ws.soap.store.GetProductRequest;
 import ro.esock.ws.soap.store.GetProductResponse;
 import ro.esock.ws.soap.store.ProductXml;
@@ -70,6 +73,14 @@ public class StoreEndpoint {
 		} else {
 			throw new NoProductFoundException();
 		}
+		return response;
+	}
+	
+	public CheckoutResponse checkout(CheckoutRequest request){
+		CheckoutResponse response = new CheckoutResponse();
+		OrderDTO purchaseDto = ConverterUtils.convertOrderXmlToOrderDTO(request.getOrderXml());
+		
+		
 		return response;
 	}
 }
