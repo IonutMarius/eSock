@@ -14,20 +14,20 @@ import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.filter.SearchProductFilter;
 import ro.esock.model.service.ProductService;
 import ro.esock.ws.exception.NoProductFoundException;
-import ro.esock.ws.soap.product.GetProductRequest;
-import ro.esock.ws.soap.product.GetProductResponse;
-import ro.esock.ws.soap.product.ProductXml;
-import ro.esock.ws.soap.product.RegisterProductsRequest;
-import ro.esock.ws.soap.product.RegisterProductsResponse;
-import ro.esock.ws.soap.product.SearchProductsRequest;
-import ro.esock.ws.soap.product.SearchProductsResponse;
+import ro.esock.ws.soap.store.GetProductRequest;
+import ro.esock.ws.soap.store.GetProductResponse;
+import ro.esock.ws.soap.store.ProductXml;
+import ro.esock.ws.soap.store.RegisterProductsRequest;
+import ro.esock.ws.soap.store.RegisterProductsResponse;
+import ro.esock.ws.soap.store.SearchProductsRequest;
+import ro.esock.ws.soap.store.SearchProductsResponse;
 import ro.esock.ws.util.ConverterUtils;
 
 @Endpoint
-public class ProductEndpoint {
+public class StoreEndpoint {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductEndpoint.class);
-	private static final String NAMESPACE_URI = "http://eSock.ro/ws/soap/product";
+	private static final Logger logger = LoggerFactory.getLogger(StoreEndpoint.class);
+	private static final String NAMESPACE_URI = "http://eSock.ro/ws/soap/store";
 
 	@Autowired
 	private ProductService productService;

@@ -25,13 +25,13 @@ public class WebContextConfig extends WsConfigurerAdapter{
 		return wsdl11Definition;
 	}
 	
-	@Bean(name = "product")
-	public DefaultWsdl11Definition productWsdl11Definition(XsdSchema productSchema) {
+	@Bean(name = "store")
+	public DefaultWsdl11Definition storeWsdl11Definition(XsdSchema storeSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("ProductPort");
+		wsdl11Definition.setPortTypeName("StorePort");
 		wsdl11Definition.setLocationUri("/ws/");
-		wsdl11Definition.setTargetNamespace("http://eSock.ro/ws/soap/product");
-		wsdl11Definition.setSchema(productSchema);
+		wsdl11Definition.setTargetNamespace("http://eSock.ro/ws/soap/store");
+		wsdl11Definition.setSchema(storeSchema);
 		return wsdl11Definition;
 	}
 	
@@ -41,7 +41,7 @@ public class WebContextConfig extends WsConfigurerAdapter{
 	}
 	
 	@Bean
-	public XsdSchema productSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("xsd/product.xsd"));
+	public XsdSchema storeSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("xsd/store.xsd"));
 	}
 }

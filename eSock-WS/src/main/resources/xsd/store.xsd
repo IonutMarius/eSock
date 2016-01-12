@@ -1,5 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:esock="http://eSock.ro/ws/soap/product" targetNamespace="http://eSock.ro/ws/soap/product"
+	xmlns:esock="http://eSock.ro/ws/soap/store" targetNamespace="http://eSock.ro/ws/soap/store"
 	elementFormDefault="qualified">
 
 	<xs:element name="registerProductsRequest">
