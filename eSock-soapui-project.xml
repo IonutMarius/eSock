@@ -289,15 +289,13 @@
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <prod:searchProductsRequest>\r
-         <prod:searchProductFilter>\r
-            <prod:keywords>brand0</prod:keywords>\r
-         </prod:searchProductFilter>\r
       </prod:searchProductsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/searchProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="216faf70-7be7-48f8-95ed-78722c1556c0" isOneWay="false" action="" name="getProduct" bindingOperationName="getProduct" type="Request-Response" outputName="getProductResponse" inputName="getProductRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8e1ad007-6ce2-4087-9993-fff66bfb8f22" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/searchProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="216faf70-7be7-48f8-95ed-78722c1556c0" isOneWay="false" action="" name="getProduct" bindingOperationName="getProduct" type="Request-Response" outputName="getProductResponse" inputName="getProductRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7e7e6727-583b-4e08-a7c8-1567ef6b443b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <prod:getProductRequest>\r
+         <!--type: long-->\r
          <prod:productId>3</prod:productId>\r
       </prod:getProductRequest>\r
    </soapenv:Body>\r

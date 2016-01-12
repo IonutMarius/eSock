@@ -84,6 +84,6 @@ public class UserRepositoryJpaImplTest {
 	public void findUserByUsernameAndPasswordFailTest() {
 		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME + "_0", Default_PASSWORD + "_0");
 
-		Assert.assertNotNull(user);
+		Assert.assertNull(user);
 	}
 }

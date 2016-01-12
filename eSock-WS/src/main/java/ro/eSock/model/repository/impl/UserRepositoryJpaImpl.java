@@ -52,8 +52,8 @@ public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> 
 		User foundUser = null;
 		try {
 			foundUser = entityManager.createQuery(query).getResultList().get(0);
-		} catch (NoResultException e) {
-			logger.error("No user was found", e);;
+		} catch (NoResultException | IndexOutOfBoundsException e) {
+			logger.error("No user was found", e);
 		}
 		
 		return foundUser;

@@ -90,6 +90,6 @@ public class UserServiceImplTest {
 	public void findUserByUsernameAndPasswordFailTest() {
 		UserDTO user = userService.findByUsernameAndPassword(DEFAULT_USERNAME + "_0", Default_PASSWORD + "_0");
 
-		Assert.assertNotNull(user);
+		Assert.assertNull(user);
 	}
 }
