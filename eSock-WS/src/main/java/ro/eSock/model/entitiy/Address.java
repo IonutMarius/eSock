@@ -1,6 +1,5 @@
 package ro.esock.model.entitiy;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +35,7 @@ public class Address {
 	@Column(name = "address_line_2")
 	private String addressLine2;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 

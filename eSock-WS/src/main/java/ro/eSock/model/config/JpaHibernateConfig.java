@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("ro.esock.model")
+@ComponentScan({"ro.esock.model.converter", "ro.esock.model.repository", "ro.esock.model.service"})
 @PropertySource("classpath:application.properties")
 public class JpaHibernateConfig {
 	

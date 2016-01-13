@@ -104,6 +104,7 @@ public class ConverterUtils {
 	// Entity to XML
 	public static UserXml convertUserDTOToUserXml(UserDTO user) {
 		UserXml userXml = new UserXml();
+		userXml.setUserId(user.getUserId());
 		userXml.setUsername(user.getUsername());
 		userXml.setPassword(user.getPassword());
 		UserProfileDTO userProfile = user.getUserProfile();

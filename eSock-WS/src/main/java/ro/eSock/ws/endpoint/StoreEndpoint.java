@@ -12,9 +12,14 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ro.esock.model.dto.OrderDTO;
 import ro.esock.model.dto.ProductDTO;
+import ro.esock.model.dto.PurchaseDTO;
+import ro.esock.model.exception.IncorrectAddressException;
+import ro.esock.model.exception.ProductOutOfStockException;
 import ro.esock.model.filter.SearchProductFilter;
 import ro.esock.model.service.ProductService;
-import ro.esock.ws.exception.NoProductFoundException;
+import ro.esock.model.service.UserService;
+import ro.esock.ws.exception.NoProductFoundSoapException;
+import ro.esock.ws.exception.ProductOutOfStockSoapException;
 import ro.esock.ws.soap.store.CheckoutRequest;
 import ro.esock.ws.soap.store.CheckoutResponse;
 import ro.esock.ws.soap.store.GetProductRequest;
@@ -34,6 +39,9 @@ public class StoreEndpoint {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "registerProductsRequest")
 	@ResponsePayload
@@ -71,15 +79,29 @@ public class StoreEndpoint {
 		if (product != null) {
 			response.setProduct(ConverterUtils.convertProductDTOToProductXml(product));
 		} else {
-			throw new NoProductFoundException();
+			throw new NoProductFoundSoapException();
 		}
 		return response;
 	}
 	
-	public CheckoutResponse checkout(CheckoutRequest request){
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "checkoutRequest")
+	@ResponsePayload
+	public CheckoutResponse checkout(@RequestPayload CheckoutRequest request){
 		CheckoutResponse response = new CheckoutResponse();
-		OrderDTO purchaseDto = ConverterUtils.convertOrderXmlToOrderDTO(request.getOrderXml());
+		OrderDTO orderDto = ConverterUtils.convertOrderXmlToOrderDTO(request.getOrderXml());
+		try {
+			orderDto = userService.addOrder(request.getOrderXml().getUserId(), orderDto);
+		} catch (IncorrectAddressException e) {
+			e.printStackTrace();
+		} catch (ProductOutOfStockException e) {
+			throw new ProductOutOfStockSoapException("Insufficient stock for " + e.getProduct().getName());
+		}
 		
+		Double total = new Double(0);
+		for(PurchaseDTO purchase : orderDto.getPurchases()){
+			total += purchase.getProduct().getPrice() * purchase.getQuantity();
+		}
+		response.setTotal(total);
 		
 		return response;
 	}

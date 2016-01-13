@@ -112,9 +112,9 @@
       <soap:address location="http://localhost:8080/eSock-WS/ws/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="f3a18528-6173-4f7d-8155-2dfa573a2d9b" isOneWay="false" action="" name="register" bindingOperationName="register" type="Request-Response" outputName="registerResponse" inputName="registerRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="e6e9e565-077c-4eba-9c22-68f57e2f93f4" isOneWay="false" action="" name="login" bindingOperationName="login" type="Request-Response" outputName="loginResponse" inputName="loginRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="594befdb-a2cf-4b42-95b0-39141a4cab83" wsaVersion="NONE" name="ProductPortSoap11" type="wsdl" bindingName="{http://eSock.ro/ws/soap/product}ProductPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/eSock-WS/ws/soap/product.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/eSock-WS/ws/soap/product.wsdl"><con:part><con:url>http://localhost:8080/eSock-WS/ws/soap/product.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://eSock.ro/ws/soap/product" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://eSock.ro/ws/soap/product" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eSock.ro/ws/soap/product">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="f3a18528-6173-4f7d-8155-2dfa573a2d9b" isOneWay="false" action="" name="register" bindingOperationName="register" type="Request-Response" outputName="registerResponse" inputName="registerRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="e6e9e565-077c-4eba-9c22-68f57e2f93f4" isOneWay="false" action="" name="login" bindingOperationName="login" type="Request-Response" outputName="loginResponse" inputName="loginRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="058e4a01-f256-4e35-a63d-9f1c6aca1e2f" wsaVersion="NONE" name="StorePortSoap11" type="wsdl" bindingName="{http://eSock.ro/ws/soap/store}StorePortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/eSock-WS/ws/soap/store.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/eSock-WS/ws/soap/store.wsdl"><con:part><con:url>http://localhost:8080/eSock-WS/ws/soap/store.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://eSock.ro/ws/soap/store" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://eSock.ro/ws/soap/store" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eSock.ro/ws/soap/store">
   <wsdl:types>
-    <xs:schema elementFormDefault="qualified" targetNamespace="http://eSock.ro/ws/soap/product" xmlns:esock="http://eSock.ro/ws/soap/product" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://eSock.ro/ws/soap/store" xmlns:esock="http://eSock.ro/ws/soap/store" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="registerProductsRequest">
         <xs:complexType>
           <xs:sequence>
@@ -157,6 +157,21 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="checkoutRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="orderXml" type="esock:orderXml"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkoutResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="message" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="total" type="xs:double"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <!--Types-->
       <xs:complexType name="productXml">
         <xs:sequence>
@@ -175,19 +190,32 @@
           <xs:element maxOccurs="1" minOccurs="0" name="priceMax" type="xs:double"/>
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="purchaseXml">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="productId" type="xs:long"/>
+          <xs:element default="1" maxOccurs="1" minOccurs="0" name="quantity" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderXml">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="userId" type="xs:long"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="addressId" type="xs:long"/>
+          <xs:element maxOccurs="unbounded" minOccurs="1" name="purchase" type="esock:purchaseXml"/>
+        </xs:sequence>
+      </xs:complexType>
     </xs:schema>
   </wsdl:types>
+  <wsdl:message name="checkoutRequest">
+    <wsdl:part element="tns:checkoutRequest" name="checkoutRequest"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="registerProductsRequest">
     <wsdl:part element="tns:registerProductsRequest" name="registerProductsRequest"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="checkoutResponse">
+    <wsdl:part element="tns:checkoutResponse" name="checkoutResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getProductResponse">
     <wsdl:part element="tns:getProductResponse" name="getProductResponse"></wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="searchProductsResponse">
-    <wsdl:part element="tns:searchProductsResponse" name="searchProductsResponse"></wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getProductRequest">
-    <wsdl:part element="tns:getProductRequest" name="getProductRequest"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="registerProductsResponse">
     <wsdl:part element="tns:registerProductsResponse" name="registerProductsResponse"></wsdl:part>
@@ -195,7 +223,17 @@
   <wsdl:message name="searchProductsRequest">
     <wsdl:part element="tns:searchProductsRequest" name="searchProductsRequest"></wsdl:part>
   </wsdl:message>
-  <wsdl:portType name="ProductPort">
+  <wsdl:message name="searchProductsResponse">
+    <wsdl:part element="tns:searchProductsResponse" name="searchProductsResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProductRequest">
+    <wsdl:part element="tns:getProductRequest" name="getProductRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="StorePort">
+    <wsdl:operation name="checkout">
+      <wsdl:input message="tns:checkoutRequest" name="checkoutRequest"></wsdl:input>
+      <wsdl:output message="tns:checkoutResponse" name="checkoutResponse"></wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="registerProducts">
       <wsdl:input message="tns:registerProductsRequest" name="registerProductsRequest"></wsdl:input>
       <wsdl:output message="tns:registerProductsResponse" name="registerProductsResponse"></wsdl:output>
@@ -209,8 +247,17 @@
       <wsdl:output message="tns:searchProductsResponse" name="searchProductsResponse"></wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="ProductPortSoap11" type="tns:ProductPort">
+  <wsdl:binding name="StorePortSoap11" type="tns:StorePort">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="checkout">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="checkoutRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="checkoutResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="registerProducts">
       <soap:operation soapAction=""/>
       <wsdl:input name="registerProductsRequest">
@@ -239,67 +286,80 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="ProductPortService">
-    <wsdl:port binding="tns:ProductPortSoap11" name="ProductPortSoap11">
+  <wsdl:service name="StorePortService">
+    <wsdl:port binding="tns:StorePortSoap11" name="StorePortSoap11">
       <soap:address location="http://localhost:8080/eSock-WS/ws/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="a935b2ff-a843-4129-9420-96fcd5ab3bb3" isOneWay="false" action="" name="registerProducts" bindingOperationName="registerProducts" type="Request-Response" outputName="registerProductsResponse" inputName="registerProductsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f7f254fb-36c2-4e59-b949-1128dc81c644" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint></con:endpoints><con:operation id="6f22da84-2354-4a6d-acbc-1a1e98052ae5" isOneWay="false" action="" name="checkout" bindingOperationName="checkout" type="Request-Response" outputName="checkoutResponse" inputName="checkoutRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7d49890d-df57-447d-ad82-ca68a37d618e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://eSock.ro/ws/soap/store">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
-      <prod:registerProductsRequest>\r
-         <prod:product>\r
-            <prod:name>prod0</prod:name>\r
-            <prod:brand>brand0</prod:brand>
-            <prod:description>desc prod0</prod:description>\r
-            <prod:price>12.33</prod:price>\r
-            <prod:quantity>5</prod:quantity>\r
-         </prod:product>\r
-         <prod:product>
-            <prod:name>prod1</prod:name>
-            <prod:brand>brand1</prod:brand>
-            <prod:description>desc prod1</prod:description>
-            <prod:price>102.33</prod:price>
-            <prod:quantity>55</prod:quantity>
-         </prod:product>
-         <prod:product>
-            <prod:name>prod2</prod:name>
-            <prod:brand>brand2</prod:brand>
-            <prod:description>desc prod2</prod:description>
-            <prod:price>22.32</prod:price>
-            <prod:quantity>24</prod:quantity>
-         </prod:product>
-         <prod:product>
-            <prod:name>prod3</prod:name>
-            <prod:brand>brand3</prod:brand>
-            <prod:description>desc prod3</prod:description>
-            <prod:price>312.33</prod:price>
-            <prod:quantity>35</prod:quantity>
-         </prod:product>
-         <prod:product>
-            <prod:name>prod4</prod:name>
-            <prod:brand>brand4</prod:brand>
-            <prod:description>desc prod4</prod:description>
-            <prod:price>278.33</prod:price>
-            <prod:quantity>2</prod:quantity>
-         </prod:product>
-      </prod:registerProductsRequest>\r
+      <stor:checkoutRequest>\r
+         <stor:orderXml>\r
+            <!--type: long-->\r
+            <stor:userId>?</stor:userId>\r
+            <!--type: long-->\r
+            <stor:addressId>?</stor:addressId>\r
+            <!--1 or more repetitions:-->\r
+            <stor:purchase>\r
+               <!--type: long-->\r
+               <stor:productId>?</stor:productId>\r
+               <!--Optional:-->\r
+               <!--type: int-->\r
+               <stor:quantity>1</stor:quantity>\r
+            </stor:purchase>\r
+         </stor:orderXml>\r
+      </stor:checkoutRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/registerProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="fb483b37-cdc9-4900-9d76-cc6b237fb2dc" isOneWay="false" action="" name="searchProducts" bindingOperationName="searchProducts" type="Request-Response" outputName="searchProductsResponse" inputName="searchProductsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4a6aa514-1e7f-4fcc-92ce-6b817b1026a9" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/store/StorePort/checkoutRequest"/></con:call></con:operation><con:operation id="d6dfaeab-76fe-49d1-8e74-f17b530d70c0" isOneWay="false" action="" name="getProduct" bindingOperationName="getProduct" type="Request-Response" outputName="getProductResponse" inputName="getProductRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ffacb724-9b7c-4fa4-9236-6bf32bddad33" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://eSock.ro/ws/soap/store">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
-      <prod:searchProductsRequest>\r
-      </prod:searchProductsRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/searchProductsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="216faf70-7be7-48f8-95ed-78722c1556c0" isOneWay="false" action="" name="getProduct" bindingOperationName="getProduct" type="Request-Response" outputName="getProductResponse" inputName="getProductRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7e7e6727-583b-4e08-a7c8-1567ef6b443b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://eSock.ro/ws/soap/product">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <prod:getProductRequest>\r
+      <stor:getProductRequest>\r
          <!--type: long-->\r
-         <prod:productId>3</prod:productId>\r
-      </prod:getProductRequest>\r
+         <stor:productId>?</stor:productId>\r
+      </stor:getProductRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/product/ProductPort/getProductRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="273b334f-cc09-46d2-94fd-1cd393ea63e2" name="UserPortTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="4242113a-0572-48c7-b233-99f6f7ea145b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RegisterUser" searchProperties="true"><con:settings/><con:testStep type="request" name="register" id="2a565d7c-9040-4181-9b21-ffa0a7e3b5a5"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UserPortSoap11</con:interface><con:operation>register</con:operation><con:request name="register" id="b285fc6b-6bfb-429f-8324-a6b8ab2df87c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/store/StorePort/getProductRequest"/></con:call></con:operation><con:operation id="41628650-79d4-43c8-9d96-8a2fd96a3959" isOneWay="false" action="" name="registerProducts" bindingOperationName="registerProducts" type="Request-Response" outputName="registerProductsResponse" inputName="registerProductsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bd47b91e-ba0a-473d-91f6-6a5a41f6b575" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://eSock.ro/ws/soap/store">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <stor:registerProductsRequest>\r
+         <!--1 or more repetitions:-->\r
+         <stor:product>\r
+            <!--Optional:-->\r
+            <!--type: long-->\r
+            <stor:productId>?</stor:productId>\r
+            <!--type: string-->\r
+            <stor:name>?</stor:name>\r
+            <!--type: string-->\r
+            <stor:brand>?</stor:brand>\r
+            <!--type: string-->\r
+            <stor:description>?</stor:description>\r
+            <!--type: double-->\r
+            <stor:price>?</stor:price>\r
+            <!--type: int-->\r
+            <stor:quantity>?</stor:quantity>\r
+         </stor:product>\r
+      </stor:registerProductsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/store/StorePort/registerProductsRequest"/></con:call></con:operation><con:operation id="378e8140-8286-4573-9d22-b1e4193f9abb" isOneWay="false" action="" name="searchProducts" bindingOperationName="searchProducts" type="Request-Response" outputName="searchProductsResponse" inputName="searchProductsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e2c9911a-495e-435e-8668-47442174ab73" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://eSock.ro/ws/soap/store">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <stor:searchProductsRequest>\r
+         <!--Optional:-->\r
+         <stor:searchProductFilter>\r
+            <!--Optional:-->\r
+            <!--type: string-->\r
+            <stor:keywords>?</stor:keywords>\r
+            <!--Optional:-->\r
+            <!--type: double-->\r
+            <stor:priceMin>?</stor:priceMin>\r
+            <!--Optional:-->\r
+            <!--type: double-->\r
+            <stor:priceMax>?</stor:priceMax>\r
+         </stor:searchProductFilter>\r
+      </stor:searchProductsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://eSock.ro/ws/soap/store/StorePort/searchProductsRequest"/></con:call></con:operation></con:interface><con:testSuite id="273b334f-cc09-46d2-94fd-1cd393ea63e2" name="UserPortTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="4242113a-0572-48c7-b233-99f6f7ea145b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RegisterUser" searchProperties="true"><con:settings/><con:testStep type="request" name="register" id="2a565d7c-9040-4181-9b21-ffa0a7e3b5a5"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UserPortSoap11</con:interface><con:operation>register</con:operation><con:request name="register" id="b285fc6b-6bfb-429f-8324-a6b8ab2df87c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/eSock-WS/ws/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://eSock.ro/ws/soap/user">
    <soapenv:Header/>
    <soapenv:Body>
       <user:registerRequest>

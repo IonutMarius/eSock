@@ -22,7 +22,7 @@ public class UserProfile {
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "user_profile_id")
 	private Long userProfileId;
-
+	
 	@Column(name = "name")
 	private String name;
 

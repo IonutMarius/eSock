@@ -37,7 +37,9 @@ public class UserProfileConverter extends GenericEntityConverter<UserProfileDTO,
 		if (dto != null) {
 			entity = new UserProfile();
 			for(AddressDTO address : dto.getAddresses()){
-				entity.getAddresses().add(addressConverter.toEntity(address));
+				Address addrEnt = addressConverter.toEntity(address);
+				addrEnt.setUserProfile(entity);
+				entity.getAddresses().add(addrEnt);
 			}
 			entity.setEmailAddress(dto.getEmailAddress());
 			entity.setName(dto.getName());

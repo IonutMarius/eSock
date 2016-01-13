@@ -8,5 +8,5 @@ public interface UserService extends GenericService<UserDTO, User, Long>{
 
 	UserDTO findByUsername(String username);
 	UserDTO findByUsernameAndPassword(String username, String password);
-	void addOrder(Long userId, OrderDTO orderDto);
+	OrderDTO addOrder(Long userId, OrderDTO orderDto);
 }

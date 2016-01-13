@@ -40,7 +40,9 @@ public class OrderConverter extends GenericEntityConverter<OrderDTO, Order> {
 			entity.setAddress(addressConverter.toEntity(dto.getAddress()));
 			entity.setOrderId(dto.getOrderId());
 			for (PurchaseDTO purchase : dto.getPurchases()) {
-				entity.getPurchases().add(purchaseConverter.toEntity(purchase));
+				Purchase purchaseEnt = purchaseConverter.toEntity(purchase);
+				purchaseEnt.setOrder(entity);
+				entity.getPurchases().add(purchaseEnt);
 			}
 		}
 

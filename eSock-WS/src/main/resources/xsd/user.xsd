@@ -45,6 +45,8 @@
 
 	<xs:complexType name="userXml">
 		<xs:sequence>
+			<xs:element name="userId" type="xs:long" minOccurs="0"
+				maxOccurs="1" />
 			<xs:element name="username" type="xs:string" minOccurs="1"
 				maxOccurs="1" />
 			<xs:element name="password" type="xs:string" minOccurs="1"

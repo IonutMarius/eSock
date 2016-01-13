@@ -7,16 +7,19 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.esock.model.converter.UserConverter;
 import ro.esock.model.dto.AddressDTO;
 import ro.esock.model.dto.OrderDTO;
+import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.dto.UserDTO;
 import ro.esock.model.entitiy.User;
 import ro.esock.model.exception.IncorrectAddressException;
+import ro.esock.model.exception.ProductOutOfStockException;
 import ro.esock.model.repository.UserRepository;
 import ro.esock.model.service.AddressService;
 import ro.esock.model.service.ProductService;
 import ro.esock.model.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl extends GenericServiceImpl<UserDTO, User, Long> implements UserService {
 
 	@Autowired
@@ -42,21 +45,19 @@ public class UserServiceImpl extends GenericServiceImpl<UserDTO, User, Long> imp
 	}
 
 	@Override
-	@Transactional
 	public UserDTO findByUsername(String username) {
 		User user = userRepository.findByUsername(username);
 		return userConverter.toDto(user);
 	}
 
 	@Override
-	@Transactional
 	public UserDTO findByUsernameAndPassword(String username, String password) {
 		User user = userRepository.findByUsernameAndPassword(username, password);
 		return userConverter.toDto(user);
 	}
 
 	@Override
-	public void addOrder(Long userId, OrderDTO orderDto) {
+	public OrderDTO addOrder(Long userId, OrderDTO orderDto) {
 		UserDTO user = findById(userId);
 		
 		OrderDTO newOrder = new OrderDTO();
@@ -78,10 +79,21 @@ public class UserServiceImpl extends GenericServiceImpl<UserDTO, User, Long> imp
 			newPurchase.setQuantity(purchase.getQuantity());
 			newPurchase.setUser(user);
 			newOrder.getPurchases().add(newPurchase);
+			if(newPurchase.getProduct().getStock() - purchase.getQuantity() < 0){
+				throw new ProductOutOfStockException(newPurchase.getProduct());
+			}
 		}
 		
 		user.getOrders().add(newOrder);
-		update(user);
+		user = update(user);
+		
+		for(PurchaseDTO purchase : newOrder.getPurchases()){
+			ProductDTO product = purchase.getProduct();
+			product.setStock(product.getStock() - purchase.getQuantity());
+			productService.update(product);
+		}
+		
+		return newOrder;
 	}
 
 }

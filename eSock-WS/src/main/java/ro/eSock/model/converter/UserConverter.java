@@ -49,6 +49,7 @@ public class UserConverter extends GenericEntityConverter<UserDTO, User> {
 				for(Purchase purchase : orderEnt.getPurchases()){
 					purchase.setUser(entity);
 				}
+				orderEnt.setUser(entity);
 				entity.getOrders().add(orderEnt);
 			}
 			entity.setPassword(dto.getPassword());
