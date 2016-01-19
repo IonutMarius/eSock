@@ -6,7 +6,7 @@ public class ProductOutOfStockException extends RuntimeException {
 
 	private static final long serialVersionUID = 5127701882951890193L;
 
-	private ProductDTO product;
+	private final ProductDTO product;
 	
 	public ProductOutOfStockException(ProductDTO product){
 		super();
@@ -15,9 +15,5 @@ public class ProductOutOfStockException extends RuntimeException {
 
 	public ProductDTO getProduct() {
 		return product;
-	}
-
-	public void setProduct(ProductDTO product) {
-		this.product = product;
 	}
 }

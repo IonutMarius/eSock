@@ -19,7 +19,7 @@ import ro.esock.model.repository.UserRepository;
 @Repository
 public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> implements UserRepository {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserRepositoryJpaImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserRepositoryJpaImpl.class);
 
 	@Override
 	public User findByUsername(String username) {
@@ -32,7 +32,7 @@ public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> 
 		try {
 			foundUser = entityManager.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
-			logger.error("No user was found", e);;
+			LOGGER.error("No user was found", e);
 		}
 		
 		return foundUser;
@@ -53,7 +53,7 @@ public class UserRepositoryJpaImpl extends GenericRepositoryJpaImpl<User, Long> 
 		try {
 			foundUser = entityManager.createQuery(query).getResultList().get(0);
 		} catch (NoResultException | IndexOutOfBoundsException e) {
-			logger.error("No user was found", e);
+			LOGGER.error("No user was found", e);
 		}
 		
 		return foundUser;

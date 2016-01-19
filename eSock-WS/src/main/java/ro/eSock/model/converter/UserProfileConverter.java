@@ -9,7 +9,7 @@ import ro.esock.model.entitiy.Address;
 import ro.esock.model.entitiy.UserProfile;
 
 @Component
-public class UserProfileConverter extends GenericEntityConverter<UserProfileDTO, UserProfile> {
+public class UserProfileConverter implements GenericEntityConverter<UserProfileDTO, UserProfile> {
 
 	@Autowired
 	private AddressConverter addressConverter;

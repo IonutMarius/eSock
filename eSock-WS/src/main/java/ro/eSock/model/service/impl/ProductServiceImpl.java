@@ -37,7 +37,7 @@ public class ProductServiceImpl extends GenericServiceImpl<ProductDTO, Product, 
 	@Transactional
 	public ProductDTO create(ProductDTO productDto) {
 		Product match = productRepository.findMatching(productConverter.toEntity(productDto));
-		ProductDTO matchDto = null;
+		ProductDTO matchDto;
 		if(match != null){
 			match.setStock(match.getStock() + productDto.getStock());
 			match = productRepository.update(match);

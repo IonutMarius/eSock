@@ -31,12 +31,15 @@ public class TestUtils {
 	private static final Double DEFAULT_PRICE = new Double(21.542);
 	private static final Integer DEFAULT_STOCK = new Integer(543);
 
+	private TestUtils() {
+	}
+
 	public static User createUser(String sufix) {
 		User user = new User();
 		user.setUsername(DEFAULT_USERNAME + sufix);
 		user.setPassword(DEFAULT_PASSWORD + sufix);
 		user.setUserProfile(createUserProfile(sufix));
-		
+
 		Order order1 = createOrderWithoutUserAndAddress();
 		order1.setUser(user);
 		order1.setAddress(user.getUserProfile().getAddresses().get(0));

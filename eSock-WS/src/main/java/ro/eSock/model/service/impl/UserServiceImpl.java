@@ -85,7 +85,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserDTO, User, Long> imp
 		}
 		
 		user.getOrders().add(newOrder);
-		user = update(user);
+		update(user);
 		
 		for(PurchaseDTO purchase : newOrder.getPurchases()){
 			ProductDTO product = purchase.getProduct();

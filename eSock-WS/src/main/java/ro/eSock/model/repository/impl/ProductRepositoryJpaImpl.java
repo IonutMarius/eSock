@@ -20,7 +20,12 @@ import ro.esock.model.repository.ProductRepository;
 @Repository
 public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, Long> implements ProductRepository{
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProductRepositoryJpaImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryJpaImpl.class);
+	
+	private static final String PRICE = "price";
+	private static final String NAME = "name";
+	private static final String BRAND = "brand";
+	private static final String DESCRIPTION = "description";
 
 	@Override
 	public Product findById(Product entity) {
@@ -33,10 +38,10 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 		CriteriaQuery<Product> query = criteriaBuilder.createQuery(entityClass);
 		Root<Product> product = query.from(entityClass);
 		List<Predicate> predicates = new ArrayList<>();
-		predicates.add(criteriaBuilder.equal(product.get("name"), entity.getName()));
-		predicates.add(criteriaBuilder.equal(product.get("brand"), entity.getBrand()));
-		predicates.add(criteriaBuilder.equal(product.get("description"), entity.getDescription()));
-		predicates.add(criteriaBuilder.equal(product.<Double>get("price"), entity.getPrice()));
+		predicates.add(criteriaBuilder.equal(product.get(NAME), entity.getName()));
+		predicates.add(criteriaBuilder.equal(product.get(BRAND), entity.getBrand()));
+		predicates.add(criteriaBuilder.equal(product.get(DESCRIPTION), entity.getDescription()));
+		predicates.add(criteriaBuilder.equal(product.<Double>get(PRICE), entity.getPrice()));
 		
 		query.select(product).where(predicates.toArray(new Predicate[predicates.size()]));
 		
@@ -44,7 +49,7 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 		try {
 			foundProduct = entityManager.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
-			logger.error("No product was found", e);;
+			LOGGER.error("No product was found", e);
 		}
 		
 		return foundProduct;
@@ -58,13 +63,13 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 		List<Predicate> predicates = new ArrayList<>();
 		
 		if(filter.getPriceMin() != null && filter.getPriceMax() != null){
-			predicates.add(criteriaBuilder.between(product.<Double>get("price"), filter.getPriceMin(), filter.getPriceMax()));
+			predicates.add(criteriaBuilder.between(product.<Double>get(PRICE), filter.getPriceMin(), filter.getPriceMax()));
 		}
 		else if(filter.getPriceMin() != null){
-			predicates.add(criteriaBuilder.greaterThanOrEqualTo(product.<Double>get("price"), filter.getPriceMin()));
+			predicates.add(criteriaBuilder.greaterThanOrEqualTo(product.<Double>get(PRICE), filter.getPriceMin()));
 		}
 		else if(filter.getPriceMax() != null){
-			predicates.add(criteriaBuilder.lessThanOrEqualTo(product.<Double>get("price"), filter.getPriceMax()));
+			predicates.add(criteriaBuilder.lessThanOrEqualTo(product.<Double>get(PRICE), filter.getPriceMax()));
 		}
 		
 		if(filter.getKeywords().size() > 0){
@@ -76,9 +81,9 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 			}
 			sbLike.append("%");
 			
-			Predicate namePredicate = criteriaBuilder.like(product.get("name"), sbLike.toString());
-			Predicate brandPredicate = criteriaBuilder.like(product.get("brand"), sbLike.toString());
-			Predicate descPredicate = criteriaBuilder.like(product.get("description"), sbLike.toString());
+			Predicate namePredicate = criteriaBuilder.like(product.get(NAME), sbLike.toString());
+			Predicate brandPredicate = criteriaBuilder.like(product.get(BRAND), sbLike.toString());
+			Predicate descPredicate = criteriaBuilder.like(product.get(DESCRIPTION), sbLike.toString());
 			predicates.add(criteriaBuilder.or(namePredicate, descPredicate, brandPredicate));
 		}
 		
@@ -88,7 +93,7 @@ public class ProductRepositoryJpaImpl extends GenericRepositoryJpaImpl<Product, 
 		try {
 			foundProducts = entityManager.createQuery(query).getResultList();
 		} catch (NoResultException e) {
-			logger.error("No product was found", e);;
+			LOGGER.error("No product was found", e);
 		}
 		
 		return foundProducts;

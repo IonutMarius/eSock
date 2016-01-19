@@ -9,7 +9,7 @@ import ro.esock.model.entitiy.Order;
 import ro.esock.model.entitiy.Purchase;
 
 @Component
-public class OrderConverter extends GenericEntityConverter<OrderDTO, Order> {
+public class OrderConverter implements GenericEntityConverter<OrderDTO, Order> {
 
 	@Autowired
 	private AddressConverter addressConverter;

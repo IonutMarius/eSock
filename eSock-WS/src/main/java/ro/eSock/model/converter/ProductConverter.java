@@ -6,7 +6,7 @@ import ro.esock.model.dto.ProductDTO;
 import ro.esock.model.entitiy.Product;
 
 @Component
-public class ProductConverter extends GenericEntityConverter<ProductDTO, Product> {
+public class ProductConverter implements GenericEntityConverter<ProductDTO, Product> {
 
 	@Override
 	public ProductDTO toDto(Product entity) {

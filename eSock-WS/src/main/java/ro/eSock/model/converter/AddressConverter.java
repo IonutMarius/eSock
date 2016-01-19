@@ -6,7 +6,7 @@ import ro.esock.model.dto.AddressDTO;
 import ro.esock.model.entitiy.Address;
 
 @Component
-public class AddressConverter extends GenericEntityConverter<AddressDTO, Address> {
+public class AddressConverter implements GenericEntityConverter<AddressDTO, Address> {
 
 	@Override
 	public AddressDTO toDto(Address entity) {

@@ -34,7 +34,7 @@ import ro.esock.ws.util.ConverterUtils;
 @Endpoint
 public class StoreEndpoint {
 
-	private static final Logger logger = LoggerFactory.getLogger(StoreEndpoint.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StoreEndpoint.class);
 	private static final String NAMESPACE_URI = "http://eSock.ro/ws/soap/store";
 
 	@Autowired
@@ -47,7 +47,7 @@ public class StoreEndpoint {
 	@ResponsePayload
 	public RegisterProductsResponse registerProduct(@RequestPayload RegisterProductsRequest request) {
 		for (ProductXml productXml : request.getProduct()) {
-			logger.info("Registering product: " + productXml.getName() + "(" + productXml.getPrice() + "$) x "
+			LOGGER.info("Registering product: " + productXml.getName() + "(" + productXml.getPrice() + "$) x "
 					+ productXml.getQuantity());
 			productService.create(ConverterUtils.convertProductXmlToProductDTO(productXml));
 		}
@@ -92,9 +92,11 @@ public class StoreEndpoint {
 		try {
 			orderDto = userService.addOrder(request.getOrderXml().getUserId(), orderDto);
 		} catch (IncorrectAddressException e) {
-			e.printStackTrace();
+			LOGGER.error("The address provided is incorrect", e);
 		} catch (ProductOutOfStockException e) {
-			throw new ProductOutOfStockSoapException("Insufficient stock for " + e.getProduct().getName());
+			String exceptionMsg = "Insufficient stock for " + e.getProduct().getName();
+			LOGGER.error(exceptionMsg, e);
+			throw new ProductOutOfStockSoapException(exceptionMsg);
 		}
 		
 		Double total = new Double(0);

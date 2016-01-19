@@ -7,7 +7,7 @@ import ro.esock.model.dto.PurchaseDTO;
 import ro.esock.model.entitiy.Purchase;
 
 @Component
-public class PurchaseConverter extends GenericEntityConverter<PurchaseDTO, Purchase> {
+public class PurchaseConverter implements GenericEntityConverter<PurchaseDTO, Purchase> {
 
 	@Autowired
 	private ProductConverter productConverter;

@@ -1,5 +1,5 @@
 projectKey=my:esock
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/my:esock
-ceTaskId=AVJZIk4hVmfhBNLTR87X
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVJZIk4hVmfhBNLTR87X
+ceTaskId=AVJZu80h8s4jb99ElGkK
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVJZu80h8s4jb99ElGkK

@@ -24,7 +24,7 @@ import ro.esock.ws.util.ConverterUtils;
 
 @Endpoint
 public class UserEndpoint {
-	private static final Logger logger = LoggerFactory.getLogger(UserEndpoint.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserEndpoint.class);
 	
 	private static final String NAMESPACE_URI = "http://eSock.ro/ws/soap/user";
 	
@@ -38,7 +38,7 @@ public class UserEndpoint {
 
 		UserXml userXml = request.getUser();
 		if(!userXml.getPassword().equals(userXml.getPasswordConf())){
-			logger.error("Password '" + userXml.getPassword() + "' do not match '" + userXml.getPasswordConf() + "'");
+			LOGGER.error("Password '" + userXml.getPassword() + "' do not match '" + userXml.getPasswordConf() + "'");
 			throw new PasswordsDoNotMatchSoapException();
 		}
 		
@@ -46,7 +46,7 @@ public class UserEndpoint {
 		try {
 			user = userService.create(ConverterUtils.convertUserDTOXmlToUser(userXml));
 		} catch (DataIntegrityViolationException e) {
-			logger.error("Constraint violated - user already exists", e);
+			LOGGER.error("Constraint violated - user already exists", e);
 			throw new UserAlreadyExistsSoapException();
 		}
 		
@@ -63,7 +63,7 @@ public class UserEndpoint {
 		UserDTO user = userService.findByUsername(credentials.getUsername());
 		
 		if(user == null){
-			logger.error("The username or password is incorrect");
+			LOGGER.error("The username or password is incorrect");
 			throw new LoginFailedSoapException();
 		}
 		

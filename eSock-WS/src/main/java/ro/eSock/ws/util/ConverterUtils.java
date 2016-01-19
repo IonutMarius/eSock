@@ -20,6 +20,9 @@ import ro.esock.ws.soap.user.UserXml;
 
 public class ConverterUtils {
 
+	private ConverterUtils() {
+	}
+
 	// XML to Entity
 	public static UserDTO convertUserDTOXmlToUser(UserXml userXml) {
 		UserDTO user = new UserDTO();
@@ -81,15 +84,15 @@ public class ConverterUtils {
 
 		return filter;
 	}
-	
-	public static OrderDTO convertOrderXmlToOrderDTO(OrderXml xml){
+
+	public static OrderDTO convertOrderXmlToOrderDTO(OrderXml xml) {
 		OrderDTO dto = new OrderDTO();
-		
+
 		AddressDTO addrDto = new AddressDTO();
 		addrDto.setAddressId(xml.getAddressId());
 		dto.setAddress(addrDto);
-		
-		for(PurchaseXml purchaseXml : xml.getPurchase()){
+
+		for (PurchaseXml purchaseXml : xml.getPurchase()) {
 			PurchaseDTO purchaseDto = new PurchaseDTO();
 			ProductDTO prodDto = new ProductDTO();
 			prodDto.setProductId(purchaseXml.getProductId());
@@ -97,7 +100,7 @@ public class ConverterUtils {
 			purchaseDto.setQuantity(purchaseXml.getQuantity());
 			dto.getPurchases().add(purchaseDto);
 		}
-		
+
 		return dto;
 	}
 

@@ -27,8 +27,7 @@ public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable> imple
 
 	@Override
 	public T findById(PK id) {
-		T entity = entityManager.find(entityClass, id);
-		return entity;
+		return entityManager.find(entityClass, id);
 	}
 
 	@Override
@@ -54,10 +53,11 @@ public abstract class GenericRepositoryJpaImpl<T, PK extends Serializable> imple
 
 	@Override
 	public void remove(T t) {
+		T temp = t;
 		if (!entityManager.contains(t)) {
-			t = this.findById(t);
+			temp = this.findById(t);
 		}
-		entityManager.remove(t);
+		entityManager.remove(temp);
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import ro.esock.model.entitiy.Purchase;
 import ro.esock.model.entitiy.User;
 
 @Component
-public class UserConverter extends GenericEntityConverter<UserDTO, User> {
+public class UserConverter implements GenericEntityConverter<UserDTO, User> {
 
 	@Autowired
 	private OrderConverter orderConverter;
