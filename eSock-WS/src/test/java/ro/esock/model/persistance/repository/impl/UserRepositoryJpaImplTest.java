@@ -23,7 +23,7 @@ public class UserRepositoryJpaImplTest {
 
 	private static final Long DEFAULT_ID = new Long(0);
 	private static final String DEFAULT_USERNAME = "user0";
-	private static final String Default_PASSWORD = "pass0";
+	private static final String DEFAULT_PASSWORD = "pass0";
 
 	@Test
 	public void createUser() {
@@ -75,14 +75,14 @@ public class UserRepositoryJpaImplTest {
 
 	@Test
 	public void saveAndFindUserByUsernameAndPasswordTest() {
-		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME, Default_PASSWORD);
+		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME, DEFAULT_PASSWORD);
 
 		Assert.assertNotNull(user);
 	}
 
 	@Test
 	public void findUserByUsernameAndPasswordFailTest() {
-		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME + "_0", Default_PASSWORD + "_0");
+		User user = userRepository.findByUsernameAndPassword(DEFAULT_USERNAME + "_0", DEFAULT_PASSWORD + "_0");
 
 		Assert.assertNull(user);
 	}
