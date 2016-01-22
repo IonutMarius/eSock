@@ -7,6 +7,8 @@ DELETE FROM `user_profile` WHERE user_profile_id >= 0;
 
 INSERT INTO `product` (product_id, name, brand, description, price, stock) 
 	VALUES (0, 'prod0', 'brand0', 'prod0 desc', 2.34, 14);
+INSERT INTO `product` (product_id, name, brand, description, price, stock) 
+	VALUES (1, 'prod01', 'brand01', 'prod01 desc', 12.34, 124);
 INSERT INTO `user_profile` (user_profile_id, name, surname, phone_number, email_address)
 	VALUES (0, 'name0', 'surname0', '000000000', 'email0@test.com');
 INSERT INTO `user` (user_id, user_profile_id, username, password)

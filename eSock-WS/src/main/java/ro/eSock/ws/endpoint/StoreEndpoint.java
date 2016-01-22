@@ -18,6 +18,7 @@ import ro.esock.model.exception.ProductOutOfStockException;
 import ro.esock.model.filter.SearchProductFilter;
 import ro.esock.model.service.ProductService;
 import ro.esock.model.service.UserService;
+import ro.esock.ws.exception.IncorrectAddressExceptionSoapException;
 import ro.esock.ws.exception.NoProductFoundSoapException;
 import ro.esock.ws.exception.ProductOutOfStockSoapException;
 import ro.esock.ws.soap.store.CheckoutRequest;
@@ -93,6 +94,7 @@ public class StoreEndpoint {
 			orderDto = userService.addOrder(request.getOrderXml().getUserId(), orderDto);
 		} catch (IncorrectAddressException e) {
 			LOGGER.error("The address provided is incorrect", e);
+			throw new IncorrectAddressExceptionSoapException();
 		} catch (ProductOutOfStockException e) {
 			String exceptionMsg = "Insufficient stock for " + e.getProduct().getName();
 			LOGGER.error(exceptionMsg, e);
