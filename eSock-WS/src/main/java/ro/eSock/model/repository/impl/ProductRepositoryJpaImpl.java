@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import ro.esock.domain.filter.SearchProductFilter;
 import ro.esock.model.entitiy.Product;
-import ro.esock.model.filter.SearchProductFilter;
 import ro.esock.model.repository.ProductRepository;
 
 @Repository

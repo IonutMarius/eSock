@@ -9,8 +9,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import ro.esock.model.dto.UserDTO;
-import ro.esock.model.service.UserService;
+import ro.esock.domain.domain.UserDTO;
+import ro.esock.domain.service.UserService;
 import ro.esock.ws.exception.LoginFailedSoapException;
 import ro.esock.ws.exception.PasswordsDoNotMatchSoapException;
 import ro.esock.ws.exception.UserAlreadyExistsSoapException;

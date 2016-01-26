@@ -8,12 +8,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.esock.model.converter.UserConverter;
-import ro.esock.model.dto.UserDTO;
+import ro.esock.domain.converter.UserConverter;
+import ro.esock.domain.domain.UserDTO;
+import ro.esock.domain.service.UserService;
 import ro.esock.model.entitiy.User;
 import ro.esock.model.persistance.config.JpaHibernateTestConfig;
 import ro.esock.model.persistance.util.TestUtils;
-import ro.esock.model.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JpaHibernateTestConfig.class})
