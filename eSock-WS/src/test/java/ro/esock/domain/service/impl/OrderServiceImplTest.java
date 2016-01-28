@@ -1,4 +1,4 @@
-package ro.esock.model.persistance.service.impl;
+package ro.esock.domain.service.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,9 +15,9 @@ import ro.esock.domain.domain.ProductDTO;
 import ro.esock.domain.domain.PurchaseDTO;
 import ro.esock.domain.service.OrderService;
 import ro.esock.domain.service.ProductService;
+import ro.esock.model.config.JpaHibernateTestConfig;
 import ro.esock.model.entitiy.Order;
-import ro.esock.model.persistance.config.JpaHibernateTestConfig;
-import ro.esock.model.persistance.util.TestUtils;
+import ro.esock.util.TestUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { JpaHibernateTestConfig.class })

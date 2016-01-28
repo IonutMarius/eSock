@@ -1,4 +1,4 @@
-package ro.esock.model.persistance.util;
+package ro.esock.util;
 
 import ro.esock.model.entitiy.Address;
 import ro.esock.model.entitiy.Order;

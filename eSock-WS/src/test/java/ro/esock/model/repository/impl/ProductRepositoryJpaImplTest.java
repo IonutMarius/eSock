@@ -1,4 +1,4 @@
-package ro.esock.model.persistance.repository.impl;
+package ro.esock.model.repository.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,10 +8,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.esock.model.config.JpaHibernateTestConfig;
 import ro.esock.model.entitiy.Product;
-import ro.esock.model.persistance.config.JpaHibernateTestConfig;
-import ro.esock.model.persistance.util.TestUtils;
 import ro.esock.model.repository.ProductRepository;
+import ro.esock.util.TestUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { JpaHibernateTestConfig.class })

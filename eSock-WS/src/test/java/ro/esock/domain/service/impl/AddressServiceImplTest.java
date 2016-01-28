@@ -1,4 +1,4 @@
-package ro.esock.model.persistance.service.impl;
+package ro.esock.domain.service.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.esock.domain.converter.AddressConverter;
 import ro.esock.domain.domain.AddressDTO;
 import ro.esock.domain.service.AddressService;
+import ro.esock.model.config.JpaHibernateTestConfig;
 import ro.esock.model.entitiy.Address;
-import ro.esock.model.persistance.config.JpaHibernateTestConfig;
-import ro.esock.model.persistance.util.TestUtils;
+import ro.esock.util.TestUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JpaHibernateTestConfig.class})

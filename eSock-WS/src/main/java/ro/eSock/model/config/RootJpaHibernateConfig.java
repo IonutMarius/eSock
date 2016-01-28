@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"ro.esock.model.converter", "ro.esock.model.repository", "ro.esock.model.service"})
+@ComponentScan({"ro.esock.domain.converter", "ro.esock.model.repository", "ro.esock.domain.service"})
 public class RootJpaHibernateConfig {
 	
 	@Autowired
