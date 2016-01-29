@@ -1,4 +1,4 @@
-package ro.esock.ws.exception;
+package ro.esock.ws.soap.exception;
 
 import org.springframework.ws.soap.server.endpoint.annotation.FaultCode;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapFault;

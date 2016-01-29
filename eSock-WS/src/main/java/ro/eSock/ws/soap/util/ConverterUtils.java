@@ -1,4 +1,4 @@
-package ro.esock.ws.util;
+package ro.esock.ws.soap.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;

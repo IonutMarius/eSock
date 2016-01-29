@@ -1,4 +1,4 @@
-package ro.esock.ws.endpoint;
+package ro.esock.ws.soap.endpoint;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import ro.esock.domain.exception.ProductOutOfStockException;
 import ro.esock.domain.filter.SearchProductFilter;
 import ro.esock.domain.service.ProductService;
 import ro.esock.domain.service.UserService;
-import ro.esock.ws.exception.IncorrectAddressExceptionSoapException;
-import ro.esock.ws.exception.NoProductFoundSoapException;
-import ro.esock.ws.exception.ProductOutOfStockSoapException;
+import ro.esock.ws.soap.exception.IncorrectAddressExceptionSoapException;
+import ro.esock.ws.soap.exception.NoProductFoundSoapException;
+import ro.esock.ws.soap.exception.ProductOutOfStockSoapException;
 import ro.esock.ws.soap.store.CheckoutRequest;
 import ro.esock.ws.soap.store.CheckoutResponse;
 import ro.esock.ws.soap.store.GetProductRequest;
@@ -30,7 +30,7 @@ import ro.esock.ws.soap.store.RegisterProductsRequest;
 import ro.esock.ws.soap.store.RegisterProductsResponse;
 import ro.esock.ws.soap.store.SearchProductsRequest;
 import ro.esock.ws.soap.store.SearchProductsResponse;
-import ro.esock.ws.util.ConverterUtils;
+import ro.esock.ws.soap.util.ConverterUtils;
 
 @Endpoint
 public class StoreEndpoint {

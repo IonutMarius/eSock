@@ -1,4 +1,4 @@
-package ro.esock.ws.init;
+package ro.esock.ws.soap.init;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -9,7 +9,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 
 import ro.esock.model.config.JpaHibernateConfig;
-import ro.esock.ws.config.WebContextConfig;
+import ro.esock.ws.soap.config.WebContextConfig;
  
 public class SpringWebAppInitializer implements WebApplicationInitializer {
  

@@ -1,4 +1,4 @@
-package ro.esock.ws.endpoint;
+package ro.esock.ws.soap.endpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,16 +11,16 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ro.esock.domain.domain.UserDTO;
 import ro.esock.domain.service.UserService;
-import ro.esock.ws.exception.LoginFailedSoapException;
-import ro.esock.ws.exception.PasswordsDoNotMatchSoapException;
-import ro.esock.ws.exception.UserAlreadyExistsSoapException;
+import ro.esock.ws.soap.exception.LoginFailedSoapException;
+import ro.esock.ws.soap.exception.PasswordsDoNotMatchSoapException;
+import ro.esock.ws.soap.exception.UserAlreadyExistsSoapException;
 import ro.esock.ws.soap.user.Credentials;
 import ro.esock.ws.soap.user.LoginRequest;
 import ro.esock.ws.soap.user.LoginResponse;
 import ro.esock.ws.soap.user.RegisterRequest;
 import ro.esock.ws.soap.user.RegisterResponse;
 import ro.esock.ws.soap.user.UserXml;
-import ro.esock.ws.util.ConverterUtils;
+import ro.esock.ws.soap.util.ConverterUtils;
 
 @Endpoint
 public class UserEndpoint {
