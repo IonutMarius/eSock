@@ -19,6 +19,7 @@ import ro.esock.util.TestUtils;
 @ContextConfiguration(classes = {JpaHibernateTestConfig.class})
 @Transactional
 public class AddressServiceImplTest {
+	
 	@Autowired
 	private AddressService addressService;
 	

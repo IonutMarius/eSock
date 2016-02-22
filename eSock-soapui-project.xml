@@ -350,8 +350,8 @@
    <soapenv:Body>\r
       <user:loginRequest>\r
          <user:credentials>\r
-            <user:username>user1</user:username>\r
-            <user:password>pass1</user:password>\r
+            <user:username>user0</user:username>\r
+            <user:password>pass0</user:password>\r
          </user:credentials>\r
       </user:loginRequest>\r
    </soapenv:Body>\r

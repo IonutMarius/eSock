@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ro.esock.domain.domain.ProductDTO;
 import ro.esock.model.entitiy.Product;
 
-@Component
+@Component(value = "productConverter")
 public class ProductConverter implements GenericEntityConverter<ProductDTO, Product> {
 
 	@Override
