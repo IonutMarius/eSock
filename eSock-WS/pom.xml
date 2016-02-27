@@ -4,7 +4,7 @@
 	<groupId>eSock</groupId>
 	<artifactId>eSock-WS</artifactId>
 	<packaging>war</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>eSock SOAP Web Service</name>
 
 	<properties>

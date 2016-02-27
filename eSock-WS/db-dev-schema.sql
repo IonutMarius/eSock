@@ -1,9 +1,9 @@
-DROP TABLE `purchase`;
-DROP TABLE `order`;
-DROP TABLE `user`;
-DROP TABLE `address`;
-DROP TABLE `product`;
-DROP TABLE `user_profile`;
+DROP TABLE IF EXISTS `purchase`;
+DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `address`;
+DROP TABLE IF EXISTS `product`;
+DROP TABLE IF EXISTS `user_profile`;
 
 CREATE TABLE `user_profile` (
   `user_profile_id` bigint(11) NOT NULL,
